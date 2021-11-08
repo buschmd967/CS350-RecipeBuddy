@@ -1,44 +1,35 @@
 package org.hamr.RecipeBuddy.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.util.StringUtils;
-
 import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
-@RequestMapping("/api/test")
+@Controller
+@RequestMapping("/test")
 public class TestController {
-	@Autowired
+
+    @Autowired
 	private JwtUtils jwtUtils;
 
-	@GetMapping("/all")
-	public String allAccess() {
-		return "Public Content.";
-	}
-	
-	@GetMapping("/user")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public String userAccess(@RequestHeader("Authorization") String headerAuth) {
-		
-		if(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")){
-			String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
-			if(username != null)
-				return username;
-			return "Invalid Token";
-		}
-		return "Invalid header. The 'Authorization' header should be in the format 'Bearer [jwt]'\nI'm not sure how an unauthenticated user would get here...";
+    @GetMapping("/all")
+	public String allAccess(Model model) {
+        model.addAttribute("test", "all");
+		return "test";
 	}
 
-	@GetMapping("/admin")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String adminAccess() {
-		return "Has Admin Permissions";
-	}
+    @GetMapping("/user")
+    public String user(@CookieValue("jwt") String jwt, Model model){
+        if(jwtUtils.validateJwtToken(jwt)){
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            model.addAttribute("test", username);
+            return "test";
+        }
+        model.addAttribute("test", "invalid or non-existant token");
+        return "test";
+    }
+    
 }

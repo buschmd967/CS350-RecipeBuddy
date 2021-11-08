@@ -1,4 +1,4 @@
-package org.hamr.RecipeBuddy.controllers;
+package org.hamr.RecipeBuddy.controllers.api;
 
 import java.util.HashSet;
 import java.util.List;
