@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,6 +52,9 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Value("${hamr.app.enableAdminRegistraton}")
+    private boolean enableAdminRegistration;
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
@@ -91,14 +95,13 @@ public class AuthController {
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch(role) {
-                    case "admin":
+                if(enableAdminRegistration && role == "admin") {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-                        break;
 
-                    default:
+                }
+                else{
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);

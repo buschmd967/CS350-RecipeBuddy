@@ -26,6 +26,13 @@ public class User {
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
+  private String imageURL;
+
+  private String[] dietaryRestrictions;
+
+  @DBRef
+  private Recipe[] savedRecipes;
+
   public User() {
   }
 
@@ -64,5 +71,13 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  public void setDietaryRestrictions(String[] dietaryRestrictions){
+    this.dietaryRestrictions = dietaryRestrictions;
+  }
+
+  public String[] getDietaryRestrictions(){
+    return dietaryRestrictions;
   }
 }

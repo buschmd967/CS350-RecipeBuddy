@@ -12,7 +12,7 @@ public class RecipeAddRequest {
     @NotBlank
     private String author;
 
-    private Set<String> dietaryRestrictions;
+    private String[] dietaryRestrictions;
 
 
     public String getName(){
@@ -23,7 +23,7 @@ public class RecipeAddRequest {
         return author;
     }
 
-    public Set<String> getDietaryRestrictions(){
+    public String[] getDietaryRestrictions(){
         return dietaryRestrictions;
     }
 }

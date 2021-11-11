@@ -12,19 +12,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.util.StringUtils;
 
+import java.util.Optional;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 
 import org.hamr.RecipeBuddy.models.Recipe;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
+import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.response.MessageResponse;
 import org.hamr.RecipeBuddy.repository.RecipeRepository;
+import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/recipe")
 public class RecipeController {
+
+    private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
+    
+    @Autowired
+    JwtUtils jwtUtils;
 
     @Autowired
     RecipeRepository recipeRepository;
@@ -37,19 +47,33 @@ public class RecipeController {
         return ResponseEntity.ok(new MessageResponse("Recipe Added"));
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(@Valid @RequestBody RecipeDeleteRequest recipeDeleteRequest, @RequestHeader("Authorization") String headerAuth){
+        String userName = jwtUtils.getUserNameFromAuthHeader(headerAuth);
+        String recipeName = recipeDeleteRequest.getName();
+
+        //Try to get Recipe
+        Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, userName);
+        
+        //If query returned nothing
+        if(!possibleRecipe.isPresent()){
+            return ResponseEntity.ok(new MessageResponse("Recipe Not Found"));
+        }
+
+        //Get recipe from Optional object and delete it from the collection
+        Recipe recipe = possibleRecipe.get();
+        recipeRepository.delete(recipe);
+
+        return ResponseEntity.ok(new MessageResponse("Recipe Deleted"));
+    }
+
     private Recipe parseAddRequest(RecipeAddRequest recipeAddRequest){
         Recipe recipe = new Recipe(
             recipeAddRequest.getName(),
             recipeAddRequest.getAuthor()
         );
-        Set<String> dietaryRestrictionsSet = recipeAddRequest.getDietaryRestrictions();
 
-
-        String[] dietaryRestrictions = new String[dietaryRestrictionsSet.size()];
-        dietaryRestrictionsSet.toArray(dietaryRestrictions);
-
-        recipe.setDietaryRestrictions(dietaryRestrictions);
-
+        recipe.setDietaryRestrictions(recipeAddRequest.getDietaryRestrictions());
 
         return recipe;
     }
