@@ -5,11 +5,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.hamr.RecipeBuddy.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import org.hamr.RecipeBuddy.models.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,10 +23,6 @@ public class UserDetailsImpl implements UserDetails{
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
-
-    public String debugString(){
-        return String.format("id: " + id + " username: " +  username + " password: " + password + " authorities: {}", authorities);
-    }
 
     public UserDetailsImpl(String id, String username, String password, Collection<? extends GrantedAuthority> authorities){
         this.id = id;

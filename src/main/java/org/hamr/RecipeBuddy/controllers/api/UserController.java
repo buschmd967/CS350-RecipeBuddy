@@ -76,10 +76,10 @@ public class UserController {
 
         //get dietary restrictions
         String[] dietaryRestrictions = user.getDietaryRestrictions();
-        int dietaryRestrictionsSize = dietaryRestrictions.length;
         if(dietaryRestrictions == null){
             return ResponseEntity.ok(new MessageResponse("Could not remove, no dietary restrictions found for user"));
         }
+        int dietaryRestrictionsSize = dietaryRestrictions.length;
 
         //find index of restriction
         int targetIndex = -1;

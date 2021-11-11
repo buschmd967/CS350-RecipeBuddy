@@ -1,6 +1,9 @@
 package org.hamr.RecipeBuddy.security;
 
 
+import org.hamr.RecipeBuddy.security.jwt.AuthEntryPointJwt;
+import org.hamr.RecipeBuddy.security.jwt.AuthTokenFilter;
+import org.hamr.RecipeBuddy.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import org.hamr.RecipeBuddy.security.jwt.AuthEntryPointJwt;
-import org.hamr.RecipeBuddy.security.jwt.AuthTokenFilter;
-import org.hamr.RecipeBuddy.security.services.UserDetailsServiceImpl;
 
 
 @Configuration
