@@ -26,7 +26,7 @@ public class Recipe {
 
     private String[] otherTags;
 
-    //private Comment[] comments
+    private Comment[] comments;
 
     //private Step[] steps
 
@@ -108,5 +108,13 @@ public class Recipe {
 
     public int getCookTime(){
         return cookTime;
+    }
+
+    public void setComments(Comment[] comments){
+        this.comments = comments;
+    }
+
+    public Comment[] getComments(){
+        return comments;
     }
 }
