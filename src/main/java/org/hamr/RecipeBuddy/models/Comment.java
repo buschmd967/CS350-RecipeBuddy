@@ -15,11 +15,13 @@ public class Comment {
 
     @NotBlank
     @Size(max=20)
-    String author;
+    private String author;
 
-    short type; //0 - normal comment
+    private short type; //0 - normal comment
 
-    int rating;
+    private int rating;
+
+    private String[] usersLiked;
 
     public Comment(String content, String author, short type){
         this.content = content;
@@ -53,6 +55,14 @@ public class Comment {
 
     public String getAuthor(){
         return author;
+    }
+
+    public void setUsersLiked(String[] usersLiked){
+        this.usersLiked = usersLiked;
+    }
+
+    public String[] getUsersLiked(){
+        return usersLiked;
     }
 
 }

@@ -3,6 +3,8 @@ package org.hamr.RecipeBuddy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import io.github.kaiso.relmongo.config.EnableRelMongo;
+
 @SpringBootApplication
 public class RecipeBuddyApplication {
 

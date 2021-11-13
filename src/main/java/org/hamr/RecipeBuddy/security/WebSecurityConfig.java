@@ -18,6 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import io.github.kaiso.relmongo.config.EnableRelMongo;
+
 
 @Configuration
 @EnableWebSecurity
@@ -71,7 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             //     .loginPage("/login")
             //     .permitAll();
         
-        http.headers().xssProtection();
+        
+        // http.headers().xssProtection();
 
         http.addFilterBefore(authenticationJwTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

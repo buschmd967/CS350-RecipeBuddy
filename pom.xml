@@ -18,6 +18,16 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+      		<groupId>io.github.kaiso.relmongo</groupId>
+			<artifactId>relmongo</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 		</dependency>

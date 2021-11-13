@@ -1,5 +1,8 @@
 package org.hamr.RecipeBuddy.models;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -7,7 +10,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.github.kaiso.relmongo.annotation.CascadeType;
+import io.github.kaiso.relmongo.annotation.FetchType;
+import io.github.kaiso.relmongo.annotation.JoinProperty;
+import io.github.kaiso.relmongo.annotation.OneToMany;
+import lombok.Data;
+
+
 @Document(collection = "recipes")
+@Data
 public class Recipe {
     @Id
     private String id;
@@ -26,7 +37,9 @@ public class Recipe {
 
     private String[] otherTags;
 
-    private Comment[] comments;
+    // @OneToMany
+    // @JoinProperty(name="comments")
+    private List<Comment> comments;
 
     //private Step[] steps
 
@@ -46,75 +59,75 @@ public class Recipe {
         this.author = author;
     }
 
-    public void setDietaryRestrictions(String[] dietaryRestrictions){
-        this.dietaryRestrictions = dietaryRestrictions;
-    }
+    // public void setDietaryRestrictions(String[] dietaryRestrictions){
+    //     this.dietaryRestrictions = dietaryRestrictions;
+    // }
 
-    public String[] getDietaryRestrictions(){
-        return dietaryRestrictions;
-    }
+    // public String[] getDietaryRestrictions(){
+    //     return dietaryRestrictions;
+    // }
 
-    public void setAppliances(String[] appliances){
-        this.appliances = appliances;
-    }
+    // public void setAppliances(String[] appliances){
+    //     this.appliances = appliances;
+    // }
 
-    public String[] getAppliances(){
-        return appliances;
-    }
+    // public String[] getAppliances(){
+    //     return appliances;
+    // }
 
-    public void setOtherTags(String[] otherTags){
-        this.otherTags = otherTags;
-    }
+    // public void setOtherTags(String[] otherTags){
+    //     this.otherTags = otherTags;
+    // }
 
-    public String[] getOtherTags(){
-        return otherTags;
-    }
+    // public String[] getOtherTags(){
+    //     return otherTags;
+    // }
 
-    public void setRating(short rating){
-        this.rating = rating;
-    }
+    // public void setRating(short rating){
+    //     this.rating = rating;
+    // }
 
-    public short getRating(){
-        return rating;
-    }
+    // public short getRating(){
+    //     return rating;
+    // }
 
-    public void setDifficulty(short difficulty){
-        this.difficulty = difficulty;
-    }
+    // public void setDifficulty(short difficulty){
+    //     this.difficulty = difficulty;
+    // }
 
-    public short getDifficulty(){
-        return difficulty;
-    }
+    // public short getDifficulty(){
+    //     return difficulty;
+    // }
 
-    public void setImage(String image){
-        this.image = image;
-    }
+    // public void setImage(String image){
+    //     this.image = image;
+    // }
 
-    public String getImage(){
-        return image;
-    }
+    // public String getImage(){
+    //     return image;
+    // }
 
-    public void setServings(short servings){
-        this.servings = servings;
-    }
+    // public void setServings(short servings){
+    //     this.servings = servings;
+    // }
     
-    public short getServings(){
-        return servings;
-    }
+    // public short getServings(){
+    //     return servings;
+    // }
 
-    public void setCookTime(int cookTime){
-        this.cookTime = cookTime;
-    }
+    // public void setCookTime(int cookTime){
+    //     this.cookTime = cookTime;
+    // }
 
-    public int getCookTime(){
-        return cookTime;
-    }
+    // public int getCookTime(){
+    //     return cookTime;
+    // }
 
-    public void setComments(Comment[] comments){
-        this.comments = comments;
-    }
+    // public void setComments(List<Comment> comments){
+    //     this.comments = comments;
+    // }
 
-    public Comment[] getComments(){
-        return comments;
-    }
+    // public List<Comment> getComments(){
+    //     return comments;
+    // }
 }
