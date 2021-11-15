@@ -115,17 +115,22 @@ public class RecipeController {
 
         
         Recipe recipe = possibleRecipe.get();
-        List<Comment> currentComments = recipe.getComments();
+        Comment[] currentComments = recipe.getComments();
+        Comment[] newComments;
+        
         if(currentComments != null){
+            logger.info("Type of comments: {}", currentComments.getClass());
+            newComments = Arrays.copyOf(currentComments, currentComments.length + 1);
+            newComments[currentComments.length] = commentRef;
             // newComments = Arrays.copyOf(currentComments, currentComments.length + 1);
             // newComments[currentComments.length] = commentRef;
         }
         else{
-            currentComments = new LinkedList<Comment>();
-            currentComments.add(commentRef);
+            newComments = new Comment[1];
+            newComments[0] = commentRef;
         }
-        logger.info("First comment: {}", currentComments.get(0).getContent());
-        recipe.setComments(currentComments);
+        // logger.info("First comment: {}", currentComments.get(0).getContent());
+        recipe.setComments(newComments);
         recipeRepository.save(recipe);
         return ResponseEntity.ok(new MessageResponse("Added Comment"));
     }
