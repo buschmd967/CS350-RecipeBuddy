@@ -3,6 +3,8 @@ package org.hamr.RecipeBuddy.controllers.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -18,7 +20,9 @@ import org.hamr.RecipeBuddy.models.Recipe;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
+import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
 import org.hamr.RecipeBuddy.payload.response.MessageResponse;
+import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
 import org.hamr.RecipeBuddy.repository.CommentRepository;
 import org.hamr.RecipeBuddy.repository.QuickRecipeRepository;
 import org.hamr.RecipeBuddy.repository.RecipeRepository;
@@ -47,7 +51,7 @@ public class RecipeController {
     @Autowired
     CommentRepository commentRepository;
 
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<?> add(@Valid @RequestBody RecipeAddRequest recipeAddRequest, @RequestHeader("Authorization") String headerAuth){
         
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
@@ -77,7 +81,7 @@ public class RecipeController {
         return ResponseEntity.ok(new MessageResponse("Recipe Added"));
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("")
     public ResponseEntity<?> delete(@Valid @RequestBody RecipeDeleteRequest recipeDeleteRequest, @RequestHeader("Authorization") String headerAuth){
         String userName = jwtUtils.getUserNameFromAuthHeader(headerAuth);
         String recipeName = recipeDeleteRequest.getName();
@@ -107,7 +111,7 @@ public class RecipeController {
         return ResponseEntity.ok(new MessageResponse("Recipe Deleted"));
     }
 
-    @PostMapping("/addComment")
+    @PostMapping("/comment")
     public ResponseEntity<?> addComment(@Valid @RequestBody RecipeAddCommentRequest recipeAddCommentRequest, 
                                         @RequestHeader("Authorization") String headerAuth)
     {
@@ -149,5 +153,26 @@ public class RecipeController {
         recipeRepository.save(recipe);
         return ResponseEntity.ok(new MessageResponse("Added Comment"));
     }
-    
+
+    @GetMapping("")
+    public ResponseEntity<?> getRecipe(@Valid @RequestBody RecipeGetRequest recipeGetRequest, @RequestHeader("Authorization") String headerAuth){
+        
+        
+        //Get Parameters
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
+        String author = recipeGetRequest.getAuthor();
+        String recipeName = recipeGetRequest.getName();
+
+        logger.info("Getting Recipe");
+        //Get Recipe
+        Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, author);
+        if(!possibleRecipe.isPresent()){
+            return ResponseEntity.ok(new MessageResponse("Could not find recipe"));
+        }
+        Recipe recipe = possibleRecipe.get();
+
+        logger.info("Sending Response");
+        return ResponseEntity.ok(new RecipeResopnse(recipe));
+
+    }
 }

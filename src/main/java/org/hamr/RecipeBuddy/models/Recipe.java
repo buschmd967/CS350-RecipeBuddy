@@ -64,6 +64,10 @@ public class Recipe {
         this.comments = new ArrayList<>();
     }
 
+    public String getName(){
+        return name;
+    }
+    
     public void setDietaryRestrictions(String[] dietaryRestrictions){
         this.dietaryRestrictions = dietaryRestrictions;
     }
