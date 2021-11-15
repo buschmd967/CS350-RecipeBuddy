@@ -1,31 +1,26 @@
 package org.hamr.RecipeBuddy.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.hamr.RecipeBuddy.models.Comment;
+import org.hamr.RecipeBuddy.models.QuickRecipe;
 import org.hamr.RecipeBuddy.models.Recipe;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.response.MessageResponse;
 import org.hamr.RecipeBuddy.repository.CommentRepository;
+import org.hamr.RecipeBuddy.repository.QuickRecipeRepository;
 import org.hamr.RecipeBuddy.repository.RecipeRepository;
 import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
 import org.slf4j.Logger;
@@ -47,13 +42,38 @@ public class RecipeController {
     RecipeRepository recipeRepository;
 
     @Autowired
+    QuickRecipeRepository quickRecipeRepository;
+
+    @Autowired
     CommentRepository commentRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody RecipeAddRequest recipeAddRequest){
+    public ResponseEntity<?> add(@Valid @RequestBody RecipeAddRequest recipeAddRequest, @RequestHeader("Authorization") String headerAuth){
         
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
 
-        recipeRepository.save(parseAddRequest(recipeAddRequest));
+        Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeAddRequest.getName(), username);
+        if(possibleRecipe.isPresent()){
+            return ResponseEntity.ok(new MessageResponse("Recipe of that name by that user already exists."));
+        }
+
+        //Get Parameters
+        String[] dietaryRestrictions = recipeAddRequest.getDietaryRestrictions();
+        String[] appliances = recipeAddRequest.getAppliances();
+        String[] ingredients = recipeAddRequest.getIngredients();
+        String[] otherTags = recipeAddRequest.getOtherTags();
+
+        Recipe recipe = new Recipe(recipeAddRequest.getName(), username);
+        recipe.setDietaryRestrictions(dietaryRestrictions);
+        recipe.setAppliances(appliances);
+        recipe.setOtherTags(otherTags);
+        recipe.setIngrediensts(ingredients);
+
+        QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, ingredients, otherTags);
+
+        recipeRepository.save(recipe);
+        quickRecipeRepository.save(quickRecipe);
+
         return ResponseEntity.ok(new MessageResponse("Recipe Added"));
     }
 
@@ -72,20 +92,19 @@ public class RecipeController {
 
         //Get recipe from Optional object and delete it from the collection
         Recipe recipe = possibleRecipe.get();
+        Optional<QuickRecipe> possibleQuickRecipe = quickRecipeRepository.findByRecipe(recipe);
+        List<Comment> comments = recipe.getComments();
+
         recipeRepository.delete(recipe);
+        if(possibleQuickRecipe.isPresent())
+            quickRecipeRepository.delete(possibleQuickRecipe.get());
+        
+        //delete comments
+        for( Comment c : comments){
+            commentRepository.delete(c);
+        }
 
         return ResponseEntity.ok(new MessageResponse("Recipe Deleted"));
-    }
-
-    private Recipe parseAddRequest(RecipeAddRequest recipeAddRequest){
-        Recipe recipe = new Recipe(
-            recipeAddRequest.getName(),
-            recipeAddRequest.getAuthor()
-        );
-
-        // recipe.setDietaryRestrictions(recipeAddRequest.getDietaryRestrictions());
-
-        return recipe;
     }
 
     @PostMapping("/addComment")
@@ -96,42 +115,36 @@ public class RecipeController {
         //Get parameters
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
         String recipeName = recipeAddCommentRequest.getRecipeName();
-        String recipeAuthor = recipeAddCommentRequest.getRecipeAuthor();
-        int type = recipeAddCommentRequest.getType();
-        
+        String recipeAuthor = recipeAddCommentRequest.getRecipeAuthor();        
         logger.info("Got Parameters");
 
         //Get recipe
         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, recipeAuthor);
-        // logger.info("Getting recipe: {} by {}", recipeName, recipeAuthor);
+        logger.info("Getting recipe: {} by {}", recipeName, recipeAuthor);
         if(!possibleRecipe.isPresent()){
             return ResponseEntity.ok(new MessageResponse("Could not find Recipe"));
         }
         logger.info("Got Recipe");
 
         //Save comment and get reference for recipe
-        Comment newComment = new Comment(recipeAddCommentRequest.getContent(), username);
-        Comment commentRef = commentRepository.save(newComment);
+        Comment newComment = new Comment(recipeAddCommentRequest.getContent(), 
+                                        username,
+                                        recipeAddCommentRequest.getType());
+        commentRepository.save(newComment);
 
         
         Recipe recipe = possibleRecipe.get();
         List<Comment> currentComments = recipe.getComments();
-        // List<Comment> newComments;
         
         if(currentComments != null){
             logger.info("Type of comments: {}", currentComments.getClass());
-            // newComments = Arrays.copyOf(currentComments, currentComments.length + 1);
-            // newComments[currentComments.length] = commentRef;
             currentComments.add(newComment);
         }
         else{
             logger.info("Type of comments: NULL");
-            // newComments = new Comment[1];
-            // newComments[0] = commentRef;
             return ResponseEntity.ok(new MessageResponse("Could not add comment, comments[] is null."));
 
         }
-        // logger.info("First comment: {}", currentComments.get(0).getContent());
         recipe.setComments(currentComments);
         recipeRepository.save(recipe);
         return ResponseEntity.ok(new MessageResponse("Added Comment"));

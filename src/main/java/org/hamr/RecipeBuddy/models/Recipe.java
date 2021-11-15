@@ -38,6 +38,8 @@ public class Recipe {
 
     private String[] otherTags;
 
+    private String[] ingredients;
+
     @DBRef
     @NotEmpty
     @NotNull
@@ -132,5 +134,21 @@ public class Recipe {
 
     public List<Comment> getComments(){
         return comments;
+    }
+    
+    public String getAuthor(){
+        return author;
+    }
+
+    public void setAuthor(String author){
+        this.author = author;
+    }
+
+    public void setIngrediensts(String[] ingredients){
+        this.ingredients = ingredients;
+    }
+
+    public String[] getIngredients(){
+        return ingredients;
     }
 }

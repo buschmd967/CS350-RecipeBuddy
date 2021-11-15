@@ -7,21 +7,31 @@ public class RecipeAddRequest {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String author;
-
     private String[] dietaryRestrictions;
 
+    private String[] ingredients;
+
+    private String[] otherTags;
+
+    private String[] appliances;
 
     public String getName(){
         return name;
     }
 
-    public String getAuthor(){
-        return author;
-    }
-
     public String[] getDietaryRestrictions(){
         return dietaryRestrictions;
+    }
+
+    public String[] getIngredients(){
+        return ingredients;
+    }
+
+    public String[] getOtherTags(){
+        return otherTags;
+    }
+
+    public String[] getAppliances(){
+        return appliances;
     }
 }

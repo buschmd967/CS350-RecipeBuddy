@@ -39,6 +39,7 @@ public class Comment {
     @Size(max=20)
     private String author;
 
+    @NonNull
     private short type; //0 - normal comment
 
     private int rating;
