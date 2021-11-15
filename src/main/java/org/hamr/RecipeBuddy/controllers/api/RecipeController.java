@@ -115,22 +115,24 @@ public class RecipeController {
 
         
         Recipe recipe = possibleRecipe.get();
-        Comment[] currentComments = recipe.getComments();
-        Comment[] newComments;
+        List<Comment> currentComments = recipe.getComments();
+        // List<Comment> newComments;
         
         if(currentComments != null){
             logger.info("Type of comments: {}", currentComments.getClass());
-            newComments = Arrays.copyOf(currentComments, currentComments.length + 1);
-            newComments[currentComments.length] = commentRef;
             // newComments = Arrays.copyOf(currentComments, currentComments.length + 1);
             // newComments[currentComments.length] = commentRef;
+            currentComments.add(newComment);
         }
         else{
-            newComments = new Comment[1];
-            newComments[0] = commentRef;
+            logger.info("Type of comments: NULL");
+            // newComments = new Comment[1];
+            // newComments[0] = commentRef;
+            return ResponseEntity.ok(new MessageResponse("Could not add comment, comments[] is null."));
+
         }
         // logger.info("First comment: {}", currentComments.get(0).getContent());
-        recipe.setComments(newComments);
+        recipe.setComments(currentComments);
         recipeRepository.save(recipe);
         return ResponseEntity.ok(new MessageResponse("Added Comment"));
     }

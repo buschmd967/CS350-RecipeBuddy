@@ -1,6 +1,7 @@
 package org.hamr.RecipeBuddy.controllers.api;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.hamr.RecipeBuddy.models.User;
@@ -42,19 +43,16 @@ public class UserController {
         User user = possibleUser.get();
 
         //Get dietaryRestrictions
-        String[] newDietaryRestrictions;
-        String[] dietaryRestrictions = user.getDietaryRestrictions();
+        List<String> dietaryRestrictions = user.getDietaryRestrictions();
         if(dietaryRestrictions != null){
-            int dietaryRestrictionsSize = dietaryRestrictions.length;
-            newDietaryRestrictions = Arrays.copyOf(dietaryRestrictions, dietaryRestrictionsSize + 1);
-            newDietaryRestrictions[dietaryRestrictionsSize] = newDietaryRestriction;
+            dietaryRestrictions.add(newDietaryRestriction);
         }
         else{
-            newDietaryRestrictions = new String[] {newDietaryRestriction};
+            return ResponseEntity.ok(new MessageResponse("Could not add dietary restriction, dietaryRestrictions was null"));
         }
 
         //Update user
-        user.setDietaryRestrictions(newDietaryRestrictions);
+        user.setDietaryRestrictions(dietaryRestrictions);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("DietaryRestriction Added")); 
@@ -74,36 +72,19 @@ public class UserController {
         }
         User user = possibleUser.get();
 
-        //get dietary restrictions
-        String[] dietaryRestrictions = user.getDietaryRestrictions();
+        //Get dietaryRestrictions
+        List<String> dietaryRestrictions = user.getDietaryRestrictions();
         if(dietaryRestrictions == null){
             return ResponseEntity.ok(new MessageResponse("Could not remove, no dietary restrictions found for user"));
         }
-        int dietaryRestrictionsSize = dietaryRestrictions.length;
 
-        //find index of restriction
-        int targetIndex = -1;
-        for(int i = 0; i<dietaryRestrictionsSize; i++){
-            if(dietaryRestrictions[i].equals(targetDietaryRestriction)){
-                targetIndex = i;
-                break;
-            }
-        }
-        if(targetIndex == -1){
+        //Try to remove
+        if(!dietaryRestrictions.remove(targetDietaryRestriction)){
             return ResponseEntity.ok(new MessageResponse("Could not find specified dietary restriction."));
         }
 
-        String[] newDietaryRestrictions = new String[dietaryRestrictionsSize-1];
-
-        for(int i = 0; i < targetIndex; i++){
-            newDietaryRestrictions[i] = dietaryRestrictions[i];
-        }
-
-        for(int i=targetIndex+1; i < dietaryRestrictionsSize; i++){
-            newDietaryRestrictions[i-1] = dietaryRestrictions[i];
-        }
-
-        user.setDietaryRestrictions(newDietaryRestrictions);
+        //Save
+        user.setDietaryRestrictions(dietaryRestrictions);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("DietaryRestriction Removed"));

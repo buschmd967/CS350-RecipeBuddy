@@ -1,10 +1,12 @@
 package org.hamr.RecipeBuddy.models;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
@@ -38,7 +40,8 @@ public class Recipe {
 
     @DBRef
     @NotEmpty
-    private Comment[] comments;
+    @NotNull
+    private List<Comment> comments;
 
     //private Step[] steps
 
@@ -56,6 +59,7 @@ public class Recipe {
     public Recipe(String name, String author){
         this.name = name;
         this.author = author;
+        this.comments = new ArrayList<>();
     }
 
     public void setDietaryRestrictions(String[] dietaryRestrictions){
@@ -122,11 +126,11 @@ public class Recipe {
         return cookTime;
     }
 
-    public void setComments(Comment[] comments){
+    public void setComments(List<Comment> comments){
         this.comments = comments;
     }
 
-    public Comment[] getComments(){
+    public List<Comment> getComments(){
         return comments;
     }
 }
