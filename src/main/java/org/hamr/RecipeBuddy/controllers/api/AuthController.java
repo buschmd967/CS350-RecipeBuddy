@@ -27,7 +27,7 @@ import org.hamr.RecipeBuddy.models.User;
 import org.hamr.RecipeBuddy.payload.request.LoginRequest;
 import org.hamr.RecipeBuddy.payload.request.SignupRequest;
 import org.hamr.RecipeBuddy.payload.response.JwtResponse;
-import org.hamr.RecipeBuddy.payload.response.MessageResponse;
+import org.hamr.RecipeBuddy.payload.response.StatusResponse;
 import org.hamr.RecipeBuddy.repository.RoleRepository;
 import org.hamr.RecipeBuddy.repository.UserRepository;
 import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
@@ -79,7 +79,7 @@ public class AuthController {
         String username = sanitize(signUpRequest.getUsername());
         if(userRepository.existsByUsername(username)){
             return ResponseEntity.badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new StatusResponse(true, "Username is already taken!"));
         }
 
         //Create new user's account
@@ -112,7 +112,7 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(new StatusResponse(false, "User registered successfully!"));
     }
 
     private static String sanitize(String string){

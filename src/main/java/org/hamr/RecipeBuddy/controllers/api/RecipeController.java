@@ -21,8 +21,8 @@ import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
-import org.hamr.RecipeBuddy.payload.response.MessageResponse;
 import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
+import org.hamr.RecipeBuddy.payload.response.StatusResponse;
 import org.hamr.RecipeBuddy.repository.CommentRepository;
 import org.hamr.RecipeBuddy.repository.QuickRecipeRepository;
 import org.hamr.RecipeBuddy.repository.RecipeRepository;
@@ -58,7 +58,7 @@ public class RecipeController {
 
         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeAddRequest.getName(), username);
         if(possibleRecipe.isPresent()){
-            return ResponseEntity.ok(new MessageResponse("Recipe of that name by that user already exists."));
+            return ResponseEntity.ok(new StatusResponse(true, "Recipe of that name by that user already exists."));
         }
 
         //Get Parameters
@@ -78,7 +78,7 @@ public class RecipeController {
         recipeRepository.save(recipe);
         quickRecipeRepository.save(quickRecipe);
 
-        return ResponseEntity.ok(new MessageResponse("Recipe Added"));
+        return ResponseEntity.ok(new StatusResponse(false, "Recipe Added"));
     }
 
     @DeleteMapping("")
@@ -91,7 +91,7 @@ public class RecipeController {
         
         //If query returned nothing
         if(!possibleRecipe.isPresent()){
-            return ResponseEntity.ok(new MessageResponse("Recipe Not Found"));
+            return ResponseEntity.ok(new StatusResponse(true, "Recipe Not Found"));
         }
 
         //Get recipe from Optional object and delete it from the collection
@@ -108,7 +108,7 @@ public class RecipeController {
             commentRepository.delete(c);
         }
 
-        return ResponseEntity.ok(new MessageResponse("Recipe Deleted"));
+        return ResponseEntity.ok(new StatusResponse(false, "Recipe Deleted"));
     }
 
     @PostMapping("/comment")
@@ -126,7 +126,7 @@ public class RecipeController {
         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, recipeAuthor);
         logger.info("Getting recipe: {} by {}", recipeName, recipeAuthor);
         if(!possibleRecipe.isPresent()){
-            return ResponseEntity.ok(new MessageResponse("Could not find Recipe"));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find Recipe"));
         }
         logger.info("Got Recipe");
 
@@ -146,12 +146,12 @@ public class RecipeController {
         }
         else{
             logger.info("Type of comments: NULL");
-            return ResponseEntity.ok(new MessageResponse("Could not add comment, comments[] is null."));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not add comment, comments[] is null."));
 
         }
         recipe.setComments(currentComments);
         recipeRepository.save(recipe);
-        return ResponseEntity.ok(new MessageResponse("Added Comment"));
+        return ResponseEntity.ok(new StatusResponse(false, "Added Comment"));
     }
 
     @GetMapping("")
@@ -167,7 +167,7 @@ public class RecipeController {
         //Get Recipe
         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, author);
         if(!possibleRecipe.isPresent()){
-            return ResponseEntity.ok(new MessageResponse("Could not find recipe"));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find recipe"));
         }
         Recipe recipe = possibleRecipe.get();
 

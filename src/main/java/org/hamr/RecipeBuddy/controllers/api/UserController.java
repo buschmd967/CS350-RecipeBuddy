@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.hamr.RecipeBuddy.models.User;
-import org.hamr.RecipeBuddy.payload.response.MessageResponse;
+import org.hamr.RecipeBuddy.payload.response.StatusResponse;
 import org.hamr.RecipeBuddy.repository.UserRepository;
 import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class UserController {
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
         Optional<User> possibleUser = userRepository.findByUsername(username);
         if(!possibleUser.isPresent()){
-            return ResponseEntity.ok(new MessageResponse("Could not find user"));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find user"));
         }
         User user = possibleUser.get();
 
@@ -50,14 +50,14 @@ public class UserController {
             dietaryRestrictions.add(newDietaryRestriction);
         }
         else{
-            return ResponseEntity.ok(new MessageResponse("Could not add dietary restriction, dietaryRestrictions was null"));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not add dietary restriction, dietaryRestrictions was null"));
         }
 
         //Update user
         user.setDietaryRestrictions(dietaryRestrictions);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("DietaryRestriction Added")); 
+        return ResponseEntity.ok(new StatusResponse(false, "DietaryRestriction Added")); 
     }
 
     @DeleteMapping("/removeDietaryRestriction")
@@ -70,25 +70,25 @@ public class UserController {
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
         Optional<User> possibleUser = userRepository.findByUsername(username);
         if(!possibleUser.isPresent()){
-            return ResponseEntity.ok(new MessageResponse("Could not find user"));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find user"));
         }
         User user = possibleUser.get();
 
         //Get dietaryRestrictions
         List<String> dietaryRestrictions = user.getDietaryRestrictions();
         if(dietaryRestrictions == null){
-            return ResponseEntity.ok(new MessageResponse("Could not remove, no dietary restrictions found for user"));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not remove, no dietary restrictions found for user"));
         }
 
         //Try to remove
         if(!dietaryRestrictions.remove(targetDietaryRestriction)){
-            return ResponseEntity.ok(new MessageResponse("Could not find specified dietary restriction."));
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find specified dietary restriction."));
         }
 
         //Save
         user.setDietaryRestrictions(dietaryRestrictions);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("DietaryRestriction Removed"));
+        return ResponseEntity.ok(new StatusResponse(false, "DietaryRestriction Removed"));
     }
 }
