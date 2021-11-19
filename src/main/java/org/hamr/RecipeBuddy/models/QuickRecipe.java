@@ -22,10 +22,12 @@ public class QuickRecipe {
 
     public QuickRecipe(Recipe recipe,
                         String[] dietaryRestrictions,
+                        String[] appliances,
                         String[] ingredients,
                         String[] otherTags){
         this.recipe = recipe;
         this.dietaryRestrictions = dietaryRestrictions;
+        this.appliances = appliances;
         this.ingredients = ingredients;
         this.otherTags = otherTags;
     }

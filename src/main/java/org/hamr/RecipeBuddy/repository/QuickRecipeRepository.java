@@ -14,4 +14,8 @@ public interface QuickRecipeRepository extends MongoRepository<QuickRecipe, Stri
     
     @Query(value = "{ 'dietaryRestrictions' : {$all : [?0] }}")
     public List<QuickRecipe> findAnyOfTheseValues(String[] dietaryRestrictionValues);
+
+    @Query(value = "{ 'dietaryRestrictions' : {$all : ?0}, 'appliances' : {$all : ?1}, 'ingredients' : {$all : ?2}, 'otherTags' : {$all : ?3}}")
+    public List<QuickRecipe> findByAllCategories(String[] dietaryRestrictions, String[] appliances, String[] ingredients, String[] otherTags);
+
 }
