@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.hamr.RecipeBuddy.models.Comment;
+import org.hamr.RecipeBuddy.models.Ingredient;
 import org.hamr.RecipeBuddy.models.Recipe;
 
 @Setter
@@ -20,7 +21,7 @@ public class RecipeResopnse {
 
     private String[] otherTags;
 
-    private String[] ingredients;
+    private Ingredient[] ingredients;
 
     private List<Comment> comments;
 
@@ -44,7 +45,6 @@ public class RecipeResopnse {
         this.appliances = recipe.getAppliances();
         this.otherTags = recipe.getOtherTags();
         this.ingredients = recipe.getIngredients();
-        // this.comments = recipe.getComments().toArray(new Comment[0]);
         this.comments = recipe.getComments();
         this.rating = recipe.getRating();
         this.difficulty = recipe.getDifficulty();

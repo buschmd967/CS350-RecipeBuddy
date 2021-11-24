@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.hamr.RecipeBuddy.models.Comment;
+import org.hamr.RecipeBuddy.models.Ingredient;
 import org.hamr.RecipeBuddy.models.QuickRecipe;
 import org.hamr.RecipeBuddy.models.Recipe;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
@@ -75,7 +76,7 @@ public class RecipeController {
         //Get Parameters
         String[] dietaryRestrictions = recipeAddRequest.getDietaryRestrictions();
         String[] appliances = recipeAddRequest.getAppliances();
-        String[] ingredients = recipeAddRequest.getIngredients();
+        Ingredient[] ingredients = recipeAddRequest.getIngredients();
         String[] otherTags = recipeAddRequest.getOtherTags();
 
         Recipe recipe = new Recipe(recipeAddRequest.getName(), username);
@@ -206,20 +207,38 @@ public class RecipeController {
 
     @GetMapping("/TESTSEARCH")
     public ResponseEntity<?> testsearch(){
+        List<Ingredient>  ingredients = new ArrayList<>();
+        ingredients.add(new Ingredient("sugar", 1));
+        ingredients.add(new Ingredient("more sugar", 2));
+
 
         Query query = new Query();
-        Criteria c = Criteria.where("ingredients").elemMatch(Criteria.where("name").is("i1").and("size").lt(10));
-        Criteria c2 = c.elemMatch(Criteria.where("name").is("i2").and("size").lt(10));
+
+
+        if(!ingredients.isEmpty()){
+            Criteria c = Criteria.where("ingredients");
+            for(Ingredient ingredient : ingredients){
+                c = c.elemMatch(Criteria.where("name").is(ingredient.getName()).and("size").lte(ingredient.getSize()));
+            }
+            query.addCriteria(c);
+        }
+
+        
+        // Criteria c2 = c.elemMatch(Criteria.where("name").is("i2").and("size").lte(10));
         // c = Criteria.where("name").is("i2").and("size").lt(10).elemMatch(c);
-        query.addCriteria(c2);
 
 
         // query.addCriteria(Criteria.where("qty").elemMatch(Criteria.where("size").is("M").and("num").gt(50).elemMatch(Criteria.where("num").is(100).and("color").is("green"))));
         
 
-        List<Recipe> recipies = mongoTemplate.find(query, Recipe.class);
-        if(recipies.isEmpty()){
+        List<QuickRecipe> quickRecipies = mongoTemplate.find(query, QuickRecipe.class);
+        if(quickRecipies.isEmpty()){
             return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
+        }
+
+        List<Recipe> recipies = new ArrayList<>();
+        for(QuickRecipe qr : quickRecipies){
+            recipies.add(qr.getRecipe());
         }
 
         return(ResponseEntity.ok(new RecipiesResponse(recipies)));
@@ -254,7 +273,7 @@ public class RecipeController {
         
         if(possibleRecipies.isEmpty())
             return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
-
+        
         List<Recipe> recipies = new ArrayList<>();
         for(QuickRecipe quickRecipe : possibleRecipies){
             //TODO: add private check

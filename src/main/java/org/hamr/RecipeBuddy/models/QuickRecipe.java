@@ -17,13 +17,13 @@ public class QuickRecipe {
 
     private String[] dietaryRestrictions;
     private String[] appliances;
-    private String[] ingredients;
+    private Ingredient[] ingredients;
     private String[] otherTags;
 
     public QuickRecipe(Recipe recipe,
                         String[] dietaryRestrictions,
                         String[] appliances,
-                        String[] ingredients,
+                        Ingredient[] ingredients,
                         String[] otherTags){
         this.recipe = recipe;
         this.dietaryRestrictions = dietaryRestrictions;
