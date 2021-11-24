@@ -26,6 +26,7 @@ import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeFindByParametersRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
+import org.hamr.RecipeBuddy.payload.request.RecipeSearchRequest;
 import org.hamr.RecipeBuddy.payload.response.MessageResponse;
 import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
 import org.hamr.RecipeBuddy.payload.response.RecipiesResponse;
@@ -185,6 +186,24 @@ public class RecipeController {
         return ResponseEntity.ok(new RecipeResopnse(recipe));
 
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> search(@Valid @RequestBody RecipeSearchRequest recipeSearchRequest, @RequestHeader("Authorization") String headerAuth){
+        RecipeFindByParametersRequest recipeFindByParametersRequest = parseSearchString(recipeSearchRequest.getSearchString());
+
+
+
+
+        return findByParameters(recipeFindByParametersRequest, headerAuth);
+    }
+
+    private RecipeFindByParametersRequest parseSearchString(String searchString){
+        RecipeFindByParametersRequest result = new RecipeFindByParametersRequest();
+        //TODO
+
+        return result;
+    }
+
 
     @GetMapping("/findByParameters")
     public ResponseEntity<?> findByParameters(@Valid @RequestBody RecipeFindByParametersRequest recipeFindByParametersRequest, @RequestHeader("Authorization") String headerAuth){
