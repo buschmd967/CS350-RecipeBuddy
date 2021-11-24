@@ -22,9 +22,15 @@ function login() {
         complete: function(xhr, textStatus) {
             console.log(xhr.status);
         } 
-    }).then(function(data){
-        console.log(data);
-        console.log(data.accessToken);
+    }).then(function(data){ 
         $.cookie("jwt",data.accessToken);
+        let params = new URLSearchParams(window.location.search);
+        let redir = params.get('redir');
+        if(redir !==  null){
+            document.location = redir;
+        }
+        // console.log(data);
+        // console.log(data.accessToken);
+        
     });
 }

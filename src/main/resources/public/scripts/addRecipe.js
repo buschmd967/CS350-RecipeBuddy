@@ -3,9 +3,10 @@ var applianceTemplate;
 var dietaryRestrictionTemplate;
 
 $(document).ready(function() {
+    
     let c = $.cookie("jwt");
     if(c === undefined){
-        document.location="/login"
+        document.location="/login?redir=addRecipe";
     }
 
     ingredientTemplate = $("#ingredientInputs").clone();
@@ -40,10 +41,12 @@ function addRecipe() {
                 if(xhr.status == 400){
                     $("#status").text("Bad Request. Please make sure all required fields have been filled in.");
                 }
+                if(xhr.status == 401){
+                    document.location="/login?redir=addRecipe";
+                }
             }
         } 
     }).then(function(data){
-
         console.log("Data:");
         console.log(data);
         $("#status").text(data.message);
