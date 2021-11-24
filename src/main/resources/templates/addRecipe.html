@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<title>Add Recipe</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script src="../scripts/addRecipe.js"></script>
+	</head>
+	<body>
+		<h1>Add a Recipe</h1>
+		<div>
+			<h3>Name</h3>
+			<input type="text" id="recipeName" placeholder="My Recipe"/>
+		</div>
+		<div id="ingredientSection">
+			<h3>Ingredients</h3>
+			<button type="button" onclick="addIngredient()">+</button>
+			<div id="ingredientInputs">
+				<input type="text" class="ingredient" placeholder="Ingredient"/>
+				<button type="button" onclick="removeEntry(this)">-</button>
+				<br>
+			</div>
+		</div>
+
+		<div id="applianceSection">
+			<h3>Appliances</h3>
+			<button type="button" onclick="addAppliance()">+</button>
+			<div id="applianceInputs">
+				<input type="text" class="appliance" placeholder="Appliance"/>
+				<button type="button" onclick="removeEntry(this)">-</button>
+				<br>
+			</div>
+		</div>
+
+		<div id="dietaryRestrictionSection">
+			<h3>Dietary Restrictions</h3>
+			<button type="button" onclick="addDietaryRestriction()">+</button>
+			<div id="dietaryRestrictionInputs">
+				<input type="text" class="dietaryRestriction" placeholder="Dietary Restriction"/>
+				<button type="button" onclick="removeEntry(this)">-</button>
+				<br>
+			</div>
+		</div>
+
+		<input type="submit" value="Add Recipe" onclick="addRecipe()"/>
+		<div>
+			<p id="status"></p>
+		</div>
+	</body>
+</html>
