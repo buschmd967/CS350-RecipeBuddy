@@ -204,6 +204,26 @@ public class RecipeController {
         return result;
     }
 
+    @GetMapping("/TESTSEARCH")
+    public ResponseEntity<?> testsearch(){
+
+        Query query = new Query();
+        Criteria c = Criteria.where("ingredients").elemMatch(Criteria.where("name").is("i1").and("size").lt(10));
+        Criteria c2 = c.elemMatch(Criteria.where("name").is("i2").and("size").lt(10));
+        // c = Criteria.where("name").is("i2").and("size").lt(10).elemMatch(c);
+        query.addCriteria(c2);
+
+
+        // query.addCriteria(Criteria.where("qty").elemMatch(Criteria.where("size").is("M").and("num").gt(50).elemMatch(Criteria.where("num").is(100).and("color").is("green"))));
+        
+
+        List<Recipe> recipies = mongoTemplate.find(query, Recipe.class);
+        if(recipies.isEmpty()){
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
+        }
+
+        return(ResponseEntity.ok(new RecipiesResponse(recipies)));
+    }
 
     @GetMapping("/findByParameters")
     public ResponseEntity<?> findByParameters(@Valid @RequestBody RecipeFindByParametersRequest recipeFindByParametersRequest, @RequestHeader("Authorization") String headerAuth){
