@@ -12,9 +12,9 @@ public class Ingredient {
     private String id;
 
     private String name;
-    private int size;
+    private float size;
 
-    public Ingredient(String name, int size){
+    public Ingredient(String name, float size){
         this.name = name;
         this.size = size;
     }

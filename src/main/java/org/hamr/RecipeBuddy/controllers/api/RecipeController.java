@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.hamr.RecipeBuddy.models.Comment;
 import org.hamr.RecipeBuddy.models.Ingredient;
@@ -28,11 +30,11 @@ import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeFindByParametersRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeSearchRequest;
-import org.hamr.RecipeBuddy.payload.response.MessageResponse;
 import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
 import org.hamr.RecipeBuddy.payload.response.RecipiesResponse;
 import org.hamr.RecipeBuddy.payload.response.StatusResponse;
 import org.hamr.RecipeBuddy.repository.CommentRepository;
+import org.hamr.RecipeBuddy.repository.IngredientRepository;
 import org.hamr.RecipeBuddy.repository.QuickRecipeRepository;
 import org.hamr.RecipeBuddy.repository.RecipeRepository;
 import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
@@ -61,7 +63,11 @@ public class RecipeController {
     CommentRepository commentRepository;
 
     @Autowired
+    IngredientRepository ingredientRepository;
+
+    @Autowired
     MongoTemplate mongoTemplate;
+    
 
     @PostMapping("")
     public ResponseEntity<?> add(@Valid @RequestBody RecipeAddRequest recipeAddRequest, @RequestHeader("Authorization") String headerAuth){
@@ -199,10 +205,92 @@ public class RecipeController {
     }
 
     private RecipeFindByParametersRequest parseSearchString(String searchString){
+        logger.info("Parsing search string");
         RecipeFindByParametersRequest result = new RecipeFindByParametersRequest();
-        //TODO
+        
+        String[] tags = searchString.split(",");
+
+
+        //Ingredients
+        //format: "2c water" for 2 cups of water 
+        Pattern ingredient = Pattern.compile("(\\d)(\\w+)\\s+(.+)");
+        Matcher ingredientMatcher;
+
+        List<Ingredient> ingredients = new ArrayList<>();
+        List<String> dietaryRestrictions = new ArrayList<>();
+        List<String> appliances = new ArrayList();
+        List<String> otherTags = new ArrayList();
+
+        for(int i = 0; i < tags.length; i++){
+            ingredientMatcher = ingredient.matcher(tags[i]);
+            //check if ingredient
+            if(ingredientMatcher.find()){
+                // logger.info(ingredientMatcher.group());
+                // searchString = searchString.replace(ingredientMatcher.group(), "");
+                // logger.info("group count: {}",ingredientMatcher.groupCount());
+                // for(int i = 0; i < ingredientMatcher.groupCount()+1; i++){
+                //     logger.info("group {}: {}", i, ingredientMatcher.group(i));
+                // }
+                Float servingSize = Float.parseFloat(ingredientMatcher.group(1)) * getMetricScaleFactor(ingredientMatcher.group(2));
+                ingredients.add(new Ingredient(ingredientMatcher.group(3), servingSize));
+
+                
+            }
+            else{
+                //TODO: dietaryRestrictions, otherTags, appliances
+            }
+        }
+
+        // logger.info("searchString: {}", searchString);
+
+
+        result.setIngredients(ingredients.toArray(new Ingredient[0]));
+        result.setDietaryRestrictions(dietaryRestrictions.toArray(new String[0]));
+        result.setAppliances(appliances.toArray(new String[0]));
+        result.setOtherTags(otherTags.toArray(new String[0]));
+
 
         return result;
+    }
+
+    private int getMetricScaleFactor(String measurement){ //TODO: finish adding all relevant measurements
+        //Standard liquid: mL
+        //https://www.thespruceeats.com/metric-conversions-for-cooking-2355731
+
+
+        measurement = measurement.replace(".","");
+
+        //handle uppercase-specific units
+
+        //tablespoon
+        if(measurement.equals("T")){
+            return 15;
+        }
+
+        switch(measurement.toLowerCase()){
+
+            //teaspoon
+            case "t":
+            case "tsp":
+            case "ts":
+            case "tspn":
+            return 5;
+
+            //tablespoon
+            case "tbl":
+            case "tbs":
+            case "tbsp":
+            return 15;
+
+            //cups
+            case "c":
+            case "cup":
+            case "cups":
+            return 250;
+
+            default:
+            return 0;
+        }
     }
 
     @GetMapping("/TESTSEARCH")
@@ -256,16 +344,27 @@ public class RecipeController {
 
         Object[] dietaryRestrictions = recipeFindByParametersRequest.getDietaryRestrictions();
         Object[] appliances = recipeFindByParametersRequest.getAppliances();
-        Object[] ingredients = recipeFindByParametersRequest.getIngredients();
+        Ingredient[] ingredients = recipeFindByParametersRequest.getIngredients();
         Object[] otherTags = recipeFindByParametersRequest.getOtherTags();
 
         Query query = new Query();
+
+        //ingredients
+        if(ingredients.length > 0){
+            Criteria c = Criteria.where("ingredients");
+            for(int i = 0; i < ingredients.length; i++){
+                c = c.elemMatch(Criteria.where("name").is(ingredients[i].getName()).and("size").lte(ingredients[i].getSize()));
+            }
+            query.addCriteria(c);
+        }
+
+        //everything else
         if(dietaryRestrictions.length > 0)
             query.addCriteria(Criteria.where("dietaryRestrictions").all(dietaryRestrictions));
         if(appliances.length > 0)
             query.addCriteria(Criteria.where("appliances").all(appliances));
-        if(ingredients.length > 0)
-            query.addCriteria(Criteria.where("ingredients").all(ingredients));
+        // if(ingredients.length > 0)
+            // query.addCriteria(Criteria.where("ingredients").all(ingredients));
         if(otherTags.length > 0)
             query.addCriteria(Criteria.where("otherTags").all(otherTags));
         
