@@ -8,6 +8,6 @@ public class RecipeSearchController {
     
     @GetMapping("/searchRecipe")
     public String searchRecipe(){
-        return "seachRecipe";
+        return "searchRecipe";
     }
 }

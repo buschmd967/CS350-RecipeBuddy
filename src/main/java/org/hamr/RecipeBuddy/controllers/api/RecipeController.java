@@ -201,8 +201,9 @@ public class RecipeController {
 
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<?> search(@Valid @RequestBody RecipeSearchRequest recipeSearchRequest, @RequestHeader("Authorization") String headerAuth){
+        logger.info("Search api");
         RecipeFindByParametersRequest recipeFindByParametersRequest = parseSearchString(recipeSearchRequest.getSearchString());
 
 
@@ -220,7 +221,7 @@ public class RecipeController {
 
         //Ingredients
         //format: "2c water" for 2 cups of water 
-        Pattern ingredient = Pattern.compile("(\\d)(\\w+)\\s+(.+)");
+        Pattern ingredient = Pattern.compile("(\\d+)(\\w+)\\s+(.+)");
         Matcher ingredientMatcher;
 
         List<Ingredient> ingredients = new ArrayList<>();
@@ -239,6 +240,8 @@ public class RecipeController {
                 //     logger.info("group {}: {}", i, ingredientMatcher.group(i));
                 // }
                 Float servingSize = Float.parseFloat(ingredientMatcher.group(1)) * getMetricScaleFactor(ingredientMatcher.group(2));
+                logger.info("group 1: {}", ingredientMatcher.group(1));
+                logger.info("searching for: {} serving size: {}", ingredientMatcher.group(3), servingSize);
                 ingredients.add(new Ingredient(ingredientMatcher.group(3), servingSize));
 
                 

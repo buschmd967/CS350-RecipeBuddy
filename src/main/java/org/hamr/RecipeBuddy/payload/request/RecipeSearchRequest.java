@@ -11,4 +11,7 @@ public class RecipeSearchRequest {
     @NotBlank
     private String searchString;
 
+    private boolean dietaryRestrictions = true;
+    private boolean appliances = true;
+
 }
