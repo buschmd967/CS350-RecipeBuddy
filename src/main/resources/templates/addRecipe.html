@@ -17,7 +17,14 @@
 			<h3>Ingredients</h3>
 			<button type="button" onclick="addIngredient()">+</button>
 			<div id="ingredientInputs">
-				<input type="text" class="ingredient" placeholder="Ingredient"/>
+				<input type="text" class="ingredientAmmount" placeholder="1" size=10/>
+				<select class="ingredientMeasurement">
+				<datalist id="measurements">
+					<option value="mL">mL</option>
+					<option value="cups">cups</option>
+				</datalist>
+				</select>
+				<input type="text" class="ingredientName" placeholder="Ingredient"/>
 				<button type="button" onclick="removeEntry(this)">-</button>
 				<br>
 			</div>

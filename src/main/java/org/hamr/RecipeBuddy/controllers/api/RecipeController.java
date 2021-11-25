@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 
 import org.hamr.RecipeBuddy.models.Comment;
 import org.hamr.RecipeBuddy.models.Ingredient;
+import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 import org.hamr.RecipeBuddy.models.QuickRecipe;
 import org.hamr.RecipeBuddy.models.Recipe;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
@@ -82,8 +83,14 @@ public class RecipeController {
         //Get Parameters
         String[] dietaryRestrictions = recipeAddRequest.getDietaryRestrictions();
         String[] appliances = recipeAddRequest.getAppliances();
-        Ingredient[] ingredients = recipeAddRequest.getIngredients();
+        IngredientWithMeasurement[] ingredientswithMeasurements = recipeAddRequest.getIngredients();
         String[] otherTags = recipeAddRequest.getOtherTags();
+        Ingredient[] ingredients = new Ingredient[ingredientswithMeasurements.length];
+
+        for(int i = 0; i<ingredientswithMeasurements.length; i++){
+            IngredientWithMeasurement ingredientWithMeasurement = ingredientswithMeasurements[i];
+            ingredients[i] = new Ingredient(ingredientWithMeasurement.getName(), ingredientWithMeasurement.getSize() * getMetricScaleFactor(ingredientWithMeasurement.getMeasurement()));
+        }
 
         Recipe recipe = new Recipe(recipeAddRequest.getName(), username);
         recipe.setDietaryRestrictions(dietaryRestrictions);

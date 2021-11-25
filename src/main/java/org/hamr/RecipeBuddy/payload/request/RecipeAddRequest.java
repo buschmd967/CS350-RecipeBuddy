@@ -2,7 +2,7 @@ package org.hamr.RecipeBuddy.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
-import org.hamr.RecipeBuddy.models.Ingredient;
+import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 
 public class RecipeAddRequest {
 
@@ -11,7 +11,7 @@ public class RecipeAddRequest {
 
     private String[] dietaryRestrictions;
 
-    private Ingredient[] ingredients;
+    private IngredientWithMeasurement[] ingredients;
 
     private String[] otherTags;
 
@@ -25,7 +25,7 @@ public class RecipeAddRequest {
         return dietaryRestrictions;
     }
 
-    public Ingredient[] getIngredients(){
+    public IngredientWithMeasurement[] getIngredients(){
         return ingredients;
     }
 

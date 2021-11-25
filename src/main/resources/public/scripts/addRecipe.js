@@ -10,7 +10,8 @@ $(document).ready(function() {
     }
 
     ingredientTemplate = $("#ingredientInputs").clone();
-    ingredientTemplate.children(".ingredient").val("");
+    ingredientTemplate.children(".ingredientName").val("");
+    ingredientTemplate.children(".ingredientAmmount").val("");
 
     applianceTemplate = $("#applianceInputs").clone();
     applianceTemplate.children(".appliance").val("");
@@ -26,7 +27,7 @@ function addRecipe() {
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
         data: JSON.stringify({
             "name": $("#recipeName").val(),
-            "ingredients": getEntries(".ingredient"),
+            "ingredients": getIngredients(),
             "appliances": getEntries(".appliance"),
             "dietaryRestrictions": getEntries(".dietaryRestriction")
           }),
@@ -60,6 +61,41 @@ function getEntries(query){
             out.push( $(this).val() );
         }
     );
+    return out;
+}
+
+function getIngredients(){
+    let out = [];
+    let ingredients = [];
+    let measurements = [];
+    let sizes = [];
+    
+    $(".ingredientAmmount").each(function(){
+        if($(this).val() == ""){
+            sizes.push(1);
+        }
+        else{
+            sizes.push($(this).val());
+        }
+    });
+
+    $(".ingredientMeasurement").each(function(){
+        measurements.push($(this).val());
+    });
+
+    $(".ingredientName").each(function(){
+        ingredients.push($(this).val());
+    });
+    
+    for(let i = 0; i < ingredients.length; i++){
+        if(ingredients[i] != ""){
+            out.push({
+                "name": ingredients[i],
+                "measurement": measurements[i],
+                "size": sizes[i]
+            });
+        }
+    }
     return out;
 }
 
