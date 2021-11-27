@@ -298,6 +298,9 @@ public class RecipeController {
             case "cups":
             return 250;
 
+            case "pinch":
+            return 1;
+
             default:
             return 0;
         }
