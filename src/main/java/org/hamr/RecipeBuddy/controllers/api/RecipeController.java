@@ -43,7 +43,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/recipe")
@@ -97,6 +96,7 @@ public class RecipeController {
         recipe.setAppliances(appliances);
         recipe.setOtherTags(otherTags);
         recipe.setIngrediensts(ingredients);
+        recipe.setIsPrivate(recipeAddRequest.getIsPrivate());
 
         QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, appliances, ingredients, otherTags);
 

@@ -4,6 +4,9 @@ import javax.validation.constraints.NotBlank;
 
 import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 
+import lombok.Data;
+
+@Data
 public class RecipeAddRequest {
 
     @NotBlank
@@ -16,6 +19,8 @@ public class RecipeAddRequest {
     private String[] otherTags;
 
     private String[] appliances;
+
+    private Boolean isPrivate;
 
     public String getName(){
         return name;

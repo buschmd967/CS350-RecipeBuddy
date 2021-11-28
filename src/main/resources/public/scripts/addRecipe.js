@@ -29,7 +29,8 @@ function addRecipe() {
             "name": $("#recipeName").val(),
             "ingredients": getIngredients(),
             "appliances": getEntries(".appliance"),
-            "dietaryRestrictions": getEntries(".dietaryRestriction")
+            "dietaryRestrictions": getEntries(".dietaryRestriction"),
+            "isPrivate": $("#isPrivate").prop("checked")
           }),
         xhrFields: { withCredentials:true },
         contentType: 'application/json',

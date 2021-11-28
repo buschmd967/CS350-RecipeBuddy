@@ -13,12 +13,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import io.github.kaiso.relmongo.annotation.CascadeType;
-import io.github.kaiso.relmongo.annotation.FetchType;
-import io.github.kaiso.relmongo.annotation.JoinProperty;
-import io.github.kaiso.relmongo.annotation.OneToMany;
-
-
 @Document(collection = "recipes")
 public class Recipe {
     @Id
@@ -58,7 +52,10 @@ public class Recipe {
     //Time to cook in seconds
     private int cookTime;
 
+    private Boolean isPrivate;
+
     public Recipe(String name, String author){
+        this.isPrivate = false;
         this.name = name;
         this.author = author;
         this.comments = new ArrayList<>();
@@ -154,5 +151,13 @@ public class Recipe {
 
     public Ingredient[] getIngredients(){
         return ingredients;
+    }
+
+    public void setIsPrivate(boolean isPrivate){
+        this.isPrivate = isPrivate;
+    }
+
+    public boolean getIsPrivate(){
+        return isPrivate;
     }
 }
