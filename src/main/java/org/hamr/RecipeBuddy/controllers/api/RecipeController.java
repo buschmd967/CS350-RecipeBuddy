@@ -288,9 +288,14 @@ public class RecipeController {
             case "tsp":
             case "ts":
             case "tspn":
+            case "teaspoon":
+            case "teaspoons":
             return 5;
 
             //tablespoon
+            case "tablespoon":
+            case "tablespoons":
+            case "tb":
             case "tbl":
             case "tbs":
             case "tbsp":
@@ -304,6 +309,38 @@ public class RecipeController {
 
             case "pinch":
             return 1;
+
+            //quart
+            case "quart":
+            case "quarts":
+            case "qt":
+            return 950;
+
+            //pint
+            case "pint":
+            case "pints":
+            case "pt":
+            return 500;
+
+            //gallon
+            case "gallon":
+            case "gallons":
+            case "gal":
+
+            // GRAMS **********
+
+            // ounce (this is not fluid ounces)
+            case "ounce":
+            case "ounces":
+            case "oz":
+            return 20;
+
+            //pounds
+            case "pound":
+            case "pounds":
+            case "ib":
+            case "ibs":
+            return 450;
 
             default:
             return 0;
