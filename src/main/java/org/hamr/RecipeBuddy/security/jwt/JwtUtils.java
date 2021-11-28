@@ -48,7 +48,7 @@ public class JwtUtils {
         
         String jwt = headerAuth.substring(7, headerAuth.length());
         if(!validateJwtToken(jwt))
-            return null;
+            return ""; //No user will have "" as a username. Simplifies recipe isPrivate checks
 
         return getUserNameFromJwtToken(jwt);
 		

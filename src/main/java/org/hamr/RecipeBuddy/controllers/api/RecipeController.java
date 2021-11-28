@@ -196,6 +196,10 @@ public class RecipeController {
         }
         Recipe recipe = possibleRecipe.get();
 
+        if(recipe.getIsPrivate() && !(username.equals(recipe.getAuthor())) ){
+            return ResponseEntity.ok(new StatusResponse(true, "This recipe is private and not owned by '" + username + "'"));
+        }
+
         logger.info("Sending Response");
         return ResponseEntity.ok(new RecipeResopnse(recipe));
 
@@ -366,7 +370,8 @@ public class RecipeController {
         if(ingredients.length > 0){
             Criteria c = Criteria.where("ingredients");
             for(int i = 0; i < ingredients.length; i++){
-                c = c.elemMatch(Criteria.where("name").is(ingredients[i].getName()).and("size").lte(ingredients[i].getSize()));
+                //magical telescoping serving-size-matching query
+                c = c.elemMatch(Criteria.where("name").is(ingredients[i].getName()).and("size").lte(ingredients[i].getSize())); 
             }
             query.addCriteria(c);
         }
@@ -388,8 +393,14 @@ public class RecipeController {
         
         List<Recipe> recipies = new ArrayList<>();
         for(QuickRecipe quickRecipe : possibleRecipies){
-            //TODO: add private check
+            Recipe recipe = quickRecipe.getRecipe();
+            if(recipe.getIsPrivate() && !(username.equals(recipe.getAuthor()))){ //if private recipe and user is not the author
+                continue; //do not add
+            }
             recipies.add(quickRecipe.getRecipe());
+        }
+        if(recipies.isEmpty()){
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
         }
         return(ResponseEntity.ok(new RecipiesResponse(recipies)));
     }
