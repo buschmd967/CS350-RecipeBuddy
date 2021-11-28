@@ -347,6 +347,12 @@ public class RecipeController {
         }
     }
 
+    private double getImperialScaleFactor(String measurement){
+        Double msf = getMetricScaleFactor(measurement);
+        
+        return msf != 0 ? 1/msf : 0;
+    }
+
     @GetMapping("/TESTSEARCH")
     public ResponseEntity<?> testsearch(){
         List<Ingredient>  ingredients = new ArrayList<>();
