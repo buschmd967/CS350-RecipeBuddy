@@ -243,7 +243,7 @@ public class RecipeController {
                 // for(int i = 0; i < ingredientMatcher.groupCount()+1; i++){
                 //     logger.info("group {}: {}", i, ingredientMatcher.group(i));
                 // }
-                Float servingSize = Float.parseFloat(ingredientMatcher.group(1)) * getMetricScaleFactor(ingredientMatcher.group(2));
+                Double servingSize = Double.parseDouble(ingredientMatcher.group(1)) * getMetricScaleFactor(ingredientMatcher.group(2));
                 logger.info("group 1: {}", ingredientMatcher.group(1));
                 logger.info("searching for: {} serving size: {}", ingredientMatcher.group(3), servingSize);
                 ingredients.add(new Ingredient(ingredientMatcher.group(3), servingSize));
@@ -267,7 +267,7 @@ public class RecipeController {
         return result;
     }
 
-    private int getMetricScaleFactor(String measurement){ //TODO: finish adding all relevant measurements
+    private double getMetricScaleFactor(String measurement){ //TODO: finish adding all relevant measurements
         //Standard liquid: mL
         //https://www.thespruceeats.com/metric-conversions-for-cooking-2355731
 
@@ -326,7 +326,7 @@ public class RecipeController {
             case "gallon":
             case "gallons":
             case "gal":
-
+            return 3785.4;
             // GRAMS **********
 
             // ounce (this is not fluid ounces)
