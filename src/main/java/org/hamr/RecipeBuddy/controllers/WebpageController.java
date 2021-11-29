@@ -4,11 +4,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class LoginController {
-    
+public class WebpageController {
+
+    @GetMapping("/addRecipe")
+    public String addRecipe(){
+        return "addRecipe";
+    }
+
     @GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-    
+
+    @GetMapping("/searchRecipe")
+    public String searchRecipe(){
+        return "searchRecipe";
+    }
 }
