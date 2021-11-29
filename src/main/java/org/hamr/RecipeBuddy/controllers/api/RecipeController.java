@@ -1,6 +1,7 @@
 package org.hamr.RecipeBuddy.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -47,6 +48,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/recipe")
 public class RecipeController {
+
+    @Value("${hamr.app.knownAppliances}")
+    private String[] knownAppliances;
+
+    @Value("${hamr.app.knownDietaryRestrictions}")
+    private String[] knownDietaryRestrictions;
 
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
     
@@ -251,6 +258,36 @@ public class RecipeController {
                 
             }
             else{
+                Boolean added = false;
+                //dietaryRestrictions
+                logger.info("Checking against dietaryRestrictions.");
+                for(String dr : knownDietaryRestrictions){
+                    logger.info("{}", dr);
+                    if(dr.equals(tags[i].toLowerCase())){
+                        dietaryRestrictions.add(dr);
+                        added = true;
+                        break;
+                    }
+                }
+                
+                if(added)   
+                    continue;
+
+                logger.info("Checking against appliances.");
+                for(String appliance : knownAppliances){
+                    logger.info("{}", appliance);
+                    if(appliance.equals(tags[i].toLowerCase())){
+                        dietaryRestrictions.add(appliance);
+                        added = true;
+                        break;
+                    }
+                }
+
+                if(added)   
+                    continue;
+
+                otherTags.add(tags[i].toLowerCase());
+
                 //TODO: dietaryRestrictions, otherTags, appliances
             }
         }
