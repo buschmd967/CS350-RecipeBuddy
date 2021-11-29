@@ -12,7 +12,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Data;
+
 @Document(collection = "users")
+@Data
 public class User {
   @Id
   private String id;
@@ -28,12 +31,15 @@ public class User {
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
-  private String imageURL;
+  private String image;
 
   private List<String> dietaryRestrictions;
 
+  private List<String> ownedAppliances;
+
   @DBRef
   private List<Recipe> savedRecipes;
+
 
   public User() {
   }
@@ -81,7 +87,22 @@ public class User {
     this.dietaryRestrictions = dietaryRestrictions;
   }
 
+  public void setDietaryRestrictions(String[] dietaryRestrictions){
+    this.dietaryRestrictions = new ArrayList<>();
+    for(int i = 0; i < dietaryRestrictions.length; i++){
+      this.dietaryRestrictions.add(dietaryRestrictions[i]);
+    }
+  }
+
   public List<String> getDietaryRestrictions(){
     return dietaryRestrictions;
   }
+
+  public void setOwnedAppliances(String[] ownedAppliances){
+    this.ownedAppliances = new ArrayList<>();
+    for(int i = 0; i < ownedAppliances.length; i++){
+      this.ownedAppliances.add(ownedAppliances[i]);
+    }
+  }
+
 }

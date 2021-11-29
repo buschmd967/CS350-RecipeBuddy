@@ -20,4 +20,9 @@ public class WebpageController {
     public String searchRecipe(){
         return "searchRecipe";
     }
+
+    @GetMapping("/signup")
+    public String signup(){
+        return "signup";
+    }
 }

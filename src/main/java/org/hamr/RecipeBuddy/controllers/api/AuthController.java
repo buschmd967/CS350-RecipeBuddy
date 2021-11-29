@@ -1,5 +1,6 @@
 package org.hamr.RecipeBuddy.controllers.api;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -86,6 +87,11 @@ public class AuthController {
         User user = new User(username,
                                 encoder.encode(signUpRequest.getPassword()));
 
+
+        user.setDietaryRestrictions(signUpRequest.getDietaryRestrictions());
+        user.setOwnedAppliances(signUpRequest.getOwnedAppliances());
+        user.setImage(signUpRequest.getPicture());
+        //Roles stuff that I don't understand
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
@@ -95,7 +101,7 @@ public class AuthController {
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                if(enableAdminRegistration && role == "admin") {
+                if(enableAdminRegistration && role.equals("admin")) {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
