@@ -1,6 +1,7 @@
 var ingredientTemplate;
 var applianceTemplate;
 var dietaryRestrictionTemplate;
+var stepTemplate;
 
 $(document).ready(function() {
     
@@ -18,6 +19,9 @@ $(document).ready(function() {
 
     dietaryRestrictionTemplate = $("#dietaryRestrictionInputs").clone();
     dietaryRestrictionTemplate.children(".dietaryRestriction").val("");
+
+    stepTemplate = $("#stepInputs").clone();
+    stepTemplate.children(".stepText").val("");
 });
 
 function addRecipe() {
@@ -30,7 +34,8 @@ function addRecipe() {
             "ingredients": getIngredients(),
             "appliances": getEntries(".appliance"),
             "dietaryRestrictions": getEntries(".dietaryRestriction"),
-            "isPrivate": $("#isPrivate").prop("checked")
+            "isPrivate": $("#isPrivate").prop("checked"),
+            "steps": getSteps()
           }),
         xhrFields: { withCredentials:true },
         contentType: 'application/json',
@@ -97,7 +102,58 @@ function getIngredients(){
             });
         }
     }
+
     return out;
+}
+
+function getSteps(){
+    let out = [];
+    let stepTexts = [];
+    let stepTimes = [];
+    let videoURLs = [];
+
+    $(".stepText").each(function(){
+        stepTexts.push($(this).val());
+    });
+
+    $(".stepTime").each(function(){
+        if($(this).val() == ""){
+            stepTimes.push(-1);
+        }
+        else{
+            stepTimes.push(parseStepTime($(this).val()));
+        }
+    });
+
+    $(".videoURL").each(function(){
+        videoURLs.push($(this).val());
+    });
+
+    for(let i = 0; i < stepTexts.length; i++){
+        if(stepTexts[i] != ""){
+            out.push({
+                "stepText": stepTexts[i],
+                "timer": stepTimes[i],
+                "videoURL": videoURLs[i]
+            });
+        }
+    }
+
+    return out;
+}
+
+function parseStepTime(stepTimeString){
+    let splitString = stepTimeString.split(":");
+    if(splitString.length == 3){
+        return splitString[0] * 3600 + splitString[1] * 60 + splitString[2];
+    }
+    else if(splitString.length == 2){
+        return splitString[0] * 60 + splitString[1];
+    }
+    else if(splitString.length == 1){
+        return splitString[0];
+    }
+    console.log("ERROR IN PARSESTEPTIME: " + stepTimeString);
 }
 
 function addIngredient(){
@@ -119,6 +175,13 @@ function addDietaryRestriction(){
     // let clone = original.clone();
     // clone.children(".ingredient").val("");
     $("#dietaryRestrictionSection").append(dietaryRestrictionTemplate.clone());
+}
+
+function addStep(){
+    // let original = $("#ingredientInputs");
+    // let clone = original.clone();
+    // clone.children(".ingredient").val("");
+    $("#stepSection").append(stepTemplate.clone());
 }
 
 function removeEntry(a){

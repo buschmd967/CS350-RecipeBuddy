@@ -103,6 +103,7 @@ public class RecipeController {
         recipe.setAppliances(appliances);
         recipe.setOtherTags(otherTags);
         recipe.setIngrediensts(ingredients);
+        recipe.setSteps(recipeAddRequest.getSteps());
         recipe.setIsPrivate(recipeAddRequest.getIsPrivate());
 
         QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, appliances, ingredients, otherTags);
@@ -241,6 +242,8 @@ public class RecipeController {
         List<String> otherTags = new ArrayList();
 
         for(int i = 0; i < tags.length; i++){
+            tags[i] = tags[i].stripLeading();
+            
             ingredientMatcher = ingredient.matcher(tags[i]);
             //check if ingredient
             if(ingredientMatcher.find()){
@@ -277,7 +280,7 @@ public class RecipeController {
                 for(String appliance : knownAppliances){
                     logger.info("{}", appliance);
                     if(appliance.equals(tags[i].toLowerCase())){
-                        dietaryRestrictions.add(appliance);
+                        appliances.add(appliance);
                         added = true;
                         break;
                     }

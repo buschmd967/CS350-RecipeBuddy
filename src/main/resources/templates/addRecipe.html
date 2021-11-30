@@ -52,6 +52,19 @@
 		<br>
 		<h4>Private Recipe</h4><input type="checkbox" id="isPrivate" name="private recipe" value=false>
 
+		
+		<br>
+		<div id="stepSection">
+			<button type="button" onclick="addStep()">+</button>
+			<div id="stepInputs">
+				<input type="text" class="stepText" placeholder="Step">
+				<input type="text" class="stepTime" placeholder="12:34:56">
+				<input type="text" class="videoURL" placeholder="www.youtube.com">
+				<button type="button" onclick="removeEntry(this)">-</button>
+				<br>
+			</div>
+		</div>
+
 		<input type="submit" value="Add Recipe" onclick="addRecipe()"/>
 		<div>
 			<p id="status"></p>

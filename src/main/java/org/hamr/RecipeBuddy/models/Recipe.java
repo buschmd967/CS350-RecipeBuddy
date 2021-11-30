@@ -13,7 +13,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Data;
+
 @Document(collection = "recipes")
+@Data
 public class Recipe {
     @Id
     private String id;
@@ -39,7 +42,7 @@ public class Recipe {
     @NotNull
     private List<Comment> comments;
 
-    //private Step[] steps
+    private Step[] steps;
 
     private short rating;
 

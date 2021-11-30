@@ -3,6 +3,7 @@ package org.hamr.RecipeBuddy.payload.request;
 import javax.validation.constraints.NotBlank;
 
 import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
+import org.hamr.RecipeBuddy.models.Step;
 
 import lombok.Data;
 
@@ -19,6 +20,8 @@ public class RecipeAddRequest {
     private String[] otherTags;
 
     private String[] appliances;
+
+    private Step[] steps;
 
     private Boolean isPrivate;
 
