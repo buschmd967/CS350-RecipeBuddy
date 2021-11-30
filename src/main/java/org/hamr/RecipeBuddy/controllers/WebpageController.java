@@ -25,4 +25,9 @@ public class WebpageController {
     public String signup(){
         return "signup";
     }
+
+    @GetMapping("/viewRecipe")
+    public String viewRecipe(){
+        return "viewRecipe";
+    }
 }

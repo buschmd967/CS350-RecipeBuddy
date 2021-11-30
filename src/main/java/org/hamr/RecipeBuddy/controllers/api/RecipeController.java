@@ -187,7 +187,7 @@ public class RecipeController {
         return ResponseEntity.ok(new StatusResponse(false, "Added Comment"));
     }
 
-    @GetMapping("")
+    @PostMapping("/get")
     public ResponseEntity<?> getRecipe(@Valid @RequestBody RecipeGetRequest recipeGetRequest, @RequestHeader("Authorization") String headerAuth){
         
         
