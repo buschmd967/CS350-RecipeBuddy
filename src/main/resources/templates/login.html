@@ -1,24 +1,34 @@
 
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 	<head>
-		<title>Please Log In</title>
+		
+		
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"  href="/src/main/resources/public/styles/style.css" >
+		
+<title>Please Log In</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script src="../scripts/login.js"></script>
 	</head>
 	<body>
-		<h1>Please Log In</h1>
-		<div th:if="${param.error}">
-			Invalid username and password.</div>
-		<div th:if="${param.logout}">
-			You have been logged out.</div>
-		<div>
-		<input type="text" id="username" placeholder="Username"/>
+		<div id = "login" >
+			<h1>Log In </h1>
+			<div th:if="${param.error}">
+				Invalid username and password.</div>
+			<div th:if="${param.logout}">
+				You have been logged out.</div>
+			<div>
+				Username <br><input type="text" id="username" class="login-field" placeholder="Username"/>
+			</div>
+			<div>
+				Password <br><input type="password" id="password" class="login-field" placeholder="Password"/>
+			</div>
+			<input type="submit" value="LOGIN" onclick="login()"/>
 		</div>
-		<div>
-		<input type="password" id="password" placeholder="Password"/>
-		</div>
-		<input type="submit" value="Log in" onclick="login()"/>
 	</body>
 </html>
