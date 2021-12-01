@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hamr.RecipeBuddy.models.Comment;
 import org.hamr.RecipeBuddy.models.Ingredient;
 import org.hamr.RecipeBuddy.models.Recipe;
+import org.hamr.RecipeBuddy.models.Step;
 
 @Setter
 @Getter
@@ -25,7 +26,7 @@ public class RecipeResopnse {
 
     private List<Comment> comments;
 
-    //private Step[] steps
+    private Step[] steps;
 
     private short rating;
 
@@ -46,6 +47,7 @@ public class RecipeResopnse {
         this.otherTags = recipe.getOtherTags();
         this.ingredients = recipe.getIngredients();
         this.comments = recipe.getComments();
+        this.steps = recipe.getSteps();
         this.rating = recipe.getRating();
         this.difficulty = recipe.getDifficulty();
         this.image = recipe.getImage();
