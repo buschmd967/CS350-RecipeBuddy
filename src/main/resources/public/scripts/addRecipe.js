@@ -31,11 +31,14 @@ function addRecipe() {
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
         data: JSON.stringify({
             "name": $("#recipeName").val(),
+            "servings": $("#servingSize").val(), //newly added
+            "totalTime": $("#totalCookTime").val(), //newly added
             "ingredients": getIngredients(),
             "appliances": getEntries(".appliance"),
             "dietaryRestrictions": getEntries(".dietaryRestriction"),
             "isPrivate": $("#isPrivate").prop("checked"),
-            "steps": getSteps()
+            "steps": getSteps(),
+            "difficulty": $("#difficultyNumber").val() //not sure if correct id name
           }),
         xhrFields: { withCredentials:true },
         contentType: 'application/json',

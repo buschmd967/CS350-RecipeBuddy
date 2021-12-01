@@ -87,10 +87,13 @@ public class RecipeController {
         }
 
         //Get Parameters
+        short servings = recipeAddRequest.getServings();
+        int cookTime = recipeAddRequest.getCookTime();
         String[] dietaryRestrictions = recipeAddRequest.getDietaryRestrictions();
         String[] appliances = recipeAddRequest.getAppliances();
         IngredientWithMeasurement[] ingredientswithMeasurements = recipeAddRequest.getIngredients();
         String[] otherTags = recipeAddRequest.getOtherTags();
+        short difficulty = recipeAddRequest.getDifficulty();
         Ingredient[] ingredients = new Ingredient[ingredientswithMeasurements.length];
 
         for(int i = 0; i<ingredientswithMeasurements.length; i++){
@@ -98,12 +101,17 @@ public class RecipeController {
             ingredients[i] = new Ingredient(ingredientWithMeasurement.getName(), ingredientWithMeasurement.getSize() * getMetricScaleFactor(ingredientWithMeasurement.getMeasurement()));
         }
 
+        
+
         Recipe recipe = new Recipe(recipeAddRequest.getName(), username);
+        recipe.setServings(servings); //newly added
+        recipe.setCookTime(cookTime); //newly added
         recipe.setDietaryRestrictions(dietaryRestrictions);
         recipe.setAppliances(appliances);
         recipe.setOtherTags(otherTags);
         recipe.setIngrediensts(ingredients);
         recipe.setSteps(recipeAddRequest.getSteps());
+        recipe.setDifficulty(difficulty);
         recipe.setIsPrivate(recipeAddRequest.getIsPrivate());
 
         QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, appliances, ingredients, otherTags);
