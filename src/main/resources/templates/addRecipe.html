@@ -3,71 +3,117 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 	<head>
 		<title>Add Recipe</title>
+
+		<!-- JS Files-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script src="../scripts/addRecipe.js"></script>
+
+		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
+		<link rel="stylesheet"  href="../styles/main.css">
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/addRecipe.css">	
+		<link rel="stylesheet"  href="../styles/addRecipe.css">
+		
+		<!-- Online Font Resources-->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+
+
 	</head>
+
+	<header>
+		<div id="website-header">
+			<ul>
+				<li style="float:left"><a href="#home">RecipeBuddy</a></li>
+				<li><a href="#myprofile">My Profile</a></li>
+				<li><a href="#pantry">Pantry</a></li>
+				<li><a href="#recipebook">Recipe Book</a></li>
+				<li><a class="active" href="#addrecipe">Add Recipe</a></li>
+			</ul>
+		</div>
+	</header>
+
+
 	<body>
 		<h1>Add a Recipe</h1>
-		<div>
-			<h3>Name</h3>
-			<input type="text" id="recipeName" placeholder="My Recipe"/>
-		</div>
-		<div id="ingredientSection">
-			<h3>Ingredients</h3>
-			<button type="button" onclick="addIngredient()">+</button>
-			<div id="ingredientInputs">
-				<input type="text" class="ingredientAmmount" placeholder="1" size=10/>
-				<select class="ingredientMeasurement">
-				<datalist id="measurements">
-					<option value="mL">mL</option>
-					<option value="cups">cups</option>
-				</datalist>
-				</select>
-				<input type="text" class="ingredientName" placeholder="Ingredient"/>
-				<button type="button" onclick="removeEntry(this)">-</button>
-				<br>
+		<div id = "all-fields">
+			<div>
+				<h3>Name</h3>
+				<input type="text" id="recipeName" placeholder="My Recipe"/>
+			</div>
+
+			<div id="ingredientSection">
+				<h3>Ingredients
+					<button type="button" onclick="addIngredient()">Add +</button>
+				</h3>
+				<div id="ingredientInputs">
+					<input type="text" class="ingredientAmmount" placeholder="1" size=10/>
+					<select class="ingredientMeasurement">
+						<datalist id="measurements">
+							<option value="mL">mL</option>
+							<option value="cups">cups</option>
+							<option value="tsp">tsp</option>
+							<option value="tbsp">tbsp</option>
+							<option value="pinch">pinch</option>
+							<option value="qt">qt</option>
+							<option value="gal">gal</option>
+							<option value="oz">oz</option>
+							<option value="lbs">lbs</option>
+						</datalist>
+					</select>
+					<input type="text" class="ingredientName" placeholder="Ingredient"/>
+					<button type="button" onclick="removeEntry(this)">-</button>
+					<br>
+				</div>
+			</div>
+
+			<div id="applianceSection">
+				<h3>Appliances
+					<button type="button" onclick="addAppliance()">Add +</button>
+				</h3>
+				<div id="applianceInputs">
+					<input type="text" class="appliance" placeholder="Appliance"/>
+					<button type="button" onclick="removeEntry(this)">-</button>
+					<br>
+				</div>
+			</div>
+
+			<div id="dietaryRestrictionSection">
+				<h3>Dietary Restrictions
+					<button type="button" onclick="addDietaryRestriction()">Add +</button>
+				</h3>
+				<div id="dietaryRestrictionInputs">
+					<input type="text" class="dietaryRestriction" placeholder="Dietary Restriction"/>
+					<button type="button" onclick="removeEntry(this)">-</button>
+					<br>
+				</div>
+			</div>
+			
+			<div id="stepSection">
+				<h3>Steps 
+				<button type="button" onclick="addStep()">+</button>
+				</h3>
+				<div id="stepInputs">
+					<input type="text" class="stepText" placeholder="Step Name">
+					<input type="text" class="stepTime" placeholder="Amount of Time (12:34:56)">
+					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)">
+					<button type="button" onclick="removeEntry(this)">-</button>
+					<br>
+				</div>
+			</div>
+			
+			<h4>Private This Recipe
+				<input type="checkbox" id="isPrivate" name="private recipe" value=false>
+			</h4>
+
+			<div id="submit">
+			<input type="submit" value="Add Recipe" onclick="addRecipe()"/>
+				<div>
+					<p id="status"></p>
+				</div>
 			</div>
 		</div>
 
-		<div id="applianceSection">
-			<h3>Appliances</h3>
-			<button type="button" onclick="addAppliance()">+</button>
-			<div id="applianceInputs">
-				<input type="text" class="appliance" placeholder="Appliance"/>
-				<button type="button" onclick="removeEntry(this)">-</button>
-				<br>
-			</div>
-		</div>
-
-		<div id="dietaryRestrictionSection">
-			<h3>Dietary Restrictions</h3>
-			<button type="button" onclick="addDietaryRestriction()">+</button>
-			<div id="dietaryRestrictionInputs">
-				<input type="text" class="dietaryRestriction" placeholder="Dietary Restriction"/>
-				<button type="button" onclick="removeEntry(this)">-</button>
-				<br>
-			</div>
-		</div>
-		<br>
-		<h4>Private Recipe</h4><input type="checkbox" id="isPrivate" name="private recipe" value=false>
-
-		
-		<br>
-		<div id="stepSection">
-			<button type="button" onclick="addStep()">+</button>
-			<div id="stepInputs">
-				<input type="text" class="stepText" placeholder="Step">
-				<input type="text" class="stepTime" placeholder="12:34:56">
-				<input type="text" class="videoURL" placeholder="www.youtube.com">
-				<button type="button" onclick="removeEntry(this)">-</button>
-				<br>
-			</div>
-		</div>
-
-		<input type="submit" value="Add Recipe" onclick="addRecipe()"/>
-		<div>
-			<p id="status"></p>
-		</div>
 	</body>
 </html>

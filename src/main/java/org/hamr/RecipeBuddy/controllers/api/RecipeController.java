@@ -380,6 +380,8 @@ public class RecipeController {
             case "pounds":
             case "ib":
             case "ibs":
+            case "lb":
+            case "lbs":
             return 450;
 
             default:

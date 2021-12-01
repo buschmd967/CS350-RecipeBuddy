@@ -3,18 +3,31 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 	<head>
+		<title>Login - RecipeBuddy</title>   
 		
-		
+		<!-- Online Font Resources-->
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"  href="/src/main/resources/public/styles/style.css" >
+		<!-- CSS Files (Two pathS needed, one for hosting live server and one for running the entire application) -->
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/login.css">	
+		<link rel="stylesheet"  href="../styles/login.css">
 		
-<title>Please Log In</title>
+		<!-- JS Files-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script src="../scripts/login.js"></script>
+		<script src="../scripts/login.js"></script>
+
+		
 	</head>
+
+	<header>
+		<!-- Top Navigation Bar (Does not inlcude any tabs since user is not logged in)-->
+		<div id="login-header">
+			<h1> RecipeBuddy</h1>
+		</div>
+	</header>
+
 	<body>
 		<div id = "login" >
 			<h1>Log In </h1>
