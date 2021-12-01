@@ -61,9 +61,17 @@ function displayRecipies(data){
         let author = recipe["author"];
         let rating = recipe["rating"];
         $("#results").append(
-            `<h2 id="toClear">${name}</h2>
-            <h3 id="toClear">${author}</h3>
-            <h4 id="toClear">rating: ${rating}</h4>`);
+            `<div id="toClear" onclick="redirect('${name}', '${author}')">
+                <h2 id="toClear">${name}</h2>
+                <h3 id="toClear">${author}</h3>
+                <h4 id="toClear">rating: ${rating}</h4>
+            </div>`);
     }
     // console.log(data["recipies"][0]);
+}
+
+function redirect(name, author){
+    $.cookie("viewRecipeName", name);
+    $.cookie("viewRecipeAuthor", author);   
+    document.location="/viewRecipe";
 }

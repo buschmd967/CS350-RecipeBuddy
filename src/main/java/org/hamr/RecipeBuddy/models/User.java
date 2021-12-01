@@ -25,6 +25,10 @@ public class User {
   private String username;
 
   @NotBlank
+  @Size(max = 20)
+  private String displayName;
+
+  @NotBlank
   @Size(max = 120)
   private String password;
 
@@ -44,8 +48,9 @@ public class User {
   public User() {
   }
 
-  public User(String username, String password) {
+  public User(String username, String displayName, String password) {
     this.username = username;
+    this.displayName = displayName;
     this.password = password;
     this.dietaryRestrictions = new ArrayList<>();
     this.savedRecipes = new ArrayList<>();
