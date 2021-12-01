@@ -35,3 +35,7 @@ $(document).ready(function() {
 function getRecipe(){
     console.log(recipe);
 }
+
+function cook(){
+    document.location = "/cookRecipe";
+}

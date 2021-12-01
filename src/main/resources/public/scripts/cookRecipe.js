@@ -1,6 +1,16 @@
 var recipe;
 
+var stepTemplate;
+
 $(document).ready(function() {
+
+    stepTemplate = `<div class="step">
+                    <p class="stepText"><p>
+                    </div>`
+
+
+
+
     let params = new URLSearchParams(window.location.search);
     let name = $.cookie("viewRecipeName");
     let author = $.cookie("viewRecipeAuthor");
@@ -29,6 +39,11 @@ $(document).ready(function() {
     }).then(function(data){
         recipe = data;
         console.log(data);
+
+        let steps = recipe["steps"];
+        for(let step of steps){
+            console.log(step);
+        }
     })
 });
 

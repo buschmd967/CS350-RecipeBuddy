@@ -30,4 +30,9 @@ public class WebpageController {
     public String viewRecipe(){
         return "viewRecipe";
     }
+
+    @GetMapping("/cookRecipe")
+    public String cookRecipe(){
+        return "cookRecipe";
+    }
 }
