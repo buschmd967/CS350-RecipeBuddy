@@ -24,7 +24,7 @@ function search(){
                     $("#status").text("Bad Request. Please make sure all required fields have been filled in.");
                 }
                 if(xhr.status == 401){
-                    document.location="/login?redir=addRecipe";
+                    document.location="/login?redir=searchRecipe";
                 }
             }
         } 

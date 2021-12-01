@@ -147,14 +147,16 @@ function getSteps(){
 
 function parseStepTime(stepTimeString){
     let splitString = stepTimeString.split(":");
+    console.log(splitString);
     if(splitString.length == 3){
-        return splitString[0] * 3600 + splitString[1] * 60 + splitString[2];
+        return (splitString[0] - 0) * 3600 + (splitString[1] - 0)* 60 + (splitString[2] - 0);
     }
     else if(splitString.length == 2){
-        return splitString[0] * 60 + splitString[1];
+        console.log("" + splitString[0] + "* 60 + " + splitString[1]);
+        return (splitString[0] - 0)* 60 + (splitString[1] - 0);
     }
     else if(splitString.length == 1){
-        return splitString[0];
+        return (splitString[0] - 0);
     }
     console.log("ERROR IN PARSESTEPTIME: " + stepTimeString);
 }
