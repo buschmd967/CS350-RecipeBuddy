@@ -25,11 +25,12 @@
 	<header>
 		<div id="website-header">
 			<ul>
-				<li style="float:left"><a href="#home">RecipeBuddy</a></li>
-				<li><a href="#myprofile">My Profile</a></li>
-				<li><a href="#pantry">Pantry</a></li>
-				<li><a href="#recipebook">Recipe Book</a></li>
-				<li><a class="active" href="#addrecipe">Add Recipe</a></li>
+				<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
+				<li><a href="myProfile">My Profile</a></li>
+				<li><a href="pantry">Pantry</a></li>
+				<li><a href="recipeBook">Recipe Book</a></li>
+				<li><a class="active" href="addRecipe">Add Recipe</a></li>
+				<li><a href=searchRecipe>Search</a></li>
 			</ul>
 		</div>
 	</header>
@@ -41,6 +42,24 @@
 			<div>
 				<h3>Name</h3>
 				<input type="text" id="recipeName" placeholder="My Recipe"/>
+			</div>
+
+			<!--NOT CONNECTED TO BACKEND-->
+			<div id="servingsSection">
+				<h3>Total Servings</h3>
+				<div id="servingsInputs">
+					<input type="text" class="servingSize" placeholder="1"/>
+					<br>
+				</div>
+			</div>
+
+			<!--NOT CONNECTED TO BACKEND-->
+			<div id="totalTimeSection">
+				<h3>Total Time</h3>
+				<div id="timeInputs">
+					<input type="text" class="totalCookTime" placeholder="00:00:00"/>
+					<br>
+				</div>
 			</div>
 
 			<div id="ingredientSection">
@@ -103,6 +122,25 @@
 				</div>
 			</div>
 			
+
+			<!--NOT CONNECTED TO BACKEND-->
+			<div id="difficultyRatingSection">
+				<h3>Difficulty to Make - Easy (1) to Hard (5)</h3>
+				<div id="difficultyRatingInputs">
+					<select class="difficultyNumber">
+						<datalist id="rating">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</datalist>
+					</select>
+					<br>
+				</div>
+			</div>
+
+
 			<h4>Private This Recipe
 				<input type="checkbox" id="isPrivate" name="private recipe" value=false>
 			</h4>
