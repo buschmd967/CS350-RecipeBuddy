@@ -39,9 +39,9 @@ function viewImage(){
 }
 
 
-function signUp(){
+function signup(){
     if(!validatePasswords()){
-        
+
         return;
     }
      getPicture().then(
