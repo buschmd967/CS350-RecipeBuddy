@@ -61,7 +61,7 @@ function displayRecipies(data){
         let author = recipe["author"];
         let rating = recipe["rating"];
         $("#results").append(
-            `<div onclick="redirect('${name}', '${author}')">
+            `<div id="toClear" onclick="redirect('${name}', '${author}')">
                 <h2 id="toClear">${name}</h2>
                 <h3 id="toClear">${author}</h3>
                 <h4 id="toClear">rating: ${rating}</h4>
