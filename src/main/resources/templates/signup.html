@@ -23,31 +23,31 @@
 
 
   <div>
-  <label for="Name"><b>Name</b></label>
-  <input type="text" placeholder="Enter Name" name="name" required>
+  <label><strong>Name</strong></label>
+  <input type="text" placeholder="Enter Name" id="displayName">
   </div>
   
 
 <div>
-  <label for="Username"><b>Username</b></label>
-  <input type="text" placeholder="Enter Username" name="username" required>
+  <label><strong>Username</strong></label>
+  <input type="text" placeholder="Enter Username" id="username">
 </div>
 
 <div>
-  <label for="psw"><b>Password</b></label>
-  <input type="password" placeholder="Enter Password" name="psw" required>
+  <label><strong>Password</strong></label>
+  <input type="password" placeholder="Enter Password" id="password" required>
 </div>
 
 <div>
-  <label for="psw-repeat"><b>Repeat Password</b></label>
-  <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+  <label><strong>Repeat Password</strong></label>
+  <input type="password" placeholder="Repeat Password" id="password-repeat" required>
 </div>
 
 
 <!-- I'm thinking we can add a drop down of the different restrictions-->
 <div id="dietSelection">
     <label for="diet"><b>Dietary Restrictions</b></label>
-    <id="dietInputs">
+    <div id="dietInputs">
         <select class="diets">
         <datalist id="dietInputs">
             <option value="Dietary Restriction 1"> Dietary Restriction 1</option>
@@ -55,7 +55,7 @@
         </datalist>
 
         </select>
-        <button type="button" onclick=>+</button>
+        <button type="button" onclick="alert('not implimented')">+</button>
         <button type="button" onclick="removeEntry(this)">-</button>
         <br>
     </div>
@@ -85,7 +85,7 @@
 <div>
   <div class="clearfix">
     <button type="button" class="cancelbtn">Cancel</button>
-    <button type="submit" class="signupbtn">Sign Up</button>
+    <button type="button" class="signupbtn" onclick="signup()">Sign Up</button>
   </div>
 
   
