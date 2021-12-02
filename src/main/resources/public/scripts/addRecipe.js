@@ -1,6 +1,7 @@
 var ingredientTemplate;
 var applianceTemplate;
 var dietaryRestrictionTemplate;
+var otherTagTemplate;
 var stepTemplate;
 var allowedFileTypes = ["image/png"];
 
@@ -24,6 +25,9 @@ $(document).ready(function() {
     dietaryRestrictionTemplate = $("#dietaryRestrictionInputs").clone();
     dietaryRestrictionTemplate.children(".dietaryRestriction").val("");
 
+    otherTagTemplate = $("#otherTagInputs").clone();
+    otherTagTemplate.children(".otherTag").val("");
+
     stepTemplate = $("#stepInputs").clone();
     stepTemplate.children(".stepText").val("");
 });
@@ -41,6 +45,7 @@ function addRecipe() {
                 "cookTime": parseStepTime($("#totalCookTime").val()), //newly added
                 "ingredients": getIngredients(),
                 "appliances": getEntries(".appliance"),
+                "otherTags": getOtherTags(),  //add name to otherTags array
                 "dietaryRestrictions": getEntries(".dietaryRestriction"),
                 "isPrivate": $("#isPrivate").prop("checked"),
                 "steps": getSteps(),
@@ -85,6 +90,9 @@ function getBase64(file) {
 
 async function getPicture(){
     let file = $("#fileToUpload").prop("files")[0];
+    if(file === undefined){
+        return noImage;
+    }
     let error = true;
     for(let filetype of allowedFileTypes){
         if(file.type == filetype){
@@ -105,11 +113,21 @@ function viewImage(){
     })
 }
 
+function getOtherTags(){
+    let out = [("" + $("#recipeName").val()).toLowerCase()];
+    $(".otherTag").each(function() 
+        { 
+            out.push( ("" + $(this).val()).toLowerCase() );
+        }
+    );
+    return out;
+}
+
 function getEntries(query){
     let out = [];
     $(query).each(function() 
         { 
-            out.push( $(this).val() );
+            out.push( ( "" + $(this).val()).toLowerCase() );
         }
     );
     return out;
@@ -204,30 +222,22 @@ function parseStepTime(stepTimeString){
 }
 
 function addIngredient(){
-    // let original = $("#ingredientInputs");
-    // let clone = original.clone();
-    // clone.children(".ingredient").val("");
     $("#ingredientSection").append(ingredientTemplate.clone());
 }
 
 function addAppliance(){
-    // let original = $("#ingredientInputs");
-    // let clone = original.clone();
-    // clone.children(".ingredient").val("");
     $("#applianceSection").append(applianceTemplate.clone());
 }
 
 function addDietaryRestriction(){
-    // let original = $("#ingredientInputs");
-    // let clone = original.clone();
-    // clone.children(".ingredient").val("");
     $("#dietaryRestrictionSection").append(dietaryRestrictionTemplate.clone());
 }
 
+function addOtherTag(){
+    $("#otherTagsSection").append(otherTagTemplate.clone());
+}
+
 function addStep(){
-    // let original = $("#ingredientInputs");
-    // let clone = original.clone();
-    // clone.children(".ingredient").val("");
     $("#stepSection").append(stepTemplate.clone());
 }
 

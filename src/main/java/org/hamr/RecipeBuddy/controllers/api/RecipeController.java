@@ -32,6 +32,7 @@ import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeFindByParametersRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeSearchRequest;
+import org.hamr.RecipeBuddy.payload.response.BooleanResponse;
 import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
 import org.hamr.RecipeBuddy.payload.response.RecipiesResponse;
 import org.hamr.RecipeBuddy.payload.response.StatusResponse;
@@ -222,6 +223,19 @@ public class RecipeController {
 
     }
 
+    @PostMapping("/isRecipeOwner")
+    public ResponseEntity<?> isRecipeOwner(@Valid @RequestBody RecipeGetRequest recipeGetRequest, @RequestHeader("Authorization") String headerAuth){
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
+
+        Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeGetRequest.getName(), recipeGetRequest.getAuthor());
+        if(!possibleRecipe.isPresent()){
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find recipe"));
+        }
+        Recipe recipe = possibleRecipe.get();
+        return ResponseEntity.ok(new BooleanResponse(recipe.getAuthor().equals(username)));
+
+    }
+
     @PostMapping("/search")
     public ResponseEntity<?> search(@Valid @RequestBody RecipeSearchRequest recipeSearchRequest, @RequestHeader("Authorization") String headerAuth){
         logger.info("Search api");
@@ -256,6 +270,7 @@ public class RecipeController {
             ingredientMatcher = ingredient.matcher(tags[i]);
             //check if ingredient
             if(ingredientMatcher.find()){
+                logger.info("Detected ingredient: {}", ingredientMatcher.group());
                 // logger.info(ingredientMatcher.group());
                 // searchString = searchString.replace(ingredientMatcher.group(), "");
                 // logger.info("group count: {}",ingredientMatcher.groupCount());
@@ -263,8 +278,8 @@ public class RecipeController {
                 //     logger.info("group {}: {}", i, ingredientMatcher.group(i));
                 // }
                 Double servingSize = Double.parseDouble(ingredientMatcher.group(1)) * getMetricScaleFactor(ingredientMatcher.group(2));
-                logger.info("group 1: {}", ingredientMatcher.group(1));
-                logger.info("searching for: {} serving size: {}", ingredientMatcher.group(3), servingSize);
+                // logger.info("group 1: {}", ingredientMatcher.group(1));
+                // logger.info("searching for: {} serving size: {}", ingredientMatcher.group(3), servingSize);
                 ingredients.add(new Ingredient(ingredientMatcher.group(3), servingSize));
 
                 
@@ -278,6 +293,8 @@ public class RecipeController {
                     if(dr.equals(tags[i].toLowerCase())){
                         dietaryRestrictions.add(dr);
                         added = true;
+                        logger.info("Detected dietaryRestriction: {}", dr);
+
                         break;
                     }
                 }
@@ -291,12 +308,16 @@ public class RecipeController {
                     if(appliance.equals(tags[i].toLowerCase())){
                         appliances.add(appliance);
                         added = true;
+                        logger.info("Detected appliance: {}", appliance);
+
                         break;
                     }
                 }
 
                 if(added)   
                     continue;
+
+                // logger.info("adding othertag: {}", ingredientMatcher.group());
 
                 otherTags.add(tags[i].toLowerCase());
 
