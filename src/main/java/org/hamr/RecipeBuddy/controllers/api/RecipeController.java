@@ -31,8 +31,10 @@ import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeFindByParametersRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
+import org.hamr.RecipeBuddy.payload.request.RecipeScaleFactorRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeSearchRequest;
 import org.hamr.RecipeBuddy.payload.response.BooleanResponse;
+import org.hamr.RecipeBuddy.payload.response.DoubleResponse;
 import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
 import org.hamr.RecipeBuddy.payload.response.RecipiesResponse;
 import org.hamr.RecipeBuddy.payload.response.StatusResponse;
@@ -337,6 +339,15 @@ public class RecipeController {
         return result;
     }
 
+    @PostMapping("/scale")
+    public ResponseEntity<?> scale(@Valid @RequestBody RecipeScaleFactorRequest recipeScaleFactorRequest){
+
+        double result = (1/getMetricScaleFactor(recipeScaleFactorRequest.getUnit())) * recipeScaleFactorRequest.getSize();
+
+        return ResponseEntity.ok(new DoubleResponse(result));
+
+    }
+
     private double getMetricScaleFactor(String measurement){ //TODO: finish adding all relevant measurements
         //Standard liquid: mL
         //https://www.thespruceeats.com/metric-conversions-for-cooking-2355731
@@ -413,6 +424,9 @@ public class RecipeController {
             case "lb":
             case "lbs":
             return 450;
+
+            case "ml":
+            return 1;
 
             default:
             return 0;
