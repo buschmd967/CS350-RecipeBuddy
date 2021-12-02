@@ -14,12 +14,7 @@
   </div>
 
   
-  <div>
-    <label for="pic"><b>Picture</b></label>
-        <input type="file" id="fileToUpload">
-        <input type="submit" value="View Image" onclick="viewImage()">
-        <image id="profileImage" width=500 height=500>
-  </div>
+
 
 
   <div>
@@ -27,6 +22,19 @@
   <input type="text" placeholder="Enter Name" id="displayName">
   </div>
   
+  <div>
+    <h3>Picture</h3>
+    <table>
+      <tr>
+        <td><image id="profileImage" width=200 height=200></td>
+      </tr>
+      <tr>
+        <td><input type="file" id="fileToUpload" onchange="viewImage()"></td>
+      </tr>
+    
+    </table>
+    
+  </div>
 
 <div>
   <label><strong>Username</strong></label>
@@ -85,7 +93,7 @@
 
 <div>
   <div class="clearfix">
-    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="button" class="cancelbtn" onclick="document.location='homepage'">Cancel</button>
     <button type="button" class="signupbtn" onclick="signup()">Sign Up</button>
   </div>
 

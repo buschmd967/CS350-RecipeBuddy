@@ -60,11 +60,28 @@ function displayRecipies(data){
         let name = recipe["name"];
         let author = recipe["author"];
         let rating = recipe["rating"];
+        let image = recipe["image"];
         $("#results").append(
             `<div id="toClear" onclick="redirect('${name}', '${author}')">
-                <h2 id="toClear">${name}</h2>
-                <h3 id="toClear">${author}</h3>
-                <h4 id="toClear">rating: ${rating}</h4>
+            <h2>${name}</h2>
+            <table id="toClear">
+            <tr>
+                <td><image height=200 width=200 src="${image}"></td>
+                <td>
+                    <table>
+                    <tr>
+                    <h3>Author: ${author}</h3>
+                    </tr>
+                    <tr>
+                    <h4>Rating: ${rating}</h4>
+                    </tr>
+                    </table>
+                </td>
+            </tr>
+            </table>
+                
+                
+                
             </div>`);
     }
     // console.log(data["recipies"][0]);
