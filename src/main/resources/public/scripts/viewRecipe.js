@@ -1,5 +1,10 @@
 var recipe;
 var isRecipeOwner;
+var stepTemplate = `
+<div id="step">
+<p id="stepText"></p>
+<p id="timerTime" hidden></p>
+</div>`
 
 var ingredientUnitSelect = `
 <select class="ingredientMeasurement" onchange="changeMeasurement(this)">
@@ -17,6 +22,10 @@ var ingredientUnitSelect = `
 					</select>`
 
 $(document).ready(function() {
+
+    stepTemplate = $("#step").clone();
+    $("#step").remove();
+
     let params = new URLSearchParams(window.location.search);
     let name = $.cookie("viewRecipeName");
     let author = $.cookie("viewRecipeAuthor");
@@ -48,6 +57,7 @@ $(document).ready(function() {
         $("#author").append(recipe["author"]);
         getIsRecipeOwner().then(data => {isRecipeOwner = data;});
         fillTagTable();
+        fillSteps();
         console.log(data);
     })
 });
@@ -131,6 +141,15 @@ function fillTagTable(){
             <td>${oth}</td>
         </tr>
         `)
+    }
+}
+
+function fillSteps(){
+    let steps = recipe["steps"];
+    for(let step of steps){
+        if(step["timer"] != -1){
+            
+        }
     }
 }
 
