@@ -44,6 +44,20 @@
 				<input type="text" id="recipeName" placeholder="My Recipe"/>
 			</div>
 
+			<div>
+				<h3>Picture</h3>
+				<table>
+					<tr>
+						<td><image id="recipeImage" width=200 height=200></td>
+					</tr>
+					<tr>
+						<td><input type="file" id="fileToUpload" onchange="viewImage()"></td>
+					</tr>
+				
+				</table>
+				
+			</div>
+
 			<!--NOT CONNECTED TO BACKEND-->
 			<div id="servingsSection">
 				<h3>Total Servings</h3>
@@ -52,7 +66,7 @@
 					<br>
 				</div>
 			</div>
-
+			
 			<!--NOT CONNECTED TO BACKEND-->
 			<div id="totalTimeSection">
 				<h3>Total Time</h3>

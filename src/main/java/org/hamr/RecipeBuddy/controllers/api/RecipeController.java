@@ -112,6 +112,7 @@ public class RecipeController {
         recipe.setIngrediensts(ingredients);
         recipe.setSteps(recipeAddRequest.getSteps());
         recipe.setDifficulty(difficulty);
+        recipe.setImage(recipeAddRequest.getImage());
         recipe.setIsPrivate(recipeAddRequest.getIsPrivate());
 
         QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, appliances, ingredients, otherTags);

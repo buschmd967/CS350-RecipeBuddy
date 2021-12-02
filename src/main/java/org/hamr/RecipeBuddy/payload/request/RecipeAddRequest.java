@@ -29,6 +29,8 @@ public class RecipeAddRequest {
 
     private short difficulty; //newly added
 
+    private String image;
+
     private Boolean isPrivate;
 
     public String getName(){
