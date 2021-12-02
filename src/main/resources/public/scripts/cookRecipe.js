@@ -53,8 +53,7 @@ $(document).ready(function() {
                 <p class="timerTimeMS" hidden >${timer}</p>
                 <p class="timerControl" hidden>stopped</p>
                 <p class="timerTimeDisplay" >${timerDisplay(timer)}</p>
-                <button class="startTimerButton" onclick="startTimer(this)">Start</button> 
-                <button class="pauseTimerButton" onclick="pauseTimer(this)">Pause</button>
+                <button class="startTimerButton" onclick="mainTimerButton(this)">Start</button> 
                 <button class="stopTimerButton" onclick="stopTimer(this)">Reset</button>
                 </div>
             </div>`;
@@ -103,6 +102,7 @@ function stopTimer(button){
     setTimerStatus(button, "stopped");
     let resetTime = button.parentNode.querySelector(".timerTimeMS").innerHTML;
     button.parentNode.querySelector(".timerTimeDisplay").innerHTML = timerDisplay(resetTime);
+    button.parentNode.querySelector(".startTimerButton").innerHTML = "Start";
 }
 
 function setTimerStatus(button, status){
@@ -110,33 +110,46 @@ function setTimerStatus(button, status){
 
 }
 
-async function startTimer(startTimerButton){
+async function mainTimerButton(button){
+
+    let buttonText = button.innerHTML;
+    if(buttonText == "Start"){
+        button.innerHTML = "Pause";
+        let timerTimeTag = button.parentNode.querySelector(".timerTimeDisplay");
+        let timerTime = button.parentNode.querySelector(".timerTimeMS").innerHTML;
+        button.parentNode.querySelector(".timerControl").innerHTML = "running";
+        let x = setInterval(function() {
+    
+            if(button.parentNode.querySelector(".timerControl").innerHTML == "stopped"){
+                clearInterval(x);
+            }
+            else if(button.parentNode.querySelector(".timerControl").innerHTML == "running"){
+                timerTime -= 1;
+                console.log(timerTime);
+                timerTimeTag.innerHTML = timerDisplay(timerTime);
+            }
+    
+            
+    
+            if(timerTime < 0){
+                //do alarm or something
+                clearInterval(x);
+            }
+    
+           
+          }, 1000)
+    }
+    else if(buttonText == "Pause"){
+        setTimerStatus(button, "paused");
+        button.innerHTML = "Resume";
+    }
+    else if(buttonText == "Resume"){
+        setTimerStatus(button, "running");
+        button.innerHTML = "Pause";
+    }
     // console.log(startTimerButton.parentNode.parentNode.removeChild(a.parentNode);
     // console.log(startTimerButton.parentNode.querySelector(".timerTimeMS").innerHTML);
-    let timerTimeTag = startTimerButton.parentNode.querySelector(".timerTimeDisplay");
-    let timerTime = startTimerButton.parentNode.querySelector(".timerTimeMS").innerHTML;
-    startTimerButton.style.visibility = "hidden";
-    startTimerButton.parentNode.querySelector(".timerControl").innerHTML = "running";
-    let x = setInterval(function() {
-
-        if(startTimerButton.parentNode.querySelector(".timerControl").innerHTML == "stopped"){
-            clearInterval(x);
-        }
-        else if(startTimerButton.parentNode.querySelector(".timerControl").innerHTML == "running"){
-            timerTime -= 1;
-            console.log(timerTime);
-            timerTimeTag.innerHTML = timerDisplay(timerTime);
-        }
-
-        
-
-        if(timerTime < 0){
-            //do alarm or something
-            clearInterval(x);
-        }
-
-       
-      }, 1000)
+  
 }
 
 
