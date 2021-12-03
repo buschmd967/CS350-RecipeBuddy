@@ -64,6 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers("/test/**").permitAll()
             .antMatchers("/api/auth/**").permitAll()
             .antMatchers("/api/recipe/scale").permitAll()
+            .antMatchers("/api/recipe/get").permitAll()
+            .antMatchers("/api/recipe/search").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/scripts/**").permitAll()

@@ -244,3 +244,8 @@ function addStep(){
 function removeEntry(a){
     a.parentNode.parentNode.removeChild(a.parentNode);
 }
+
+function updateSearch(){
+    let searchText = $("#searchText").val();
+    $("#searchButton").attr("href", "searchRecipe?searchString="+searchText);
+}

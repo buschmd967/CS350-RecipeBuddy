@@ -1,4 +1,19 @@
 
+$(document).ready(function() {
+    if($.cookie("jwt") === undefined){ //if guest
+        $("#MyProfile").html("Login");
+        $("#MyProfile").attr("href", "login?redir=searchRecipe");
+    }
+    let params = new URLSearchParams(window.location.search);
+    let searchString = params.get("searchString");
+    console.log(searchString);
+
+    if(searchString !== null){
+        $("#searchString").val(searchString);
+        search();
+    }
+});
+
 function search(){
     let searchString = getSearchString();
     $("#results").children("#toClear").remove();

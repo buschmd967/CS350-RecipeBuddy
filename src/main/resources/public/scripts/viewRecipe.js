@@ -1,5 +1,6 @@
 var recipe;
 var isRecipeOwner;
+var isGuest;
 var stepTemplate = `
 <div id="step">
 <p id="stepText"></p>
@@ -22,6 +23,7 @@ var ingredientUnitSelect = `
 					</select>`
 
 $(document).ready(function() {
+    isGuest = ($.cookie("jwt") === undefined);
 
     stepTemplate = $("#step").clone();
     $("#step").remove();
@@ -211,7 +213,12 @@ function deleteRecipe(){
 }
 
 function cook(){
-    document.location = "/cookRecipe";
+    if(isGuest){
+        document.location = "/login?redir=cookRecipe";
+    }
+    else{
+        document.location = "/cookRecipe";
+    }
 }
 
 function changeMeasurement(input){
