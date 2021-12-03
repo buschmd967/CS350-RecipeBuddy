@@ -55,6 +55,13 @@ $(document).ready(function() {
         recipe = data;
         $("#name").append(recipe["name"]);
         $("#author").append(recipe["author"]);
+        let cookTime = recipe["cookTime"];
+        if(cookTime == 0){
+            $("#cookTime").append("No cook time specified.");
+        }
+        else{
+            $("#cookTime").append(`Approx. cook time: ${timerDisplay(cookTime)}`); 
+        }
         getIsRecipeOwner().then(data => {isRecipeOwner = data;});
         fillTagTable();
         fillSteps();
@@ -146,10 +153,27 @@ function fillTagTable(){
 
 function fillSteps(){
     let steps = recipe["steps"];
+    console.log(steps);
     for(let step of steps){
-        if(step["timer"] != -1){
-            
+        console.log(step);
+        let stepHTML;
+        if(step["timer"] == -1){
+            let stepText = step["stepText"];
+            stepHTML = 
+            `<div class="step">
+                <p class="stepText">${stepText}<p>
+            </div>`;
+           
         }
+        else{
+            let stepText = step["stepText"];
+            let stepTime = timerDisplay(step["timer"]);
+            stepHTML = 
+            `<div class="step">
+                <p class="stepText">${stepText}  <br>This step has a timer for ${stepTime}</p>
+            </div>`;
+        }
+        $("#steps").append(stepHTML);
     }
 }
 
@@ -219,3 +243,16 @@ function changeMeasurement(input){
         console.log(data);
     });
 }
+
+function timerDisplay(sec){
+    let hours = Math.floor(sec / (60*60));
+    let minutes = Math.floor(sec / (60) - hours * 60);
+    let seconds = Math.floor( sec - hours * 60 * 60 - minutes * 60);
+  
+    hours = "" + hours;
+    minutes = "" + minutes;
+    seconds = "" + seconds;
+  
+    return hours.padStart(2,'0')+":"+minutes.padStart(2, '0')+":"+seconds.padStart(2, '0');
+    
+  }
