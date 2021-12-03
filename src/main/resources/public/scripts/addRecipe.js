@@ -41,16 +41,16 @@ function addRecipe() {
             headers: {"Authorization": "Bearer " + $.cookie("jwt")},
             data: JSON.stringify({
                 "name": $("#recipeName").val(),
-                "servings": $("#servingSize").val(), //newly added
-                "cookTime": parseStepTime($("#totalCookTime").val()), //newly added
+                "servings": $("#servingSize").val(),
+                "cookTime": parseStepTime($("#totalCookTime").val()), 
                 "ingredients": getIngredients(),
                 "appliances": getEntries(".appliance"),
-                "otherTags": getOtherTags(),  //add name to otherTags array
+                "otherTags": getOtherTags(), 
                 "dietaryRestrictions": getEntries(".dietaryRestriction"),
                 "isPrivate": $("#isPrivate").prop("checked"),
                 "steps": getSteps(),
                 "image": image,
-                "difficulty": $("#difficultyNumber").val() //not sure if correct id name
+                "difficulty": $("#difficultyNumber").val()
             }),
             xhrFields: { withCredentials:true },
             contentType: 'application/json',

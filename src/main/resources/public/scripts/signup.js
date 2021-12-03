@@ -25,6 +25,9 @@ function getBase64(file) {
 
 async function getPicture(){
     let file = $("#fileToUpload").prop("files")[0];
+    if(file === undefined){
+        return noImage;
+    }
     let error = true;
     for(let filetype of allowedFileTypes){
         if(file.type == filetype){

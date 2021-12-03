@@ -13,9 +13,9 @@ public class RecipeAddRequest {
     @NotBlank
     private String name;
 
-    private short servings; //newly added
+    private short servings; 
 
-    private int cookTime; //newly added
+    private int cookTime; 
 
     private String[] dietaryRestrictions;
 
@@ -27,7 +27,7 @@ public class RecipeAddRequest {
 
     private Step[] steps;
 
-    private short difficulty; //newly added
+    private short difficulty; 
 
     private String image;
 
@@ -37,11 +37,11 @@ public class RecipeAddRequest {
         return name;
     }
 
-    public short getServings(){ //newly added
+    public short getServings(){ 
         return servings; 
     }
 
-    public int getCookTime(){ //newly added
+    public int getCookTime(){ 
         return cookTime;
     }
 

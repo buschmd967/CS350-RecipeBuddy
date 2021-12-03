@@ -28,6 +28,10 @@ public class Recipe {
     @Size(max=20)
     private String author;
 
+    @NotBlank
+    @Size(max=40)
+    private String displayAuthor;
+
     private String[] dietaryRestrictions;
 
     private String[] appliances;

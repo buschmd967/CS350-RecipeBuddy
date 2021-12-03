@@ -58,11 +58,11 @@ function displayRecipies(data){
         // console.log(recipe["name"]);
         // console.log(recipeEntry);
         let name = recipe["name"];
-        let author = recipe["author"];
+        let author = `${recipe["displayAuthor"]} (${recipe["author"]})`;
         let rating = recipe["rating"];
         let image = recipe["image"];
         $("#results").append(
-            `<div id="toClear" onclick="redirect('${name}', '${author}')">
+            `<div id="toClear" onclick="redirect('${name}', '${recipe["author"]}')">
             <h2>${name}</h2>
             <table id="toClear">
             <tr>

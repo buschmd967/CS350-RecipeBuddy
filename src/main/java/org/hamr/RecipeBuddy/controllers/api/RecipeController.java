@@ -26,6 +26,7 @@ import org.hamr.RecipeBuddy.models.Ingredient;
 import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 import org.hamr.RecipeBuddy.models.QuickRecipe;
 import org.hamr.RecipeBuddy.models.Recipe;
+import org.hamr.RecipeBuddy.models.User;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
@@ -42,6 +43,7 @@ import org.hamr.RecipeBuddy.repository.CommentRepository;
 import org.hamr.RecipeBuddy.repository.IngredientRepository;
 import org.hamr.RecipeBuddy.repository.QuickRecipeRepository;
 import org.hamr.RecipeBuddy.repository.RecipeRepository;
+import org.hamr.RecipeBuddy.repository.UserRepository;
 import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +78,9 @@ public class RecipeController {
     IngredientRepository ingredientRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     MongoTemplate mongoTemplate;
     
 
@@ -83,6 +88,13 @@ public class RecipeController {
     public ResponseEntity<?> add(@Valid @RequestBody RecipeAddRequest recipeAddRequest, @RequestHeader("Authorization") String headerAuth){
         
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
+        Optional<User> possibleUser = userRepository.findByUsername(username);
+        if(!possibleUser.isPresent()){
+            logger.info("Error in addRecipe. Authenticated user is not in database?");
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find user."));
+        }
+        User user = possibleUser.get();
+        String displayAuthor = user.getDisplayName();
 
         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeAddRequest.getName(), username);
         if(possibleRecipe.isPresent()){
@@ -107,8 +119,9 @@ public class RecipeController {
         
 
         Recipe recipe = new Recipe(recipeAddRequest.getName(), username);
-        recipe.setServings(servings); //newly added
-        recipe.setCookTime(cookTime); //newly added
+        recipe.setServings(servings);
+        recipe.setCookTime(cookTime);
+        recipe.setDisplayAuthor(displayAuthor);
         recipe.setDietaryRestrictions(dietaryRestrictions);
         recipe.setAppliances(appliances);
         recipe.setOtherTags(otherTags);
