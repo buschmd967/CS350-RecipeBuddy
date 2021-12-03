@@ -72,7 +72,7 @@
 			<div id="totalTimeSection">
 				<h3>Total Time</h3>
 				<div id="timeInputs">
-					<input type="text" id="totalCookTime" placeholder="00:00:00"/>
+					<input type="text" id="totalCookTime" placeholder="HH:mm:ss"/>
 					<br>
 				</div>
 			</div>
@@ -140,9 +140,10 @@
 				<button type="button" onclick="addStep()">+</button>
 				</h3>
 				<div id="stepInputs">
-					<input type="text" class="stepText" placeholder="Step Name">
-					<input type="text" class="stepTime" placeholder="Amount of Time (12:34:56)">
-					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)">
+					<button onclick="toggleTimer(this)">Add Timer</button>
+					<input type="text" class="stepText" placeholder="Step Instructions">
+					<input type="text" class="stepTime" placeholder="Amount of Time (HH:mm:ss)" hidden>
+					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)" hidden>
 					<button type="button" onclick="removeEntry(this)">-</button>
 					<br>
 				</div>

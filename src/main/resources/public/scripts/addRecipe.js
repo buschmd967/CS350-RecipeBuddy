@@ -255,3 +255,17 @@ function updateSearch(){
     let searchText = $("#searchText").val();
     $("#searchButton").attr("href", "searchRecipe?searchString="+searchText);
 }
+
+function toggleTimer(button){
+    console.log(button.innerHTML);
+    console.log(button.parentNode.querySelector(".stepTime"));
+    if(button.innerHTML == "Add Timer"){
+        button.innerHTML = "Remove Timer";
+        button.parentNode.querySelector(".stepTime").hidden = false;
+    }
+    else{
+        button.innerHTML = "Add Timer";
+        button.parentNode.querySelector(".stepTime").hidden = true;
+    }
+    
+}
