@@ -1,4 +1,5 @@
 var recipe;
+var currentStepIndex = 0;
 
 $(document).ready(function() {
 
@@ -62,6 +63,7 @@ $(document).ready(function() {
             $("#steps").append(stepHTML);
             console.log(step);
         }
+        $(".step")[0].classList.add("currentStep");
     })
 });
 
@@ -153,6 +155,21 @@ async function mainTimerButton(button){
 }
 
 
+function nextStep(button){
+
+    if(button.innerHTML != "Finish"){
+        $(".step")[currentStepIndex].classList.remove("currentStep");
+        $(".step")[currentStepIndex].classList.add("completedStep");
+        currentStepIndex++;
+        if(currentStepIndex + 1 == $(".step").length){
+            button.innerHTML = "Finish"
+        }
+        $(".step")[currentStepIndex].classList.add("currentStep");
+    }
+    else{
+        document.location = "/viewRecipe";
+    }
+}
 
 
 
