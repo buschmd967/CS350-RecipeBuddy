@@ -3,6 +3,9 @@ var applianceTemplate;
 var dietaryRestrictionTemplate;
 var otherTagTemplate;
 var stepTemplate;
+
+var timeRegex = /(?:(\d+):)?(\d+):(\d+)/g
+
 var allowedFileTypes = ["image/png"];
 
 //THIS IS NOT BEST PRACTICE, BUT IT WORKS
@@ -260,12 +263,57 @@ function toggleTimer(button){
     console.log(button.innerHTML);
     console.log(button.parentNode.querySelector(".stepTime"));
     if(button.innerHTML == "Add Timer"){
-        button.innerHTML = "Remove Timer";
-        button.parentNode.querySelector(".stepTime").hidden = false;
+        // button.innerHTML = "Remove Timer";
+        timerActive(button, true);
+        // button.parentNode.querySelector(".stepTime").hidden = false;
     }
     else{
-        button.innerHTML = "Add Timer";
-        button.parentNode.querySelector(".stepTime").hidden = true;
+        // button.innerHTML = "Add Timer";
+        timerActive(button, false);
+        // button.parentNode.querySelector(".stepTime").hidden = true;
+        // button.parentNode.querySelector(".stepTime").value = "";
     }
     
+}
+
+function timerActive(input, isActive){
+    if(isActive){
+        input.parentNode.querySelector("#timerButton").innerHTML = "Remove Timer";
+        input.parentNode.querySelector(".stepTime").hidden = false;
+    }
+    else{
+        input.parentNode.querySelector("#timerButton").innerHTML = "Add Timer";
+        input.parentNode.querySelector(".stepTime").hidden = true;
+        input.parentNode.querySelector(".stepTime").value = "";
+
+
+
+    }
+}
+
+
+function checkForTime(input){
+    // console.log("check for time")
+    // console.log(input.value);
+    let match = timeRegex.exec(input.value);
+    console.log(match);
+    if(match === null){
+
+        return false;
+    }
+    else{
+        let hrs = match[1];
+        if(hrs === undefined){
+            hrs = "";
+        }
+        let mins = match[2];
+        let secs = match[3];
+
+        hrs = hrs.padStart(2, "0");
+        mins = mins.padStart(2, "0");
+        secs = secs.padStart(2, "0");
+        timerActive(input, true);
+        input.parentNode.querySelector(".stepTime").value = hrs+":"+mins+":"+secs;
+        return(hrs+":"+mins+":"+secs);
+    }
 }

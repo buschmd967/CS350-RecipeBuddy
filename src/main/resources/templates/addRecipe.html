@@ -140,8 +140,8 @@
 				<button type="button" onclick="addStep()">+</button>
 				</h3>
 				<div id="stepInputs">
-					<button onclick="toggleTimer(this)">Add Timer</button>
-					<input type="text" class="stepText" placeholder="Step Instructions">
+					<button onclick="toggleTimer(this)" id="timerButton">Add Timer</button>
+					<input type="text" class="stepText" onKeyUp="checkForTime(this)" placeholder="Step Instructions">
 					<input type="text" class="stepTime" placeholder="Amount of Time (HH:mm:ss)" hidden>
 					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)" hidden>
 					<button type="button" onclick="removeEntry(this)">-</button>
