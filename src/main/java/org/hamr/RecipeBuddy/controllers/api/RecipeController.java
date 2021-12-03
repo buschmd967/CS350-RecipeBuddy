@@ -60,6 +60,9 @@ public class RecipeController {
     @Value("${hamr.app.knownDietaryRestrictions}")
     private String[] knownDietaryRestrictions;
 
+    @Value("${hamr.app.knownIngredients}")
+    private String[] knownIngredients;
+
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
     
     @Autowired
@@ -301,8 +304,27 @@ public class RecipeController {
             }
             else{
                 Boolean added = false;
+
+                //Lone Ingredients
+                // logger.info("Checking against Lone Ingredients.");
+                for(String ing : knownIngredients){
+                    if(ing.equals(tags[i].toLowerCase())){
+                        ingredients.add(new Ingredient(ing, Double.MAX_VALUE));
+                        added = true;
+                        logger.info("Detected lone ingredient: {}", ing);
+
+                        break;
+                    }
+                }
+
+                if(added){
+                    continue;
+                }
+
+                
+
                 //dietaryRestrictions
-                logger.info("Checking against dietaryRestrictions.");
+                // logger.info("Checking against dietaryRestrictions.");
                 for(String dr : knownDietaryRestrictions){
                     logger.info("{}", dr);
                     if(dr.equals(tags[i].toLowerCase())){
@@ -317,7 +339,7 @@ public class RecipeController {
                 if(added)   
                     continue;
 
-                logger.info("Checking against appliances.");
+                // logger.info("Checking against appliances.");
                 for(String appliance : knownAppliances){
                     logger.info("{}", appliance);
                     if(appliance.equals(tags[i].toLowerCase())){
@@ -332,11 +354,10 @@ public class RecipeController {
                 if(added)   
                     continue;
 
-                // logger.info("adding othertag: {}", ingredientMatcher.group());
+                logger.info("Detected othertag: {}", tags[i].toLowerCase());
 
                 otherTags.add(tags[i].toLowerCase());
 
-                //TODO: dietaryRestrictions, otherTags, appliances
             }
         }
 
