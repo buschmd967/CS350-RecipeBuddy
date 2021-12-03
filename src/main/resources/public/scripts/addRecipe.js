@@ -10,6 +10,12 @@ const noImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAFeCAYAAADNK
 
 $(document).ready(function() {
     
+    $('#searchText').keydown(function (e) {
+        if (e.keyCode == 13) {
+            document.location = "searchRecipe?searchString=" + $("#searchText").val();
+        }
+    });
+
     let c = $.cookie("jwt");
     if(c === undefined){
         document.location="/login?redir=addRecipe";

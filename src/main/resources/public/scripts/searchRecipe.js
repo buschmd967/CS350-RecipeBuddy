@@ -1,5 +1,13 @@
 
 $(document).ready(function() {
+
+    $('#searchString').keydown(function (e) {
+        if (e.keyCode == 13) {
+            search();
+        }
+    });
+
+
     if($.cookie("jwt") === undefined){ //if guest
         $("#MyProfile").html("Login");
         $("#MyProfile").attr("href", "login?redir=searchRecipe");
@@ -12,6 +20,8 @@ $(document).ready(function() {
         $("#searchString").val(searchString);
         search();
     }
+
+    
 });
 
 function search(){

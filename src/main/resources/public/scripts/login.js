@@ -4,7 +4,16 @@ $(document).ready(function() {
     }).then(function(data) {
        $('.test').append(data);
     });
+
+    $('#password').keydown(function (e) {
+        if (e.keyCode == 13) {
+            login();
+        }
+    });
+
 });
+
+
 
 function login() {
     $.ajax({
