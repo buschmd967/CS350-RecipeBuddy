@@ -61,10 +61,22 @@ function displayRecipies(data){
         let author = recipe["author"];
         let rating = recipe["rating"];
         $("#results").append(
-            `<div id="toClear" onclick="redirect('${name}', '${author}')">
-                <h2 id="toClear">${name}</h2>
-                <h3 id="toClear">${author}</h3>
-                <h4 id="toClear">rating: ${rating}</h4>
+            `<link rel="stylesheet"  href="/src/main/resources/public/styles/searchRecipe.css">	
+		    <link rel="stylesheet"  href="../styles/searchRecipe.css">
+            
+            <div class="recipeInfo">
+                <div id="toClear" onclick="redirect('${name}', '${author}')">
+                    <h2 id="toClear">${name}</h2>
+                   <p id="toClear">Author: ${author}</p>
+                  <p id="toClear">Rating: ${rating}</p>
+
+                   <div id="submit">
+                   <input type="submit" value="View Recipe" onclick="redirect()"/>
+                        <div>
+                            <p id="status"></p>
+                        </div>
+                    </div>
+                </div>
             </div>`);
     }
     // console.log(data["recipies"][0]);
