@@ -1,7 +1,6 @@
 package org.hamr.RecipeBuddy.models;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -29,13 +28,17 @@ public class Recipe {
     @Size(max=20)
     private String author;
 
+    @NotBlank
+    @Size(max=40)
+    private String displayAuthor;
+
     private String[] dietaryRestrictions;
 
     private String[] appliances;
 
     private String[] otherTags;
 
-    private Ingredient[] ingredients;
+    private IngredientWithMeasurement[] ingredients;
 
     @DBRef
     @NotEmpty
@@ -148,11 +151,11 @@ public class Recipe {
         this.author = author;
     }
 
-    public void setIngrediensts(Ingredient[] ingredients){
+    public void setIngrediensts(IngredientWithMeasurement[] ingredients){
         this.ingredients = ingredients;
     }
 
-    public Ingredient[] getIngredients(){
+    public IngredientWithMeasurement[] getIngredients(){
         return ingredients;
     }
 

@@ -26,12 +26,16 @@ import org.hamr.RecipeBuddy.models.Ingredient;
 import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 import org.hamr.RecipeBuddy.models.QuickRecipe;
 import org.hamr.RecipeBuddy.models.Recipe;
+import org.hamr.RecipeBuddy.models.User;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeDeleteRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeFindByParametersRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
+import org.hamr.RecipeBuddy.payload.request.RecipeScaleFactorRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeSearchRequest;
+import org.hamr.RecipeBuddy.payload.response.BooleanResponse;
+import org.hamr.RecipeBuddy.payload.response.DoubleResponse;
 import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
 import org.hamr.RecipeBuddy.payload.response.RecipiesResponse;
 import org.hamr.RecipeBuddy.payload.response.StatusResponse;
@@ -39,6 +43,7 @@ import org.hamr.RecipeBuddy.repository.CommentRepository;
 import org.hamr.RecipeBuddy.repository.IngredientRepository;
 import org.hamr.RecipeBuddy.repository.QuickRecipeRepository;
 import org.hamr.RecipeBuddy.repository.RecipeRepository;
+import org.hamr.RecipeBuddy.repository.UserRepository;
 import org.hamr.RecipeBuddy.security.jwt.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +59,9 @@ public class RecipeController {
 
     @Value("${hamr.app.knownDietaryRestrictions}")
     private String[] knownDietaryRestrictions;
+
+    @Value("${hamr.app.knownIngredients}")
+    private String[] knownIngredients;
 
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
     
@@ -73,6 +81,9 @@ public class RecipeController {
     IngredientRepository ingredientRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     MongoTemplate mongoTemplate;
     
 
@@ -80,6 +91,13 @@ public class RecipeController {
     public ResponseEntity<?> add(@Valid @RequestBody RecipeAddRequest recipeAddRequest, @RequestHeader("Authorization") String headerAuth){
         
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
+        Optional<User> possibleUser = userRepository.findByUsername(username);
+        if(!possibleUser.isPresent()){
+            logger.info("Error in addRecipe. Authenticated user is not in database?");
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find user."));
+        }
+        User user = possibleUser.get();
+        String displayAuthor = user.getDisplayName();
 
         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeAddRequest.getName(), username);
         if(possibleRecipe.isPresent()){
@@ -104,14 +122,16 @@ public class RecipeController {
         
 
         Recipe recipe = new Recipe(recipeAddRequest.getName(), username);
-        recipe.setServings(servings); //newly added
-        recipe.setCookTime(cookTime); //newly added
+        recipe.setServings(servings);
+        recipe.setCookTime(cookTime);
+        recipe.setDisplayAuthor(displayAuthor);
         recipe.setDietaryRestrictions(dietaryRestrictions);
         recipe.setAppliances(appliances);
         recipe.setOtherTags(otherTags);
-        recipe.setIngrediensts(ingredients);
+        recipe.setIngrediensts(ingredientswithMeasurements);
         recipe.setSteps(recipeAddRequest.getSteps());
         recipe.setDifficulty(difficulty);
+        recipe.setImage(recipeAddRequest.getImage());
         recipe.setIsPrivate(recipeAddRequest.getIsPrivate());
 
         QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, appliances, ingredients, otherTags);
@@ -221,6 +241,19 @@ public class RecipeController {
 
     }
 
+    @PostMapping("/isRecipeOwner")
+    public ResponseEntity<?> isRecipeOwner(@Valid @RequestBody RecipeGetRequest recipeGetRequest, @RequestHeader("Authorization") String headerAuth){
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
+
+        Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeGetRequest.getName(), recipeGetRequest.getAuthor());
+        if(!possibleRecipe.isPresent()){
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find recipe"));
+        }
+        Recipe recipe = possibleRecipe.get();
+        return ResponseEntity.ok(new BooleanResponse(recipe.getAuthor().equals(username)));
+
+    }
+
     @PostMapping("/search")
     public ResponseEntity<?> search(@Valid @RequestBody RecipeSearchRequest recipeSearchRequest, @RequestHeader("Authorization") String headerAuth){
         logger.info("Search api");
@@ -255,6 +288,7 @@ public class RecipeController {
             ingredientMatcher = ingredient.matcher(tags[i]);
             //check if ingredient
             if(ingredientMatcher.find()){
+                logger.info("Detected ingredient: {}", ingredientMatcher.group());
                 // logger.info(ingredientMatcher.group());
                 // searchString = searchString.replace(ingredientMatcher.group(), "");
                 // logger.info("group count: {}",ingredientMatcher.groupCount());
@@ -262,21 +296,42 @@ public class RecipeController {
                 //     logger.info("group {}: {}", i, ingredientMatcher.group(i));
                 // }
                 Double servingSize = Double.parseDouble(ingredientMatcher.group(1)) * getMetricScaleFactor(ingredientMatcher.group(2));
-                logger.info("group 1: {}", ingredientMatcher.group(1));
-                logger.info("searching for: {} serving size: {}", ingredientMatcher.group(3), servingSize);
+                // logger.info("group 1: {}", ingredientMatcher.group(1));
+                // logger.info("searching for: {} serving size: {}", ingredientMatcher.group(3), servingSize);
                 ingredients.add(new Ingredient(ingredientMatcher.group(3), servingSize));
 
                 
             }
             else{
                 Boolean added = false;
+
+                //Lone Ingredients
+                // logger.info("Checking against Lone Ingredients.");
+                for(String ing : knownIngredients){
+                    if(ing.equals(tags[i].toLowerCase())){
+                        ingredients.add(new Ingredient(ing, Double.MAX_VALUE));
+                        added = true;
+                        logger.info("Detected lone ingredient: {}", ing);
+
+                        break;
+                    }
+                }
+
+                if(added){
+                    continue;
+                }
+
+                
+
                 //dietaryRestrictions
-                logger.info("Checking against dietaryRestrictions.");
+                // logger.info("Checking against dietaryRestrictions.");
                 for(String dr : knownDietaryRestrictions){
                     logger.info("{}", dr);
                     if(dr.equals(tags[i].toLowerCase())){
                         dietaryRestrictions.add(dr);
                         added = true;
+                        logger.info("Detected dietaryRestriction: {}", dr);
+
                         break;
                     }
                 }
@@ -284,12 +339,14 @@ public class RecipeController {
                 if(added)   
                     continue;
 
-                logger.info("Checking against appliances.");
+                // logger.info("Checking against appliances.");
                 for(String appliance : knownAppliances){
                     logger.info("{}", appliance);
                     if(appliance.equals(tags[i].toLowerCase())){
                         appliances.add(appliance);
                         added = true;
+                        logger.info("Detected appliance: {}", appliance);
+
                         break;
                     }
                 }
@@ -297,9 +354,10 @@ public class RecipeController {
                 if(added)   
                     continue;
 
+                logger.info("Detected othertag: {}", tags[i].toLowerCase());
+
                 otherTags.add(tags[i].toLowerCase());
 
-                //TODO: dietaryRestrictions, otherTags, appliances
             }
         }
 
@@ -313,6 +371,15 @@ public class RecipeController {
 
 
         return result;
+    }
+
+    @PostMapping("/scale")
+    public ResponseEntity<?> scale(@Valid @RequestBody RecipeScaleFactorRequest recipeScaleFactorRequest){
+
+        double result = (1/getMetricScaleFactor(recipeScaleFactorRequest.getUnit())) * recipeScaleFactorRequest.getSize();
+
+        return ResponseEntity.ok(new DoubleResponse(result));
+
     }
 
     private double getMetricScaleFactor(String measurement){ //TODO: finish adding all relevant measurements
@@ -330,6 +397,11 @@ public class RecipeController {
         }
 
         switch(measurement.toLowerCase()){
+
+            //FLUID***
+
+            case "ml":
+            return 1;
 
             //teaspoon
             case "t":
@@ -355,8 +427,7 @@ public class RecipeController {
             case "cups":
             return 250;
 
-            case "pinch":
-            return 1;
+           
 
             //quart
             case "quart":
@@ -377,6 +448,9 @@ public class RecipeController {
             return 3785.4;
             // GRAMS **********
 
+            case "g":
+            return 1;
+
             // ounce (this is not fluid ounces)
             case "ounce":
             case "ounces":
@@ -391,6 +465,10 @@ public class RecipeController {
             case "lb":
             case "lbs":
             return 450;
+
+            // NON-CONVERTABLE
+            case "pinch":
+            return 1;
 
             default:
             return 0;

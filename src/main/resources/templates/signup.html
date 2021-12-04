@@ -3,7 +3,23 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <script src="../scripts/signup.js"></script>
+
+  	<!-- CSS Files (Two pathS needed, one for hosting live server and one for running the entire application) -->
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/signup.css">	
+		<link rel="stylesheet"  href="../styles/signup.css">
+		
+		<!-- JS Files-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<script src="../scripts/signup.js"></script>
 </head>
+
+<header>
+  <!-- Top Navigation Bar (Does not inlcude any tabs since user is not logged in)-->
+  <div id="signup-header">
+    <h1> RecipeBuddy</h1>
+  </div>
+</header>
 
 <!-- Currently, the only way I (morgan) know how to do stuff is via ajax. From what I can tell, the <form> tag needs .php files to work (which we aren't using)-->
 
@@ -14,12 +30,7 @@
   </div>
 
   
-  <div>
-    <label for="pic"><b>Picture</b></label>
-        <input type="file" id="fileToUpload">
-        <input type="submit" value="View Image" onclick="viewImage()">
-        <image id="profileImage" width=500 height=500>
-  </div>
+
 
 
   <div>
@@ -27,6 +38,19 @@
   <input type="text" placeholder="Enter Name" id="displayName">
   </div>
   
+  <div>
+    <h3>Picture</h3>
+    <table>
+      <tr>
+        <td><image id="profileImage" width=200 height=200></td>
+      </tr>
+      <tr>
+        <td><input type="file" id="fileToUpload" onchange="viewImage()"></td>
+      </tr>
+    
+    </table>
+    
+  </div>
 
 <div>
   <label><strong>Username</strong></label>
@@ -47,6 +71,7 @@
 <!-- I'm thinking we can add a drop down of the different restrictions-->
 <div id="dietSelection">
     <label for="diet"><b>Dietary Restrictions</b></label>
+    <button type="button" onclick="addDietaryRestriction()">+</button>
     <div id="dietInputs">
         <select class="diets">
         <datalist id="dietInputs">
@@ -55,7 +80,6 @@
         </datalist>
 
         </select>
-        <button type="button" onclick="alert('not implimented')">+</button>
         <button type="button" onclick="removeEntry(this)">-</button>
         <br>
     </div>
@@ -65,7 +89,8 @@
 
 <div id="appSelection">
     <label for="diet"><b>Appliances Owned</b></label>
-    <id="dietInputs">
+    <button type="button" onclick="addAppliance()">+</button>
+    <div id="appInputs">
         <select class="appliances">
         <datalist id="appInputs">
             <option value="Appliance 1"> Appliance 1</option>
@@ -73,7 +98,7 @@
         </datalist>
 
         </select>
-        <button type="button" onclick=>+</button>
+        
         <button type="button" onclick="removeEntry(this)">-</button>
         <br>
     </div>
@@ -84,7 +109,7 @@
 
 <div>
   <div class="clearfix">
-    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="button" class="cancelbtn" onclick="document.location='homepage'">Cancel</button>
     <button type="button" class="signupbtn" onclick="signup()">Sign Up</button>
   </div>
 

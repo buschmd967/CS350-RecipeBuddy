@@ -1,4 +1,29 @@
 
+$(document).ready(function() {
+
+    $('#searchString').keydown(function (e) {
+        if (e.keyCode == 13) {
+            search();
+        }
+    });
+
+
+    if($.cookie("jwt") === undefined){ //if guest
+        $("#MyProfile").html("Login");
+        $("#MyProfile").attr("href", "login?redir=searchRecipe");
+    }
+    let params = new URLSearchParams(window.location.search);
+    let searchString = params.get("searchString");
+    console.log(searchString);
+
+    if(searchString !== null){
+        $("#searchString").val(searchString);
+        search();
+    }
+
+    
+});
+
 function search(){
     let searchString = getSearchString();
     $("#results").children("#toClear").remove();
@@ -24,7 +49,7 @@ function search(){
                     $("#status").text("Bad Request. Please make sure all required fields have been filled in.");
                 }
                 if(xhr.status == 401){
-                    document.location="/login?redir=addRecipe";
+                    document.location="/login?redir=searchRecipe";
                 }
             }
         } 
@@ -58,25 +83,30 @@ function displayRecipies(data){
         // console.log(recipe["name"]);
         // console.log(recipeEntry);
         let name = recipe["name"];
-        let author = recipe["author"];
+        let author = `${recipe["displayAuthor"]} (${recipe["author"]})`;
         let rating = recipe["rating"];
+        let image = recipe["image"];
         $("#results").append(
-            `<link rel="stylesheet"  href="/src/main/resources/public/styles/searchRecipe.css">	
-		    <link rel="stylesheet"  href="../styles/searchRecipe.css">
-            
-            <div class="recipeInfo">
-                <div id="toClear" onclick="redirect('${name}', '${author}')">
-                    <h2 id="toClear">${name}</h2>
-                   <p id="toClear">Author: ${author}</p>
-                  <p id="toClear">Rating: ${rating}</p>
-
-                   <div id="submit">
-                   <input type="submit" value="View Recipe" onclick="redirect()"/>
-                        <div>
-                            <p id="status"></p>
-                        </div>
-                    </div>
-                </div>
+            `<div id="toClear" onclick="redirect('${name}', '${recipe["author"]}')">
+            <h2>${name}</h2>
+            <table id="toClear">
+            <tr>
+                <td><image height=200 width=200 src="${image}"></td>
+                <td>
+                    <table>
+                    <tr>
+                    <h3>Author: ${author}</h3>
+                    </tr>
+                    <tr>
+                    <h4>Rating: ${rating}</h4>
+                    </tr>
+                    </table>
+                </td>
+            </tr>
+            </table>
+                
+                
+                
             </div>`);
     }
     // console.log(data["recipies"][0]);
