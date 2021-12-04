@@ -5,14 +5,42 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script src="../scripts/cookRecipe.js"></script>
+
+			
+		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
+		<link rel="stylesheet"  href="../styles/main.css">
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/cookRecipe.css">	
+		<link rel="stylessheet"  href="../styles/view.css">
+	
+		<!-- Online Font Resources-->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
 	</head>
+
+	<header>
+		<div id="website-header">
+			<ul>
+				<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
+				<li><a href="myProfile" id="MyProfile">My Profile</a></li>
+				<li><a href="pantry">Pantry</a></li>
+				<li><a href="recipeBook">Recipe Book</a></li>
+				<li><a href="addRecipe">Add Recipe</a></li>
+				<li><a class="active" href=searchRecipe>Search</a></li>
+			</ul>
+		</div>
+	</header>
+
 	<body>
 		<!-- TODO: format page-->
+		<h1 id = "name"> Name: </h1>
+		<h4 id = "author">Author: </h4>
+		<h4 id = "cooktime">Cook Time: </h4>
 
-
-        <div id=steps>
-            
-        </div>
+		<!-- I'm (Rosie) working on now, need to figure out how to display one step per page
+		Also need to list all the other information associated with recipe probably such as ingredients
+		-->
+        <div id = steps> </div> 
 
 		<button class="nextStepButton" onclick="nextStep(this)">Next Step</button>
 	</body>

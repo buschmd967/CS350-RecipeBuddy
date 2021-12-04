@@ -1,0 +1,17 @@
+body{ 
+    background-color: #fffff2;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+}
+
+#signup-header{
+    background:#2e2e2e;
+    color:whitesmoke;
+    width: 100%;
+    padding-top: 5px;
+    
+    padding-left: 20px;
+    margin: 0;
+    margin-top: -10px;
+    padding-bottom: 1px;
+}
