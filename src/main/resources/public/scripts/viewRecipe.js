@@ -7,17 +7,26 @@ var stepTemplate = `
 <p id="timerTime" hidden></p>
 </div>`
 
-var ingredientUnitSelect = `
-<select class="ingredientMeasurement" onchange="changeMeasurement(this)">
+var liquidIngredients = ["mL", "cups", "tsp", "tbsp", "qt", "gal", "oz"];
+var ingredientUnitSelectLiquid = `
+<select class="ingredientMeasurement" onchange="changeMeasurement(this)" value="REPLACEVALUE">
 						<datalist id="measurements">
 							<option value="mL">mL</option>
 							<option value="cups">cups</option>
 							<option value="tsp">tsp</option>
 							<option value="tbsp">tbsp</option>
-							<option value="pinch">pinch</option>
 							<option value="qt">qt</option>
 							<option value="gal">gal</option>
 							<option value="oz">oz</option>
+						</datalist>
+					</select>`
+
+
+var weightMeasurements = ["g", "lbs"];
+var ingredientUnitSelectWeight = `
+<select class="ingredientMeasurement" onchange="changeMeasurement(this)" value="REPLACEVALUE">
+						<datalist id="measurements">
+							<option value="g">g</option>
 							<option value="lbs">lbs</option>
 						</datalist>
 					</select>`
@@ -107,6 +116,7 @@ async function getIsRecipeOwner(){
     });
 }
 
+
 function fillTagTable(){
     let ingredients = recipe["ingredients"];
     let appliances = recipe["appliances"];
@@ -126,7 +136,19 @@ function fillTagTable(){
             ing = "";
         }
         else{
-            ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelect + ing["name"];
+            let selectHTML;
+            if(liquidIngredients.includes(ing["measurement"])){
+                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + ing["name"];
+                
+            }
+            else if(weightMeasurements.includes(ing["measurement"])){
+                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + ing["name"];
+
+            }
+            else{
+                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + ing["name"];
+
+            }
 
         }
 
@@ -151,6 +173,10 @@ function fillTagTable(){
         </tr>
         `)
     }
+}
+
+function updateIngredients(){
+    
 }
 
 function fillSteps(){
