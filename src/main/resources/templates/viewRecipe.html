@@ -6,20 +6,58 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script src="../scripts/viewRecipe.js"></script>
-	</head>
+
+		
+		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
+		<link rel="stylesheet"  href="../styles/main.css">
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/viewRecipe.css">	
+		<link rel="stylesheet"  href="../styles/view.css">
+	
+		<!-- Online Font Resources-->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+		</head>
+
+
+
+	<header>
+		<div id="website-header">
+			<ul>
+				<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
+				<li><a href="myProfile" id="MyProfile">My Profile</a></li>
+				<li><a href="pantry">Pantry</a></li>
+				<li><a href="recipeBook">Recipe Book</a></li>
+				<li><a href="addRecipe">Add Recipe</a></li>
+				<li><a class="active" href=searchRecipe>Search</a></li>
+			</ul>
+		</div>
+	</header>
+
 	<body>
 		<!-- TODO: format page-->
-		<h3 id="name">Name: </h3>
+		<h1 id="name">Name: </h1>
 		<h4 id="author">Author: </h4>
 		<h4 id="cookTime"></h4>
+		 
 		<table id="tagTable">
+			<!-- Is a table the best way to show this, or can I break this into a section per each column?
+			 aha so th is the name of the columns then td are the column values -->
+			
+			 
 			<tr>
 				<th id="tableIngredients">Ingredients</th>
 				<th id="tableAppliances">Appliances</th>
 				<th id="tableDietaryRestrictions">Dietary Restrictions</th>
 				<th id="otherTags">Misc Tags</th>
 			</tr>
+		
 		</table>
+
+	
+		
+
+		
 		<div id="steps">
 			
 		</div>
