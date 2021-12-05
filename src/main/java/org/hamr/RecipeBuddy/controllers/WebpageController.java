@@ -35,4 +35,9 @@ public class WebpageController {
     public String cookRecipe(){
         return "cookRecipe";
     }
+
+    @GetMapping("/pantry")
+    public String myPantry(){
+        return "myPantry";
+    }
 }

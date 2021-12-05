@@ -47,7 +47,7 @@ public class Recipe {
 
     private Step[] steps;
 
-    private short rating;
+    private float rating;
 
     private short difficulty;
 
@@ -95,11 +95,11 @@ public class Recipe {
         return otherTags;
     }
 
-    public void setRating(short rating){
+    public void setRating(float rating){
         this.rating = rating;
     }
 
-    public short getRating(){
+    public float getRating(){
         return rating;
     }
 

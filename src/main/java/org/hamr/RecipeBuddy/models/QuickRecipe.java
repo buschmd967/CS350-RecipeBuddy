@@ -14,6 +14,8 @@ public class QuickRecipe {
 
     @DBRef
     private Recipe recipe;
+    
+    private float rating;
 
     private String[] dietaryRestrictions;
     private String[] appliances;
