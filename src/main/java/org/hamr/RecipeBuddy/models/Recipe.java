@@ -45,9 +45,11 @@ public class Recipe {
     @NotNull
     private List<Comment> comments;
 
+    private List<Rating> allRating;
+
     private Step[] steps;
 
-    private short rating;
+    private float rating;
 
     private short difficulty;
 
@@ -95,11 +97,11 @@ public class Recipe {
         return otherTags;
     }
 
-    public void setRating(short rating){
+    public void setRating(float rating){
         this.rating = rating;
     }
 
-    public short getRating(){
+    public float getRating(){
         return rating;
     }
 
@@ -141,6 +143,13 @@ public class Recipe {
 
     public List<Comment> getComments(){
         return comments;
+    }
+    public void setAllRating(List<Rating> allRating){
+        this.allRating = allRating;
+    }
+
+    public List<Rating> getAllRating(){
+        return allRating;
     }
     
     public String getAuthor(){

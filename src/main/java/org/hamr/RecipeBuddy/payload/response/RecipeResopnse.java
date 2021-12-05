@@ -28,7 +28,7 @@ public class RecipeResopnse {
 
     private Step[] steps;
 
-    private short rating;
+    private float rating;
 
     private short difficulty;
 
