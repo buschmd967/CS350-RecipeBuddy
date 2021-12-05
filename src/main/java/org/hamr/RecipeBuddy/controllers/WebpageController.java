@@ -40,4 +40,9 @@ public class WebpageController {
     public String myPantry(){
         return "myPantry";
     }
+
+    @GetMapping("/homepage")
+    public String homepage(){
+        return "homepage";
+    }
 }
