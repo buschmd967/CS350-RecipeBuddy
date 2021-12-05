@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<title>Add Recipe</title>
+
+		<!-- JS Files-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script src="../scripts/addRecipe.js"></script>
+
+		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
+		<link rel="stylesheet"  href="../styles/main.css">
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/homepage.css">	
+		<link rel="stylesheet"  href="../styles/homepage.css">
+		
+		<!-- Online Font Resources-->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+
+
+	</head>
+
+	<header>
+		<div id="website-header">
+			<ul>
+				<li style="float:left"><a class="active" href="homepage">RecipeBuddy</a></li> <!-- I can change this to not be yellow while on homepage if it looks weird-->
+				<li><a href="myProfile">My Profile</a></li>
+				<li><a href="pantry">Pantry</a></li>
+				<li><a href="recipeBook">Recipe Book</a></li>
+				<li><a href="addRecipe">Add Recipe</a></li>
+				<li><a href=searchRecipe id="searchButton">Search</a></li>
+				<li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
+			</ul>
+		</div>
+	</header>
+
+
+	<body>
+
+
+
+<!-- TRENDING RECIPES (SO CLICKING ON A RECIPE SHOULD BRING USER TO THEIR VIEW RECIPE PAGE)-->
+<h1>Trending Recipes</h1> 
+
+<div style="overflow-x:auto;">
+    <table class="trendingRecipes">
+        <tr>
+            <td>
+                <!-- EXAMPLE OF HOW FIRST ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                    
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: (Listed as a paragraph)</h4>
+                        <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- EXAMPLE OF HOW FIRST ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                    
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: </h4>
+                        <h4>Dietary Restricitions: </h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- EXAMPLE OF HOW THIRD ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                   
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: </h4>
+                        <h4>Dietary Restricitions: </h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- EXAMPLE OF HOW FOURTH ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                   
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: </h4>
+                        <h4>Dietary Restricitions: </h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            
+        </tr>
+
+    </table>
+</div>
+
+
+
+<!-- RECIPE CATEGORIES (SO CLICKING ON A CATEGORY SHOULD BRING USER TO SEARCH PAGE WITH THAT SPECIFIC CATEGORY TAG SEARCHED UP)-->
+<h1>Recipe Categories</h1> 
+
+<div style="overflow-x:auto;">
+    <table class="trendingRecipes">
+        <tr>
+            <td>
+                <!-- EXAMPLE OF HOW FIRST ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                    
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: (Listed as a paragraph)</h4>
+                        <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- EXAMPLE OF HOW SECOND ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                    
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: </h4>
+                        <h4>Dietary Restricitions: </h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- EXAMPLE OF HOW THIRD ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                   
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: </h4>
+                        <h4>Dietary Restricitions: </h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- EXAMPLE OF HOW FOURTH ENTRY SHOULD BE SET UP-->
+                <div class="recipeInfo">
+                   
+                    <h2>NAME</h2>
+                    <div id="recipeText">
+                        <h3>Author: </h3>
+                        <h4>Rating: </h4>
+                        <h4>Ingredients: </h4>
+                        <h4>Dietary Restricitions: </h4>
+                    </div>
+
+                    <div class="recipeTable">
+                        <table id="toClear">
+                            <tr class="recipeData">
+                                <image height=200 width=200 src="${image}">
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            
+        </tr>
+
+    </table>
+</div>
+
+
+
+</body>
+</html>
