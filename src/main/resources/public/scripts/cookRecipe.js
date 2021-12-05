@@ -64,6 +64,10 @@ $(document).ready(function() {
             console.log(step);
         }
         $(".step")[0].classList.add("currentStep");
+    }).then(data => {
+        if($(".step").length == 1){
+            $(".nextStepButton").html("Finish");
+        }
     })
 });
 
