@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +29,7 @@ import org.hamr.RecipeBuddy.models.Ingredient;
 import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 import org.hamr.RecipeBuddy.models.QuickRecipe;
 import org.hamr.RecipeBuddy.models.Recipe;
+import org.hamr.RecipeBuddy.models.Rating;
 import org.hamr.RecipeBuddy.models.User;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddCommentRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeAddRequest;
@@ -34,6 +38,7 @@ import org.hamr.RecipeBuddy.payload.request.RecipeFindByParametersRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeGetRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeScaleFactorRequest;
 import org.hamr.RecipeBuddy.payload.request.RecipeSearchRequest;
+import org.hamr.RecipeBuddy.payload.request.RecipeAddRatingRequest;
 import org.hamr.RecipeBuddy.payload.response.BooleanResponse;
 import org.hamr.RecipeBuddy.payload.response.DoubleResponse;
 import org.hamr.RecipeBuddy.payload.response.RecipeResopnse;
@@ -575,4 +580,63 @@ public class RecipeController {
         }
         return(ResponseEntity.ok(new RecipiesResponse(recipies)));
     }
+    @PostMapping("/addRating")
+    public ResponseEntity<?> addRating(@Valid @RequestBody RecipeAddRatingRequest recipeAddRatingRequest, @RequestHeader("Authorization") String headerAuth){
+        String recipeName = recipeAddRatingRequest.getRecipeName();
+        String recipeAuthor = recipeAddRatingRequest.getRecipeAuthor();   
+        
+        //Get recipe
+        Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, recipeAuthor);
+        logger.info("Getting recipe: {} by {}", recipeName, recipeAuthor);
+        if(!possibleRecipe.isPresent()){
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find Recipe"));
+        }
+        logger.info("Got Recipe");
+
+        //Save rating and get reference for recipe
+        Rating newRating = new Rating(recipeAddRatingRequest.getRecipeRating(), 
+                                        recipeAddRatingRequest.getRecipeAuthor());
+
+        
+        Recipe recipe = possibleRecipe.get();
+        List<Rating> currentRating = recipe.getAllRating();
+        
+        if(currentRating != null){
+            logger.info("Value of ratings: {}", currentRating.getClass());
+            currentRating.add(newRating);
+
+        }
+        else{
+            logger.info("Value of ratings: NULL");
+            return ResponseEntity.ok(new StatusResponse(true, "Could not add rating, ratings[] is null."));
+
+        }
+        recipe.setAllRating(currentRating);
+        recipe.setRating(calculateRating(recipe)); // calculate the average rating and set it to the final rating of the recipe.
+        recipeRepository.save(recipe);
+        return ResponseEntity.ok(new StatusResponse(false, "Added Rating"));
+    
+    }
+     
+    float calculateRating(Recipe recipe){
+        float sum = 0;
+        for(Rating rating: recipe.getAllRating())
+        {
+            sum += rating.getValue();
+        }
+        return (sum/recipe.getAllRating().size());
+    
+    }
+    boolean findAuthor(List<Rating> lrating, Rating rating){
+        for (int i=0;i<lrating.size();i++)
+        {
+           Rating b = lrating.get(i);
+            if ( Objects.equals(b.getAuthor(), rating.getAuthor()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

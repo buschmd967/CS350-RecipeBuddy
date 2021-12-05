@@ -45,6 +45,8 @@ public class Recipe {
     @NotNull
     private List<Comment> comments;
 
+    private List<Rating> allRating;
+
     private Step[] steps;
 
     private float rating;
@@ -141,6 +143,13 @@ public class Recipe {
 
     public List<Comment> getComments(){
         return comments;
+    }
+    public void setAllRating(List<Rating> allRating){
+        this.allRating = allRating;
+    }
+
+    public List<Rating> getAllRating(){
+        return allRating;
     }
     
     public String getAuthor(){
