@@ -4,37 +4,47 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <script src="../scripts/signup.js"></script>
 
-  	<!-- CSS Files (Two pathS needed, one for hosting live server and one for running the entire application) -->
-		<link rel="stylesheet"  href="/src/main/resources/public/styles/signup.css">	
-		<link rel="stylesheet"  href="../styles/signup.css">
-		
-		<!-- JS Files-->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-		<script src="../scripts/signup.js"></script>
+ 
+	<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) 
+  <link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
+  <link rel="stylesheet"  href="../styles/main.css"> -->
+  <link rel="stylesheet"  href="/src/main/resources/public/styles/signup.css">	
+  <link rel="stylesheet"  href="../styles/signup.css">
+  
+  <!-- Online Font Resources-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
 </head>
 
+<!--
 <header>
-  <!-- Top Navigation Bar (Does not inlcude any tabs since user is not logged in)-->
+   Top Navigation Bar (Does not inlcude any tabs since user is not logged in)
   <div id="signup-header">
     <h1> RecipeBuddy</h1>
   </div>
 </header>
 
+-->
+
+<header>
+  <div id="website-header">
+    <ul>
+      <li style="float:left"><a href="homepage">RecipeBuddy</a></li>
+    </ul>
+  </div>
+</header>
+
+
+
+<body>
 <!-- Currently, the only way I (morgan) know how to do stuff is via ajax. From what I can tell, the <form> tag needs .php files to work (which we aren't using)-->
 
-<div class="container">
-  <h1>Create Account</h1>
-  <p>Fill in this Form to Create a RecipeBuddy Account</p>
-  <hr>
-  </div>
-
-  
+  <div><h1>Create Account</h1> </div>
+  <div><h5>Fill in this Form to Create a RecipeBuddy Account</h5></div>
 
 
-
-  <div>
-  <label><strong>Name</strong></label>
+  <div id = "nm">
+  <h3>Name</h3>
   <input type="text" placeholder="Enter Name" id="displayName">
   </div>
   
@@ -52,31 +62,41 @@
     
   </div>
 
-<div>
-  <label><strong>Username</strong></label>
+<div id = "user">
+  <h3>Username</h3>
   <input type="text" placeholder="Enter Username" id="username">
 </div>
 
-<div>
-  <label><strong>Password</strong></label>
+<div id = "pass">
+  <h3>Password</h3>
   <input type="password" placeholder="Enter Password" id="password" required>
 </div>
 
-<div>
-  <label><strong>Repeat Password</strong></label>
+<div id = "pass_r">
+  <h3>Repeat Password</h3>
   <input type="password" placeholder="Repeat Password" id="password-repeat" required>
 </div>
 
 
 <!-- I'm thinking we can add a drop down of the different restrictions-->
 <div id="dietSelection">
-    <label for="diet"><b>Dietary Restrictions</b></label>
-    <button type="button" onclick="addDietaryRestriction()">+</button>
+    <h3>Dietary Restrictions</h3>
+    <button type="button" onclick="addDietaryRestriction()">Add +</button>
     <div id="dietInputs">
         <select class="diets">
         <datalist id="dietInputs">
-            <option value="Dietary Restriction 1"> Dietary Restriction 1</option>
-            <option value="Dietary Restriction 2">Dietary Restriction 2 </option>
+            <option value="gluten-free"> Gluten Free</option>
+            <option value="dairy-free">Dairy Free</option>
+            <option value="sugar-free">Sugar Free</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="kosher">Kosher</option>
+            <option value="lactose intolerance">Lactose Intolerance</option>
+            <option value="fish allergy">Fish Allergy</option>
+            <option value="wheat allergy">Wheat Allergy</option>
+            <option value="nut-free">Nut Free</option>
+
+
         </datalist>
 
         </select>
@@ -88,15 +108,22 @@
 <!-- I'm thinking we can add a drop down of the different appliances?-->
 
 <div id="appSelection">
-    <label for="diet"><b>Appliances Owned</b></label>
-    <button type="button" onclick="addAppliance()">+</button>
+    <h3>Appliances Owned</h3>
+    <button type="button" onclick="addAppliance()">Add +</button>
     <div id="appInputs">
         <select class="appliances">
         <datalist id="appInputs">
-            <option value="Appliance 1"> Appliance 1</option>
-            <option value="Appliance 2 2"> Appliance 2 </option>
+            <option value="mixer">Mixer</option>
+            <option value="oven"> Oven </option>
+            <option value="microwave"> Microwave </option>
+            <option value="bowl">  Bowl </option>
+            <option value="whisk"> Whisk </option>
+            <option value="sheet tray"> Sheet Tray  </option>
+            <option value="blender"> Blender  </option>
+            <option value="toaster"> Toaster </option>
+            <option value="fryer"> Fryer </option>
+            <option value="rice cooker"> Rice Cooker </option>
         </datalist>
-
         </select>
         
         <button type="button" onclick="removeEntry(this)">-</button>
@@ -115,6 +142,5 @@
 
   
 
-
-</div>
+</body>
 </html>

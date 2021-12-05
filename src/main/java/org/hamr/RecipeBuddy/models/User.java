@@ -44,6 +44,11 @@ public class User {
   @DBRef
   private List<Recipe> savedRecipes;
 
+  private List<IngredientWithMeasurement> ownedIngredients;
+
+  private List<Ingredient> shoppingCartIngredients;
+
+  private List<String> utensils;
 
   public User() {
   }
