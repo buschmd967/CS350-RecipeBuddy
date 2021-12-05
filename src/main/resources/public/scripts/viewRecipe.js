@@ -37,7 +37,7 @@ $(document).ready(function() {
     stepTemplate = $("#step").clone();
     $("#step").remove();
 
-    let params = new URLSearchParams(window.location.search);
+    // let params = new URLSearchParams(window.location.search);
     let name = $.cookie("viewRecipeName");
     let author = $.cookie("viewRecipeAuthor");
     console.log(name);
@@ -66,6 +66,7 @@ $(document).ready(function() {
         recipe = data;
         $("#name").append(recipe["name"]);
         $("#author").append(recipe["author"]);
+        displayRating();
         let cookTime = recipe["cookTime"];
         if(cookTime == 0){
             $("#cookTime").append("No cook time specified.");
@@ -289,3 +290,101 @@ function timerDisplay(sec){
     return hours.padStart(2,'0')+":"+minutes.padStart(2, '0')+":"+seconds.padStart(2, '0');
     
   }
+
+function rate(){
+    let rating = $("#rating").prop("value");
+    let rateVal;
+    if(rating == "No Rating"){
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/rate',
+            type: 'delete',
+            headers: {"Authorization": "Bearer " + $.cookie("jwt")},
+            data: JSON.stringify({
+                "recipeRating": rateVal,
+                "recipeName": recipe["name"],
+                "recipeAuthor": recipe["author"]
+            }),
+            xhrFields: { withCredentials:true },
+            contentType: 'application/json',
+            success: function(response){
+                console.log("SUCCESS");
+            },
+            complete: function(xhr, textStatus) {
+                if(xhr.status != 200){
+                    console.log(xhr)
+                }
+    
+            } 
+        }).then(data =>{
+            console.log(data)
+            updateRating();
+        });
+    }
+    else if(1 <= rating && rating <= 5){
+        rateVal = Math.floor(rating);
+        $.ajax({
+            url: 'http://localhost:8080/api/recipe/rate',
+            type: 'post',
+            headers: {"Authorization": "Bearer " + $.cookie("jwt")},
+            data: JSON.stringify({
+                "recipeRating": rateVal,
+                "recipeName": recipe["name"],
+                "recipeAuthor": recipe["author"]
+            }),
+            xhrFields: { withCredentials:true },
+            contentType: 'application/json',
+            success: function(response){
+                console.log("SUCCESS");
+            },
+            complete: function(xhr, textStatus) {
+                if(xhr.status != 200){
+                    console.log(xhr)
+                }
+    
+            } 
+        }).then(data =>{
+            console.log(data)
+            updateRating();
+        });
+    }
+
+}
+
+function updateRating(){
+    let name = $.cookie("viewRecipeName");
+    let author = $.cookie("viewRecipeAuthor");
+    console.log(name);
+    console.log(author);
+
+    $.ajax({
+        url: 'http://localhost:8080/api/recipe/get',
+        type: 'post',
+        headers: {"Authorization": "Bearer " + $.cookie("jwt")},
+        data: JSON.stringify({
+            "name": name,
+            "author": author
+          }),
+        xhrFields: { withCredentials:true },
+        contentType: 'application/json',
+        success: function(response){
+            console.log("SUCCESS");
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status != 200){
+                console.log(xhr)
+            }
+
+        } 
+    }).then(data => {
+        recipe = data;
+        displayRating();
+    })
+}
+
+function displayRating(){
+    let rating = recipe["rating"];
+    if(rating == -1){
+        rating = "Not yet rated.";
+    }
+    $("#displayRating").html("Rating: " + rating);
+}

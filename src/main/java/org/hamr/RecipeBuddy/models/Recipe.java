@@ -39,7 +39,7 @@ public class Recipe {
     private String[] otherTags;
 
     private IngredientWithMeasurement[] ingredients;
-
+    
     @DBRef
     @NotEmpty
     @NotNull
@@ -67,6 +67,7 @@ public class Recipe {
         this.name = name;
         this.author = author;
         this.comments = new ArrayList<>();
+        this.allRating = new ArrayList<>();
     }
 
     public String getName(){

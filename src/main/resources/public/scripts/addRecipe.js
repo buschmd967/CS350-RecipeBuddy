@@ -182,7 +182,7 @@ function getSteps(){
     let out = [];
     let stepTexts = [];
     let stepTimes = [];
-    let videoURLs = [];
+    // let videoURLs = [];
 
     $(".stepText").each(function(){
         stepTexts.push($(this).val());
@@ -197,16 +197,16 @@ function getSteps(){
         }
     });
 
-    $(".videoURL").each(function(){
-        videoURLs.push($(this).val());
-    });
+    // $(".videoURL").each(function(){
+    //     videoURLs.push($(this).val());
+    // });
 
     for(let i = 0; i < stepTexts.length; i++){
         if(stepTexts[i] != ""){
             out.push({
                 "stepText": stepTexts[i],
-                "timer": stepTimes[i],
-                "videoURL": videoURLs[i]
+                "timer": stepTimes[i]//,
+                // "videoURL": videoURLs[i]
             });
         }
     }

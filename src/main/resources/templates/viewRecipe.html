@@ -39,6 +39,7 @@
 		<h1 id="name"></h1>
 		<h4 id="author">By: </h4>
 		<h4 id="cookTime"></h4>
+		<h4 id="displayRating">Rating: </h4>
 		 
 		<table id="tagTable">
 			<!-- Is a table the best way to show this, or can I break this into a section per each column?
@@ -60,6 +61,21 @@
 		<h4>Steps</h4>
 		<div id="steps">
 			
+		</div>
+		<h4>Rate</h4>
+		<div id="addRating">
+			<select id="rating">
+				<datalist id="ratingList">
+					<option value="No Rating">No Rating</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</datalist>
+			</select>
+			<button type="button" onclick="rate()">Rate</button>
+			<br>
 		</div>
 		<button type="button" onclick="cook()">Cook Recipe</button>
 		<button type="button" id="deleteRecipeButton" onclick="deleteRecipe()" hidden>Delete Recipe</button>

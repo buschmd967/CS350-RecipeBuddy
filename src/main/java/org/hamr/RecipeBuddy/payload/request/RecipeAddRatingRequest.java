@@ -1,10 +1,11 @@
 package org.hamr.RecipeBuddy.payload.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 public class RecipeAddRatingRequest {
-    @NotBlank
-    private short recipeRating;
+
+    private double recipeRating;
 
     @NotBlank
     private String recipeName;
@@ -13,10 +14,9 @@ public class RecipeAddRatingRequest {
     private String recipeAuthor;
 
 
-    public short getRecipeRating(){
+    public double getRecipeRating(){
         return recipeRating;
     }
-
    
     public String getRecipeName(){
         return recipeName;
