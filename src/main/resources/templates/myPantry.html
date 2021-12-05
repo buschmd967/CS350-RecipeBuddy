@@ -9,26 +9,52 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<script src="../scripts/myPantry.js"></script>
 
-		
-	</head>
+			<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
+            <link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
+            <link rel="stylesheet"  href="../styles/main.css">
+            <link rel="stylesheet"  href="/src/main/resources/public/styles/pantry.css">	
+            <link rel="stylesheet"  href="../styles/pantry.css">
+        
+            <!-- Online Font Resources-->
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+            </head>
+    
+    
+    
+        <header>
+            <div id="website-header">
+                <ul>
+                    <li style="float:left"><a href="homepage">RecipeBuddy</a></li>
+                    <li><a href="myProfile" id="MyProfile">My Profile</a></li>
+                    <li><a class="active" href="pantry">Pantry</a></li>
+                    <li><a href="recipeBook">Recipe Book</a></li>
+                    <li><a href="addRecipe">Add Recipe</a></li>
+                    <li><a href=searchRecipe>Search</a></li>
+                    <li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
+                </ul>
+            </div>
+        </header>
     <body>
+        <h1>NAME's Pantry</h1>
         <table>
             <tr>
                 <td>
                     <div id="pantryDiv">
-                        <h2>Pantry</h2>
-                        <h4>Ingredients</h4>
+                        <h2>Ingredients</h2>
                         <div id="ingredientsDiv">
-                            
                         </div>
                     </div>
                 </td>
+                </tr>   
+                <tr>
                 <td>
                     <div id="ShoppingCartDiv">
-                        <h2>Shopping Cart</h2>
+                        <h2>Utensils</h2>
                     </div>
                 </td>
-            </tr>
+                </tr>
+            
         </table>
         
     </body>
