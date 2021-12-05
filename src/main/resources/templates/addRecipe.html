@@ -31,7 +31,7 @@
 				<li><a href="recipeBook">Recipe Book</a></li>
 				<li><a class="active" href="addRecipe">Add Recipe</a></li>
 				<li><a href=searchRecipe id="searchButton">Search</a></li>
-				<li><input onKeyUp="updateSearch()" id="searchText" size=30></li>
+				<li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
 			</ul>
 		</div>
 	</header>
@@ -40,27 +40,29 @@
 	<body>
 		<h1>Add a Recipe</h1>
 		<div id = "all-fields">
+
+
+			<!--NEW-->
+			<div id="photo" >
+				<h3>Picture</h3>
+				<table>
+					<tr>
+						<td><image id="recipeImage" width=300 height=300></td>
+					</tr>
+					<tr>
+						<td><input type="file" id="fileToUpload" onchange="viewImage()"></td>
+					</tr>
+				</table>
+			</div>
+
 			<div>
 				<h3>Name</h3>
 				<input type="text" id="recipeName" placeholder="My Recipe"/>
 			</div>
 
-			<!--NEW-->
-			<div>
-				<h3>Picture</h3>
-				<table>
-					<tr>
-						<td><image id="recipeImage" width=200 height=200></td>
-					</tr>
-					<tr>
-						<td><input type="file" id="fileToUpload" onchange="viewImage()"></td>
-					</tr>
-				
-				</table>
-				
-			</div>
+			
 
-			<!--NOT CONNECTED TO BACKEND-->
+			
 			<div id="servingsSection">
 				<h3>Total Servings</h3>
 				<div id="servingsInputs">
@@ -71,7 +73,7 @@
 
 			<!--NEW-->
 			
-			<!--NOT CONNECTED TO BACKEND-->
+			
 			<div id="totalTimeSection">
 				<h3>Total Time</h3>
 				<div id="timeInputs">
@@ -128,7 +130,7 @@
 			</div>
 
 			<div id="otherTagsSection">
-				<h3>Misc Tags
+				<h3>Type of Meal
 					<button type="button" onclick="addOtherTag()">Add +</button>
 				</h3>
 				<div id="otherTagInputs">
@@ -143,10 +145,10 @@
 				<button type="button" onclick="addStep()">+</button>
 				</h3>
 				<div id="stepInputs">
-					<input type="text" class="stepText" placeholder="Step Description">
+					<input type="text" class="stepText" placeholder="Step Title (Ex: Step 1)">
 					<input type="text" class="stepTime" placeholder="Amount of Time (12:34:56)">
 					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)">
-					<button onclick="toggleTimer(this)" id="timerButton">Add Timer</button>
+					<button type="button" onclick="toggleTimer(this)" id="timerButton">Add Timer</button>
 					<input type="text" class="stepText" onKeyUp="checkForTime(this)" placeholder="Step Instructions">
 					<input type="text" class="stepTime" placeholder="Amount of Time (HH:mm:ss)" hidden>
 					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)" hidden>
@@ -156,7 +158,6 @@
 			</div>
 			
 
-			<!--NEW-->
 			<div id="difficultyRatingSection">
 				<h3>Difficulty to Make - Easy (1) to Hard (5)</h3>
 				<div id="difficultyRatingInputs">

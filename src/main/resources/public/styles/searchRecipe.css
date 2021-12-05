@@ -49,3 +49,18 @@ button[type="button"]{
     font-size: 15px;
     padding: 8px 30px 8px 30px;
   }
+
+  .recipeTable{
+      
+      padding-right:15px;
+      text-align:right;
+  }
+
+  h2{
+      text-align:center;
+  }
+
+  #recipeText{
+      float:left;
+      margin-top: 25px;
+  }

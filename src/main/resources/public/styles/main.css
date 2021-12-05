@@ -44,3 +44,12 @@ ul {
     
   }
   
+  .searchNav {
+      float:left;
+      padding: 5px;
+      margin-top: 10px; 
+      margin-left: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+
+  }
