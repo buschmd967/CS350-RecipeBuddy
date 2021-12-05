@@ -1,0 +1,66 @@
+h1{
+    text-align: center;
+}
+.recipeInfo{
+    font-family: 'Montserrat', sans-serif;
+    border: solid 1px rgb(117, 117, 117);
+    border-radius: 8px;
+    width: 70%;
+    color: #333;
+    margin-left: 15%;
+    margin-bottom: 10px;
+    padding-left: 15px;
+}
+
+input[type=submit] {
+    background-color: #fcdb03;
+    text-align: center;
+    color: #383837;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin-top: 15px;
+    padding:5px 90px 5px 90px; 
+    cursor:pointer;
+    border: none;
+    font-size: 20px;
+    margin-left:35%;
+}
+
+input[type=text]{
+    padding: 5px;
+    width: 70%;
+    margin-top: 5px; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin-left: 10%;
+    margin-right: 10px;
+}
+
+button[type="button"]{
+    background-color: #555;
+    color: white;  
+    margin-left: 8px;
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    border-radius: 8px;
+    text-decoration: none;
+    border: solid;
+    font-size: 15px;
+    padding: 8px 30px 8px 30px;
+  }
+
+  .recipeTable{
+      
+      padding-right:15px;
+      text-align:right;
+  }
+
+  h2{
+      text-align:center;
+  }
+
+  #recipeText{
+      float:left;
+      margin-top: 25px;
+  }

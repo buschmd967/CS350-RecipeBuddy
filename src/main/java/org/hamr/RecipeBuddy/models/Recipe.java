@@ -38,7 +38,7 @@ public class Recipe {
 
     private String[] otherTags;
 
-    private Ingredient[] ingredients;
+    private IngredientWithMeasurement[] ingredients;
 
     @DBRef
     @NotEmpty
@@ -160,11 +160,11 @@ public class Recipe {
         this.author = author;
     }
 
-    public void setIngrediensts(Ingredient[] ingredients){
+    public void setIngrediensts(IngredientWithMeasurement[] ingredients){
         this.ingredients = ingredients;
     }
 
-    public Ingredient[] getIngredients(){
+    public IngredientWithMeasurement[] getIngredients(){
         return ingredients;
     }
 

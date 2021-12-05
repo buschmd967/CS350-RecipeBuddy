@@ -56,3 +56,12 @@ input[type=submit] {
     border-radius: 5px;
     border-radius: 5px; 
 }
+
+#signUpRef{
+    margin-top: 10px;
+}
+
+a{
+    color:white;
+    text-decoration:none;
+}

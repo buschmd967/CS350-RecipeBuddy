@@ -70,3 +70,8 @@ select {
 #submit{
     text-align: center;    
 }
+
+#photo{
+  float:right;
+  margin-right: 30px;
+}

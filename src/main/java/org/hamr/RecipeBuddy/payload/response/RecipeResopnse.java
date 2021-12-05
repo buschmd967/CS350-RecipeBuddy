@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hamr.RecipeBuddy.models.Comment;
 import org.hamr.RecipeBuddy.models.Ingredient;
+import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 import org.hamr.RecipeBuddy.models.Recipe;
 import org.hamr.RecipeBuddy.models.Step;
 
@@ -22,7 +23,7 @@ public class RecipeResopnse {
 
     private String[] otherTags;
 
-    private Ingredient[] ingredients;
+    private IngredientWithMeasurement[] ingredients;
 
     private List<Comment> comments;
 

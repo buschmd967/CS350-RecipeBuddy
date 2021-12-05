@@ -133,7 +133,7 @@ public class RecipeController {
         recipe.setDietaryRestrictions(dietaryRestrictions);
         recipe.setAppliances(appliances);
         recipe.setOtherTags(otherTags);
-        recipe.setIngrediensts(ingredients);
+        recipe.setIngrediensts(ingredientswithMeasurements);
         recipe.setSteps(recipeAddRequest.getSteps());
         recipe.setDifficulty(difficulty);
         recipe.setImage(recipeAddRequest.getImage());
@@ -403,6 +403,11 @@ public class RecipeController {
 
         switch(measurement.toLowerCase()){
 
+            //FLUID***
+
+            case "ml":
+            return 1;
+
             //teaspoon
             case "t":
             case "tsp":
@@ -427,8 +432,7 @@ public class RecipeController {
             case "cups":
             return 250;
 
-            case "pinch":
-            return 1;
+           
 
             //quart
             case "quart":
@@ -449,6 +453,9 @@ public class RecipeController {
             return 3785.4;
             // GRAMS **********
 
+            case "g":
+            return 1;
+
             // ounce (this is not fluid ounces)
             case "ounce":
             case "ounces":
@@ -464,7 +471,8 @@ public class RecipeController {
             case "lbs":
             return 450;
 
-            case "ml":
+            // NON-CONVERTABLE
+            case "pinch":
             return 1;
 
             default:
