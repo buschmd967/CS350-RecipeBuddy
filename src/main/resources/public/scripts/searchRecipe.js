@@ -87,9 +87,7 @@ function displayRecipies(data){
         let rating = recipe["rating"];
         let image = recipe["image"];
         $("#results").append(
-            `
-           
-                
+            `   
                 <div id="toClear" onclick="redirect('${name}', '${recipe["author"]}')">
                     <div class="recipeInfo">
                         

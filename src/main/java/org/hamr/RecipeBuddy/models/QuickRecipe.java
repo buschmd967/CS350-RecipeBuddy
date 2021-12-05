@@ -1,6 +1,8 @@
 package org.hamr.RecipeBuddy.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +17,7 @@ public class QuickRecipe {
     @DBRef
     private Recipe recipe;
     
+    @Indexed(name = "ratingIndex", direction = IndexDirection.DESCENDING)
     private float rating;
 
     private String[] dietaryRestrictions;

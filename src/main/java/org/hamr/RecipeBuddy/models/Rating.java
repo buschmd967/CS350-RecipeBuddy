@@ -14,7 +14,7 @@ public class Rating {
     private String author;
     private double value;
     
-    public Rating(short value,String author){
+    public Rating(double value,String author){
         this.value = value;
         this.author = author;
 
@@ -26,7 +26,7 @@ public class Rating {
     public double getValue(){
         return value;
     }
-    public void setValue(short value){
+    public void setValue(double value){
         this.value = value;
     }
     public void setAuthor(String author){

@@ -144,6 +144,7 @@ public class RecipeController {
         recipeRepository.save(recipe);
         quickRecipeRepository.save(quickRecipe);
 
+
         return ResponseEntity.ok(new StatusResponse(false, "Recipe Added"));
     }
 
@@ -580,10 +581,14 @@ public class RecipeController {
         }
         return(ResponseEntity.ok(new RecipiesResponse(recipies)));
     }
-    @PostMapping("/addRating")
-    public ResponseEntity<?> addRating(@Valid @RequestBody RecipeAddRatingRequest recipeAddRatingRequest, @RequestHeader("Authorization") String headerAuth){
+    @PostMapping("/rate")
+    public ResponseEntity<?> rate(@Valid @RequestBody RecipeAddRatingRequest recipeAddRatingRequest, @RequestHeader("Authorization") String headerAuth){
+        
+        //Get relevant info
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth); //username of user rating recipe
         String recipeName = recipeAddRatingRequest.getRecipeName();
         String recipeAuthor = recipeAddRatingRequest.getRecipeAuthor();   
+        double rating = recipeAddRatingRequest.getRecipeRating();
         
         //Get recipe
         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, recipeAuthor);
@@ -594,32 +599,96 @@ public class RecipeController {
         logger.info("Got Recipe");
 
         //Save rating and get reference for recipe
-        Rating newRating = new Rating(recipeAddRatingRequest.getRecipeRating(), 
-                                        recipeAddRatingRequest.getRecipeAuthor());
+        // Rating newRating = new Rating(recipeAddRatingRequest.getRecipeRating(), username);
 
         
         Recipe recipe = possibleRecipe.get();
-        List<Rating> currentRating = recipe.getAllRating();
+        QuickRecipe quickRecipe = quickRecipeRepository.findByRecipe(recipe).get();
+        List<Rating> currentRatings = recipe.getAllRating();
         
-        if(currentRating != null){
-            logger.info("Value of ratings: {}", currentRating.getClass());
-            currentRating.add(newRating);
-
+        //Double check that currentRating exists
+        if(currentRatings != null){
+            logger.info("Value of ratings: {}", currentRatings.getClass());
         }
         else{
             logger.info("Value of ratings: NULL");
             return ResponseEntity.ok(new StatusResponse(true, "Could not add rating, ratings[] is null."));
-
         }
-        recipe.setAllRating(currentRating);
-        recipe.setRating(calculateRating(recipe)); // calculate the average rating and set it to the final rating of the recipe.
+
+        currentRatings = setRating(currentRatings, username, rating);
+
+        recipe.setAllRating(currentRatings);
+        float calculatedRating = calculateRating(recipe);
+        recipe.setRating(calculatedRating); // calculate the average rating and set it to the final rating of the recipe.
+        quickRecipe.setRating(calculatedRating);
         recipeRepository.save(recipe);
+        quickRecipeRepository.save(quickRecipe);
         return ResponseEntity.ok(new StatusResponse(false, "Added Rating"));
     
+    }
+
+    @DeleteMapping("/rate")
+    public ResponseEntity<?> removeRate(@Valid @RequestBody RecipeAddRatingRequest recipeAddRatingRequest, @RequestHeader("Authorization") String headerAuth){
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth); //username of user rating recipe
+        String recipeName = recipeAddRatingRequest.getRecipeName();
+        String recipeAuthor = recipeAddRatingRequest.getRecipeAuthor();
+
+         //Get recipe
+         Optional<Recipe> possibleRecipe = recipeRepository.findByNameAndAuthor(recipeName, recipeAuthor);
+         logger.info("Getting recipe: {} by {}", recipeName, recipeAuthor);
+         if(!possibleRecipe.isPresent()){
+             return ResponseEntity.ok(new StatusResponse(true, "Could not find Recipe"));
+         }
+         logger.info("Got Recipe");
+
+         Recipe recipe = possibleRecipe.get();
+         QuickRecipe quickRecipe = quickRecipeRepository.findByRecipe(recipe).get();
+         List<Rating> currentRatings = recipe.getAllRating();
+         
+         //Double check that currentRating exists
+         if(currentRatings != null){
+             logger.info("Value of ratings: {}", currentRatings.getClass());
+         }
+         else{
+             logger.info("Value of ratings: NULL");
+             return ResponseEntity.ok(new StatusResponse(true, "Could not remove Rating, ratings[] is null."));
+         }
+
+         //try to remove rating
+         Boolean removed = false;
+         for(int i = 0; i < currentRatings.size(); i++){
+             if(currentRatings.get(i).getAuthor().equals(username)){
+                 logger.info("Found previous rating of {}", currentRatings.get(i).getValue());
+                 Boolean a = currentRatings.remove(currentRatings.get(i));
+                 removed = true;
+                 break;
+             }
+         }
+
+        //  logger.info("size of currentRatings: {}", currentRatings.size());
+         
+         //update stuff
+         recipe.setAllRating(currentRatings);
+         float calculatedRating = calculateRating(recipe);
+         recipe.setRating(calculatedRating);
+         quickRecipe.setRating(calculatedRating);
+
+         recipeRepository.save(recipe);
+         quickRecipeRepository.save(quickRecipe);
+
+         if(!removed){
+            return ResponseEntity.ok(new StatusResponse(false, "Could not find rating."));
+         }
+
+         return ResponseEntity.ok(new StatusResponse(false, "Removed Rating"));
+
     }
      
     float calculateRating(Recipe recipe){
         float sum = 0;
+        if(recipe.getAllRating().size() == 0){
+            return -1;
+        }
         for(Rating rating: recipe.getAllRating())
         {
             sum += rating.getValue();
@@ -627,16 +696,18 @@ public class RecipeController {
         return (sum/recipe.getAllRating().size());
     
     }
-    boolean findAuthor(List<Rating> lrating, Rating rating){
+    List<Rating> setRating(List<Rating> lrating, String username, double rating){
         for (int i=0;i<lrating.size();i++)
         {
            Rating b = lrating.get(i);
-            if ( Objects.equals(b.getAuthor(), rating.getAuthor()))
-            {
-                return true;
+            if(b.getAuthor().equals(username)){
+                b.setValue(rating);
+                lrating.set(i, b);
+                return lrating;
             }
         }
-        return false;
+        lrating.add(new Rating(rating, username));
+        return lrating;
     }
     
 }

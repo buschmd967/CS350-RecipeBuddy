@@ -1,6 +1,6 @@
 th, td {
-    padding: 15 px;
-    width: 100 px;
+    padding: 15px;
+    width: 200px;
     text-align: left;
 }
 
@@ -8,12 +8,13 @@ th, td {
 
 table{
     border-collapse: separate;
-    border-spacing: 0 20 px;
+    border-spacing: 5 15px;
 }
 
 th{
     background-color: #333;
     color:white;
+    text-align: center;
 }
 
 

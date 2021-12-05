@@ -7,7 +7,8 @@
 		<!-- JS Files-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script src="../scripts/addRecipe.js"></script>
+        <script src="../scripts/searchbar.js"></script>
+		<script src="../scripts/addRecipe.js"></script>
 
 		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
 		<link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
@@ -145,13 +146,13 @@
 				<button type="button" onclick="addStep()">+</button>
 				</h3>
 				<div id="stepInputs">
-					<input type="text" class="stepText" placeholder="Step Title (Ex: Step 1)">
-					<input type="text" class="stepTime" placeholder="Amount of Time (12:34:56)">
-					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)">
+					<!-- <input type="text" class="stepText" placeholder="Step Title (Ex: Step 1)"> -->
+					<!--<input type="text" class="stepTime" placeholder="Amount of Time (12:34:56)" size=10 hidden>-->
+					<!--<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)">-->
 					<button type="button" onclick="toggleTimer(this)" id="timerButton">Add Timer</button>
 					<input type="text" class="stepText" onKeyUp="checkForTime(this)" placeholder="Step Instructions">
-					<input type="text" class="stepTime" placeholder="Amount of Time (HH:mm:ss)" hidden>
-					<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)" hidden>
+					<input type="text" class="stepTime" placeholder="Amount of Time (HH:mm:ss)" size=15 hidden>
+					<!--<input type="text" class="videoURL" placeholder="Video URL (www.youtube.com)" hidden> -->
 					<button type="button" onclick="removeEntry(this)">-</button>
 					<br>
 				</div>
