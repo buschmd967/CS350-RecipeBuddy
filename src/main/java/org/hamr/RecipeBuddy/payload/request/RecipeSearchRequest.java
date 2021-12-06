@@ -13,5 +13,6 @@ public class RecipeSearchRequest {
 
     private boolean dietaryRestrictions = true;
     private boolean appliances = true;
+    private int page = 1;
 
 }
