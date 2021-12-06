@@ -65,3 +65,7 @@ a{
     color:white;
     text-decoration:none;
 }
+
+.errorText{
+    color: red;
+  }

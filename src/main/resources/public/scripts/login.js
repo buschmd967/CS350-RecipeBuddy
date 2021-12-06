@@ -30,6 +30,10 @@ function login() {
         },
         complete: function(xhr, textStatus) {
             console.log(xhr.status);
+            if(xhr.status == 401){
+                $("#status").html("Incorrect username or password.");
+                $("#status").show();
+            }
         } 
     }).then(function(data){ 
         $.cookie("jwt",data.accessToken);

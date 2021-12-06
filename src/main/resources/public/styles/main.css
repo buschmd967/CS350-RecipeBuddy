@@ -53,3 +53,7 @@ ul {
       font-size: 15px;
 
   }
+
+  #logout {
+    cursor:pointer;
+  }

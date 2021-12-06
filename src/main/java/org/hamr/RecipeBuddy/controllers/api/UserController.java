@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.hamr.RecipeBuddy.models.User;
+import org.hamr.RecipeBuddy.payload.response.MessageResponse;
 import org.hamr.RecipeBuddy.payload.response.StatusResponse;
 import org.hamr.RecipeBuddy.payload.response.UserInfoResponse;
 import org.hamr.RecipeBuddy.repository.UserRepository;
@@ -114,5 +115,12 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new StatusResponse(false, "DietaryRestriction Removed"));
+    }
+
+
+    @PostMapping("/username")
+    public ResponseEntity<?> removeDietaryRestriction(@RequestHeader("Authorization") String headerAuth){
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);
+        return ResponseEntity.ok(new MessageResponse(username));
     }
 }
