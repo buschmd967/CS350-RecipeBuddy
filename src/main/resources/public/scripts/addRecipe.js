@@ -120,6 +120,7 @@ function getOtherTags(){
     let out = [("" + $("#recipeName").val()).toLowerCase()];
     $(".otherTag").each(function() 
         { 
+            if($(this).val() != "");
             out.push( ("" + $(this).val()).toLowerCase() );
         }
     );

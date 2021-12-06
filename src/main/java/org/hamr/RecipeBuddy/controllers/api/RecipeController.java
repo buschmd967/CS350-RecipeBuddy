@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.qos.logback.core.joran.conditional.ElseAction;
@@ -713,7 +714,7 @@ public class RecipeController {
     }
 
     @PostMapping("/trending")
-    public ResponseEntity<?> getTrending(@RequestHeader("Authorization") String headerAuth){
+    public ResponseEntity<?> getTrending(@RequestParam(name="tag", defaultValue = "") String tag, @RequestHeader("Authorization") String headerAuth){
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth); //used for dietary restriction limiting
         Optional<User> possibleUser = null;
 
@@ -736,6 +737,11 @@ public class RecipeController {
             query.addCriteria(Criteria.where("dietaryRestrictions").all(dietaryRestrictions));
 
         }
+        if(!tag.equals("")){
+            Object[] tagArray = {tag};
+            query.addCriteria(Criteria.where("otherTags").in(tagArray));
+        }
+
         
         query.addCriteria(Criteria.where("rating").gte(4));
         //might want to change to # of ratings, not average rating

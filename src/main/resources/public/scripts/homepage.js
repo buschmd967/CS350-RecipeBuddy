@@ -24,14 +24,14 @@ var recipes = null;
 
 $(document).ready(function() {
     console.log("test");
-    getRecipes();
+    getRecipes("");
     }
 );
 
 
-async function getRecipes(){
+async function getRecipes(tag){
     $.ajax({
-        url: 'http://localhost:8080/api/recipe/trending',
+        url: 'http://localhost:8080/api/recipe/trending?tag=' + tag,
         type: 'post',
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
         xhrFields: { withCredentials:true },
@@ -56,13 +56,18 @@ async function getRecipes(){
 }
 
 function displayRecipes(){
+    $("#trendingRecipestr").empty();
+
+    if(recipes === undefined){
+        $("#trendingRecipestr").append(`<h1> No recipes with that tag were found.</h1>`);
+    }
     for(let recipe of recipes){
         let name = recipe["name"];
         let displayAuthor = recipe["displayAuthor"];
         let author = recipe["author"];
         let rating = recipe["rating"];
         let image = recipe["image"];
-        recipeHTML = `<td>
+        recipeHTML = `<td id="toClear">
         <div class="recipeInfo" onclick="viewThisRecipe(this)">
         <h2 id="recipeName">${name}</h2>
         <div id="recipeText">
@@ -119,4 +124,9 @@ function viewThisRecipe(divElement){
     $.cookie("viewRecipeName", name);
     $.cookie("viewRecipeAuthor", author);
     document.location = "/viewRecipe";
+}
+
+function showCategory(divEl){
+    let category = divEl.querySelector("#categoryName").innerHTML;
+    getRecipes(category.toLowerCase());
 }
