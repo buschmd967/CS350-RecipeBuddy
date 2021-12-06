@@ -75,3 +75,19 @@ select {
   float:right;
   margin-right: 30px;
 }
+
+.appliances{
+  width: 30%;
+}
+
+.diets{
+  width: 30%;
+}
+
+.ingredients{
+  width:30%;
+}
+
+#otherTagInputs{
+  margin-top: 20px;
+}
