@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.qos.logback.core.joran.conditional.ElseAction;
@@ -69,6 +70,9 @@ public class RecipeController {
 
     @Value("${hamr.app.knownIngredients}")
     private String[] knownIngredients;
+
+    @Value("${hamr.app.pageSize}")
+    private int pageSize;
 
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
     
@@ -266,10 +270,10 @@ public class RecipeController {
     public ResponseEntity<?> search(@Valid @RequestBody RecipeSearchRequest recipeSearchRequest, @RequestHeader("Authorization") String headerAuth){
         logger.info("Search api");
         RecipeFindByParametersRequest recipeFindByParametersRequest = parseSearchString(recipeSearchRequest.getSearchString());
+        recipeFindByParametersRequest.setPage(recipeSearchRequest.getPage());
 
 
-
-
+        
         return findByParameters(recipeFindByParametersRequest, headerAuth);
     }
 
@@ -483,12 +487,6 @@ public class RecipeController {
         }
     }
 
-    private double getImperialScaleFactor(String measurement){
-        Double msf = getMetricScaleFactor(measurement);
-        
-        return msf != 0 ? 1/msf : 0;
-    }
-
     @GetMapping("/TESTSEARCH")
     public ResponseEntity<?> testsearch(){
         List<Ingredient>  ingredients = new ArrayList<>();
@@ -566,6 +564,8 @@ public class RecipeController {
             query.addCriteria(Criteria.where("otherTags").all(otherTags));
         
         query.with(Sort.by(Sort.Order.desc("rating")));
+        query.limit(pageSize);
+        query.skip(pageSize * (recipeFindByParametersRequest.getPage() - 1));
         List<QuickRecipe> possibleRecipies = mongoTemplate.find(query, QuickRecipe.class);
         
         if(possibleRecipies.isEmpty())
@@ -712,5 +712,60 @@ public class RecipeController {
         lrating.add(new Rating(rating, username));
         return lrating;
     }
-    
+
+    @PostMapping("/trending")
+    public ResponseEntity<?> getTrending(@RequestParam(name="tag", defaultValue = "") String tag, @RequestHeader("Authorization") String headerAuth){
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth); //used for dietary restriction limiting
+        Optional<User> possibleUser = null;
+
+        //get user dietary restrictions if user exists
+        if(!username.equals("")){
+            possibleUser = userRepository.findByUsername(username);
+        }
+        Object[] dietaryRestrictions = null;
+        if(possibleUser != null){
+            if( possibleUser.isPresent()){
+                dietaryRestrictions = possibleUser.get().getDietaryRestrictions().toArray(new Object[0]);
+            }
+        }
+
+        //create query
+        Query query = new Query();
+
+        if(dietaryRestrictions != null && dietaryRestrictions.length > 0){
+            logger.info("including dietary restrictions, including {}", dietaryRestrictions[0]);
+            query.addCriteria(Criteria.where("dietaryRestrictions").all(dietaryRestrictions));
+
+        }
+        if(!tag.equals("")){
+            Object[] tagArray = {tag};
+            query.addCriteria(Criteria.where("otherTags").in(tagArray));
+        }
+
+        
+        query.addCriteria(Criteria.where("rating").gte(4));
+        //might want to change to # of ratings, not average rating
+        // query.with(Sort.by(Sort.Order.desc("rating")));
+        // query.limit(pageSize);
+
+        //get stuff
+        List<QuickRecipe> possibleRecipies = mongoTemplate.find(query, QuickRecipe.class);
+        
+        if(possibleRecipies.isEmpty())
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
+        
+        List<Recipe> recipies = new ArrayList<>();
+        for(QuickRecipe quickRecipe : possibleRecipies){
+            Recipe recipe = quickRecipe.getRecipe();
+            if(recipe.getIsPrivate() && !(username.equals(recipe.getAuthor()))){ //if private recipe and user is not the author
+                continue; //do not add
+            }
+            recipies.add(quickRecipe.getRecipe());
+        }
+        if(recipies.isEmpty()){
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
+        }
+        return(ResponseEntity.ok(new RecipiesResponse(recipies)));
+    }
+
 }

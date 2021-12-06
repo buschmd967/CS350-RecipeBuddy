@@ -12,5 +12,6 @@ public class RecipeFindByParametersRequest {
     private String[] appliances;
     private String[] dietaryRestrictions;
     private String[] otherTags;
+    private long page = 1;
     
 }

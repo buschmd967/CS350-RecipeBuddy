@@ -35,6 +35,7 @@ function search(){
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
         data: JSON.stringify({
             "searchString": $("#searchString").val(),
+            "page" : 1,
             "appliances": true
           }),
         xhrFields: { withCredentials:true },

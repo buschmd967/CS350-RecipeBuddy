@@ -102,12 +102,41 @@
 							<option value="lbs">lbs</option>
 						</datalist>
 					</select>
-					<input type="text" class="ingredientName" placeholder="Ingredient"/>
+
+					<!-- Not sure if backend needs to change for this?-->
+					<select class="ingredientName">
+						<datalist id="ingInputs">
+						  
+							<option value="almond milk">  Almond Milk </option>
+							<option value="baking soda"> Baking Soda  </option>
+							<option value="beef">  Beef </option>
+							<option value="brown sugar"> Brown Sugar </option>
+							<option value="butter">Butter  </option>
+							<option value="canola oil"> Canola Oil </option>
+							<option value="coconut milk">  Coconut Milk</option>
+							<option value="cashew milk"> Cashew Milk </option>
+							<option value="cheese">  Cheese </option>
+							<option value="chicken"> Chicken </option>
+							<option value="cinnamon"> Cinnamon </option>
+							<option value="eggs"> Eggs  </option>
+							<option value="flour"> Flour </option>
+							<option value="garlic"> Garlic </option>
+							<option value="pork"> Pork  </option>
+							<option value="rice"> Rice </option>
+							<option value="salt"> Salt </option>
+							<option value="vegetable oil"> Vegetable Oil </option>
+							<option value="water">Water</option>
+							<option value="white sugar">  White Sugar </option>
+						</datalist>
+						</select>
+
+					<!--<input type="text" class="ingredientName" placeholder="Ingredient"/>-->
 					<button type="button" onclick="removeEntry(this)">-</button>
 					<br>
 				</div>
 			</div>
 
+			<!-- OLD - BEFORE DROPDOWN
 			<div id="applianceSection">
 				<h3>Appliances
 					<button type="button" onclick="addAppliance()">Add +</button>
@@ -118,7 +147,37 @@
 					<br>
 				</div>
 			</div>
+		-->
 
+		<div id="applianceSection">
+			<h3>Appliances Used
+				<button type="button" onclick="addAppliance()">Add +</button>
+			</h3>
+			<div class="dropdownMenu">
+				<div id="applianceInputs">
+					<select class="appliance">
+					<datalist id="appInputs">
+			
+						<option value="blender"> Blender  </option>
+						<option value="bowl">  Bowl </option>
+						<option value="fryer"> Fryer </option>
+						<option value="microwave"> Microwave </option>
+						<option value="mixer">Mixer</option>
+						<option value="oven"> Oven </option>
+						<option value="rice cooker"> Rice Cooker </option>
+						<option value="sheet tray"> Sheet Tray  </option>
+						<option value="toaster"> Toaster </option>
+						<option value="whisk"> Whisk </option>
+					</datalist>
+					</select>
+				
+				<button type="button" onclick="removeEntry(this)">-</button>
+				</div>
+				<br>
+			</div>
+		</div>
+
+			<!-- OLD - BEFORE DROPDOWN 
 			<div id="dietaryRestrictionSection">
 				<h3>Dietary Restrictions
 					<button type="button" onclick="addDietaryRestriction()">Add +</button>
@@ -129,13 +188,61 @@
 					<br>
 				</div>
 			</div>
+-->
+
+			<div id="dietaryRestrictionSection">
+				<h3>Dietary Restrictions
+					<button type="button" onclick="addDietaryRestriction()">Add +</button>
+				</h3>
+				<div class="dropdownMenu">
+					<div id="dietaryRestrictionInputs">
+						<select class="dietaryRestriction">
+						<datalist id="dietInputs">
+							<option value="dairy-free">Dairy Free</option>
+							<option value="fish allergy">Fish Allergy</option>
+							<option value="gluten-free"> Gluten Free</option>
+							<option value="kosher">Kosher</option>
+							<option value="lactose intolerance">Lactose Intolerance</option>
+							<option value="nut-free">Nut Free</option>
+							<option value="sugar-free">Sugar Free</option>
+							<option value="vegan">Vegan</option>
+							<option value="vegetarian">Vegetarian</option>
+							<option value="wheat allergy">Wheat Allergy</option>
+				
+						</datalist>
+				
+						</select>
+					
+					<button type="button" onclick="removeEntry(this)">-</button>
+					</div>
+					<br>
+				</div>
+			</div>
+
+
 
 			<div id="otherTagsSection">
 				<h3>Type of Meal
 					<button type="button" onclick="addOtherTag()">Add +</button>
 				</h3>
 				<div id="otherTagInputs">
-					<input type="text" class="otherTag" placeholder="Tag"/>
+
+					<select class="otherTag">
+						<datalist id="dietInputs">
+							<option value="">Not Specified</option>
+							<option value="breakfast">Breakfast</option>
+							<option value="lunch">Lunch</option>
+							<option value="dinner">Dinner</option>
+							<option value="spring">Spring</option>
+							<option value="summer">Summer</option>
+							<option value="fall">Fall</option>
+							<option value="winter">Winter</option>
+				
+						</datalist>
+				
+						</select>
+
+					<!--<input type="text" class="otherTag" placeholder="Tag"/>-->
 					<button type="button" onclick="removeEntry(this)">-</button>
 					<br>
 				</div>

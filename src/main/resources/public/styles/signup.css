@@ -1,10 +1,19 @@
-
-
-/* I (Rosie) need to fix left padding */
 body{ 
     padding-top: 40px;
     background-color:white ;
     font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+}
+
+h1{
+  text-align: center;
+  padding-top: 10px; 
+  padding-bottom: 30px;
+}
+
+h3{ 
+  padding-top: 10px;
+  margin-bottom: 5px;
 }
 
 
@@ -52,21 +61,16 @@ ul {
     padding-left: 0px;
     
   }
+/* END TOP NAV */
 
-/*
-#all-fields {
-    padding-left: 20px;
-    margin-top: 5px;
-}
-*/
-
-#website-header{
-  margin-left: 0px;
-  padding-left: 0px;
-  margin: 0;
-  
+#form{
+padding-left: 10px;
 }
 
+#photo{
+  float:right;
+  margin-right: 30px;
+}
 
 input[type=text]{
     padding: 5px;
@@ -74,29 +78,30 @@ input[type=text]{
     margin-top: 5px; 
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
-
 }
 
 input[type=text]:focus {
     border: 3px solid #555;
-  }
+}
 
-
-  input[type=password]{
-    padding: 5px;
-    width: 30%;
-    margin-top: 5px; 
+input[type=number]{
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
 
 }
 
+input[type=password]{
+    padding: 5px;
+    width: 30%;
+    margin-top: 5px; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+
 input[type=password]:focus {
     border: 3px solid #555;
-  }
+}
   
-
-
 button[type="button"]{
     background-color: #555;
     color: white;  
@@ -107,7 +112,6 @@ button[type="button"]{
     border-radius: 8px;
     text-decoration: none;
     border: solid;
-    font-size: 15px;
   }
 
 select {
@@ -117,55 +121,33 @@ select {
     background-color: #f1f1f1;
     color: black;
     font-family: 'Montserrat', sans-serif;
+    width: 30%;
   }
 
-h2{
-    text-align: left;
-    padding-top: 10px; 
-}
-
-h5{
-    text-align: left;
-}
-
-h3{ 
-
-    font-family: 'Montserrat', sans-serif;
-    margin: 0px;
-    padding-top: 30px;
-}
-
-h1{
-    text-align: left;
-    padding-top: 10px; 
-}
-
-
-.cancelbtn{ 
-
+.submit{ 
     background-color: #fcdb03;
     text-align: center;
     color: #fcdb03;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
-    margin-top: 15px;
-    padding:5px 90px 5px 90px; 
+    margin-top: 20px;
+    padding:10px 90px 10px 90px; 
     cursor:pointer;
     border: none;
     font-size: 20px;
 }
 
-.signupbtn{ 
-
-    background-color: #fcdb03;
-    text-align: center;
-    color: #fcdb03;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    margin-top: 15px;
-    padding:5px 90px 5px 90px; 
-    cursor:pointer;
-    border: none;
-    font-size: 20px;
+#bothButtons{
+  text-align: center;
+  
 }
 
+#signUpRef{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+a{
+  color:#333;
+  text-decoration:none;
+}

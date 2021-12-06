@@ -4,7 +4,6 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <script src="../scripts/signup.js"></script>
 
- 
 	<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) 
   <link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
   <link rel="stylesheet"  href="../styles/main.css"> -->
@@ -16,16 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
 </head>
 
-<!--
-<header>
-   Top Navigation Bar (Does not inlcude any tabs since user is not logged in)
-  <div id="signup-header">
-    <h1> RecipeBuddy</h1>
-  </div>
-</header>
-
--->
-
 <header>
   <div id="website-header">
     <ul>
@@ -34,13 +23,21 @@
   </div>
 </header>
 
-
-
 <body>
-<!-- Currently, the only way I (morgan) know how to do stuff is via ajax. From what I can tell, the <form> tag needs .php files to work (which we aren't using)-->
+  <h1>Create Account</h1> 
+<div id="form">
 
-  <div><h1>Create Account</h1> </div>
-  <div><h5>Fill in this Form to Create a RecipeBuddy Account</h5></div>
+  <div id=photo>
+      <h3 style="text-align: center">Profile Picture</h3>
+      <table>
+        <tr>
+          <td><image id="profileImage" width=300 height=300></td>
+        </tr>
+        <tr>
+          <td><input type="file" id="fileToUpload" onchange="viewImage()"></td>
+        </tr>
+      </table>
+  </div>
 
 
   <div id = "nm">
@@ -48,19 +45,8 @@
   <input type="text" placeholder="Enter Name" id="displayName">
   </div>
   
-  <div>
-    <h3>Picture</h3>
-    <table>
-      <tr>
-        <td><image id="profileImage" width=200 height=200></td>
-      </tr>
-      <tr>
-        <td><input type="file" id="fileToUpload" onchange="viewImage()"></td>
-      </tr>
-    
-    </table>
-    
-  </div>
+  
+
 
 <div id = "user">
   <h3>Username</h3>
@@ -80,67 +66,123 @@
 
 <!-- I'm thinking we can add a drop down of the different restrictions-->
 <div id="dietSelection">
-    <h3>Dietary Restrictions</h3>
+  <h3>Dietary Restrictions
     <button type="button" onclick="addDietaryRestriction()">Add +</button>
-    <div id="dietInputs">
-        <select class="diets">
-        <datalist id="dietInputs">
-            <option value="gluten-free"> Gluten Free</option>
-            <option value="dairy-free">Dairy Free</option>
-            <option value="sugar-free">Sugar Free</option>
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="kosher">Kosher</option>
-            <option value="lactose intolerance">Lactose Intolerance</option>
-            <option value="fish allergy">Fish Allergy</option>
-            <option value="wheat allergy">Wheat Allergy</option>
-            <option value="nut-free">Nut Free</option>
-
-
-        </datalist>
-
-        </select>
-        <button type="button" onclick="removeEntry(this)">-</button>
-        <br>
-    </div>
+  </h3>
+  <div id="dietInputs">
+    <select class="diets">
+      <datalist id="dietInputs">
+        <option value="dairy-free">Dairy Free</option>
+        <option value="fish allergy">Fish Allergy</option>
+        <option value="gluten-free"> Gluten Free</option>
+        <option value="kosher">Kosher</option>
+        <option value="lactose intolerance">Lactose Intolerance</option>
+        <option value="nut-free">Nut Free</option>
+        <option value="sugar-free">Sugar Free</option>
+        <option value="vegan">Vegan</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="wheat allergy">Wheat Allergy</option>
+      </datalist>
+    </select>
+    <button type="button" onclick="removeEntry(this)">-</button>
+  </div>
 </div>
 
 <!-- I'm thinking we can add a drop down of the different appliances?-->
 
 <div id="appSelection">
-    <h3>Appliances Owned</h3>
+  <h3>Appliances Owned
     <button type="button" onclick="addAppliance()">Add +</button>
-    <div id="appInputs">
-        <select class="appliances">
-        <datalist id="appInputs">
-            <option value="mixer">Mixer</option>
-            <option value="oven"> Oven </option>
-            <option value="microwave"> Microwave </option>
-            <option value="bowl">  Bowl </option>
-            <option value="whisk"> Whisk </option>
-            <option value="sheet tray"> Sheet Tray  </option>
-            <option value="blender"> Blender  </option>
-            <option value="toaster"> Toaster </option>
-            <option value="fryer"> Fryer </option>
-            <option value="rice cooker"> Rice Cooker </option>
-        </datalist>
-        </select>
-        
-        <button type="button" onclick="removeEntry(this)">-</button>
-        <br>
-    </div>
+  </h3>
+  <div id="appInputs">
+    <select class="appliances">
+      <datalist id="appInputs">
+        <option value="blender"> Blender  </option>
+        <option value="bowl">  Bowl </option>
+        <option value="fryer"> Fryer </option>
+        <option value="microwave"> Microwave </option>
+        <option value="mixer">Mixer</option>
+        <option value="oven"> Oven </option>
+        <option value="rice cooker"> Rice Cooker </option>
+        <option value="sheet tray"> Sheet Tray  </option>
+        <option value="toaster"> Toaster </option>
+        <option value="whisk"> Whisk </option>
+      </datalist>
+    </select>
+    <button type="button" onclick="removeEntry(this)">-</button>
+  </div>
 </div>
 
 
+<div id="ingSelection">
+  <h3>Ingredients Owned
+    <button type="button" onclick="addIngredient()">Add +</button>
+  </h3>
+  <div id="ingInputs"  style = "display:block">
 
+    <input type="number" placeholder=0 id="username">
 
-<div>
-  <div class="clearfix">
-    <button type="button" class="cancelbtn" onclick="document.location='homepage'">Cancel</button>
-    <button type="button" class="signupbtn" onclick="signup()">Sign Up</button>
+    <select class="measurements">
+      <datalist id="mesInputs">
+        <option value="mL">mL</option>
+        <option value="cups">cups</option>
+        <option value="tsp">tsp</option>
+        <option value="tbsp">tbsp</option>
+        <option value="pinch">pinch</option>
+        <option value="qt">qt</option>
+        <option value="gal">gal</option>
+        <option value="oz">oz</option>
+        <option value="lbs">lbs</option>
+      </datalist>
+    </select>
+
+    <select class="ingredients">
+      <datalist id="ingInputs">
+        <!-- Please add in alphabetical order-->
+        <option value="almond milk">  Almond Milk </option>
+        <option value="baking soda"> Baking Soda  </option>
+        <option value="beef">  Beef </option>
+        <option value="brown sugar"> Brown Sugar </option>
+        <option value="butter">Butter  </option>
+        <option value="canola oil"> Canola Oil </option>
+        <option value="coconut milk">  Coconut Milk</option>
+        <option value="cashew milk"> Cashew Milk </option>
+        <option value="cheese">  Cheese </option>
+        <option value="chicken"> Chicken </option>
+        <option value="cinnamon"> Cinnamon </option>
+        <option value="eggs"> Eggs  </option>
+        <option value="flour"> Flour </option>
+        <option value="garlic"> Garlic </option>
+        <option value="pork"> Pork  </option>
+        <option value="rice"> Rice </option>
+        <option value="salt"> Salt </option>
+        <option value="vegetable oil"> Vegetable Oil </option>
+        <option value="water">Water</option>
+        <option value="white sugar">  White Sugar </option>
+      </datalist>
+    </select>
+
+    <button type="button" onclick="removeEntry(this)">-</button>
   </div>
+</div>
 
-  
+<div id="bothButtons">
+  <div class="clearfix">
+    <div id="submitCreate">
+      <button type="button" class="submit" onclick="signup()">Sign Up</button>
+    </div>
+
+
+    <div id="signUpRef">
+      <a href="homepage"> Cancel (return to Homepage as Guest) </a>
+    </div>
+
+    <div id="signUpRef">
+      <a href="login"> Already a member? Click here to Login! </a>
+    </div>
+    
+  </div>
+</div>
 
 </body>
 </html>
