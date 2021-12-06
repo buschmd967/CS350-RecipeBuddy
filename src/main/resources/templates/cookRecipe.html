@@ -5,6 +5,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script src="../scripts/searchbar.js"></script>
+		<script src="../scripts/cookRecipe.js"></script> <!-- dec 6 12 pm-->
 
 			
 		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
@@ -33,14 +34,14 @@
 
 	<body>
 		<!-- TODO: format page-->
-		<h1 id = "name"> Name: </h1>
-		<h4 id = "author">Author: </h4>
-		<h4 id = "cooktime">Cook Time: </h4>
+		<h1 id = name> Name: </h1>
+		<h4 id = author>Author: </h4>
+		<h4 id = cooktime>Cook Time: </h4>
 
 		<!-- I'm (Rosie) working on now, need to figure out how to display one step per page
 		Also need to list all the other information associated with recipe probably such as ingredients
 		-->
-         <div id = "steps"></div>
+         <div id = steps> </div>
 	
 
 		<button class="nextStepButton" onclick="nextStep(this)">Next Step</button>
