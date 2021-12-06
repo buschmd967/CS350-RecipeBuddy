@@ -96,7 +96,6 @@
             <option value="vegetarian">Vegetarian</option>
             <option value="wheat allergy">Wheat Allergy</option>
 
-
         </datalist>
 
         </select>
@@ -138,10 +137,28 @@
 <div id="ingSelection">
   <h3>Ingredients Owned</h3>
   <button type="button" onclick="addIngredient()">Add +</button>
-  <div id="ingInputs">
+  <div id="ingInputs"  style = "display:block">
+
+    <div id = "quantity">
+      <input type="number" placeholder=0 id="username">
+    </div>
+
+        <select class="measurements">
+          <datalist id="mesInputs">
+        <option value="mL">mL</option>
+        <option value="cups">cups</option>
+        <option value="tsp">tsp</option>
+        <option value="tbsp">tbsp</option>
+        <option value="pinch">pinch</option>
+        <option value="qt">qt</option>
+        <option value="gal">gal</option>
+        <option value="oz">oz</option>
+        <option value="lbs">lbs</option>
+      </datalist>
+      </select>
+
       <select class="ingredients">
       <datalist id="ingInputs">
-
         <!-- Please add in alphabetical order-->
           <option value="almond milk">  Almond Milk </option>
           <option value="baking soda"> Baking Soda  </option>
@@ -163,14 +180,12 @@
           <option value="vegetable oil"> Vegetable Oil </option>
           <option value="water">Water</option>
           <option value="white sugar">  White Sugar </option>
-
-
-
-
-
-
       </datalist>
       </select>
+
+
+
+    
       
       <button type="button" onclick="removeEntry(this)">-</button>
       <br>
