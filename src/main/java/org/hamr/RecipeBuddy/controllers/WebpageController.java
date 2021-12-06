@@ -45,4 +45,9 @@ public class WebpageController {
     public String homepage(){
         return "homepage";
     }
+
+    @GetMapping("/myProfile")
+    public String myProfile(){
+        return "myProfile";
+    }
 }

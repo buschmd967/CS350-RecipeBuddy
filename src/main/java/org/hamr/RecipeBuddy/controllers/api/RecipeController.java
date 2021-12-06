@@ -2,6 +2,8 @@ package org.hamr.RecipeBuddy.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -563,6 +565,7 @@ public class RecipeController {
         if(otherTags.length > 0)
             query.addCriteria(Criteria.where("otherTags").all(otherTags));
         
+        query.with(Sort.by(Sort.Order.desc("rating")));
         List<QuickRecipe> possibleRecipies = mongoTemplate.find(query, QuickRecipe.class);
         
         if(possibleRecipies.isEmpty())
