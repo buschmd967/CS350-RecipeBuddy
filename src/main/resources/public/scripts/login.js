@@ -38,6 +38,9 @@ function login() {
         if(redir !==  null){
             document.location = redir;
         }
+        else{
+            document.location = "homepage";
+        }
         // console.log(data);
         // console.log(data.accessToken);
         
