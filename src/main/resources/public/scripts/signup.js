@@ -66,7 +66,8 @@ function signup(){
                 "displayName": $("#displayName").val(),
                 "picture": picture,
                 "dietaryRestrictions": getEntries(".diets"),
-                "ownedAppliances": getEntries(".appliances")
+                "ownedAppliances": getEntries(".appliances"),
+                "ownedIngredients" : getEntries(".ingredients") /* ROSIE JUST ADDED */
                 }),
             xhrFields: { withCredentials:true },
             contentType: 'application/json',
