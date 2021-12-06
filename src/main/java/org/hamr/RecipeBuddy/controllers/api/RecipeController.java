@@ -711,5 +711,55 @@ public class RecipeController {
         lrating.add(new Rating(rating, username));
         return lrating;
     }
-    
+
+    @PostMapping("/trending")
+    public ResponseEntity<?> getTrending(@RequestHeader("Authorization") String headerAuth){
+        String username = jwtUtils.getUserNameFromAuthHeader(headerAuth); //used for dietary restriction limiting
+        Optional<User> possibleUser = null;
+
+        //get user dietary restrictions if user exists
+        if(!username.equals("")){
+            possibleUser = userRepository.findByUsername(username);
+        }
+        Object[] dietaryRestrictions = null;
+        if(possibleUser != null){
+            if( possibleUser.isPresent()){
+                dietaryRestrictions = possibleUser.get().getDietaryRestrictions().toArray(new Object[0]);
+            }
+        }
+
+        //create query
+        Query query = new Query();
+
+        if(dietaryRestrictions != null && dietaryRestrictions.length > 0){
+            logger.info("including dietary restrictions, including {}", dietaryRestrictions[0]);
+            query.addCriteria(Criteria.where("dietaryRestrictions").all(dietaryRestrictions));
+
+        }
+        
+        query.addCriteria(Criteria.where("rating").gte(4));
+        //might want to change to # of ratings, not average rating
+        // query.with(Sort.by(Sort.Order.desc("rating")));
+        // query.limit(pageSize);
+
+        //get stuff
+        List<QuickRecipe> possibleRecipies = mongoTemplate.find(query, QuickRecipe.class);
+        
+        if(possibleRecipies.isEmpty())
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
+        
+        List<Recipe> recipies = new ArrayList<>();
+        for(QuickRecipe quickRecipe : possibleRecipies){
+            Recipe recipe = quickRecipe.getRecipe();
+            if(recipe.getIsPrivate() && !(username.equals(recipe.getAuthor()))){ //if private recipe and user is not the author
+                continue; //do not add
+            }
+            recipies.add(quickRecipe.getRecipe());
+        }
+        if(recipies.isEmpty()){
+            return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
+        }
+        return(ResponseEntity.ok(new RecipiesResponse(recipies)));
+    }
+
 }
