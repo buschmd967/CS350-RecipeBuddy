@@ -66,6 +66,10 @@ $(document).ready(function() {
         recipe = data;
         $("#name").append(recipe["name"]);
         $("#author").append(recipe["author"]);
+
+        let image = recipe["image"]; /* rosie just added Dec 6 */
+        $("#image").append(recipe["image"]); /* rosie just added dec 6 2:39*/
+
         displayRating();
         let cookTime = recipe["cookTime"];
         if(cookTime == 0){
@@ -173,6 +177,13 @@ function fillTagTable(){
             <td>${oth}</td>
         </tr>
         `)
+
+        /* start of rosie add dec 6 */
+        $("#t1").append(`<tr><td>${ing}</td></tr>`)
+        $("#t2").append(`<tr><td>${app}</td></tr> `)
+        $("#t3").append(`<tr><td>${die}</td></tr>`)
+        $("#t4").append(`<tr><td>${oth}</td></tr>`)
+       /*end of rosie add dec 6 */
     }
 }
 

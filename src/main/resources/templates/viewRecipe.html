@@ -41,10 +41,17 @@
 		<h4 id="author">By: </h4>
 		<h4 id="cookTime"></h4>
 		<h4 id="displayRating">Rating: </h4>
+
+		<!-- start of rosie add dec 6-->
+		<image height=200 width=200 id = "image">
+	
+		<!-- end of rosie add dec 6-->
+
 		 
+		<!--
 		<table id="tagTable">
-			<!-- Is a table the best way to show this, or can I break this into a section per each column?
-			 aha so th is the name of the columns then td are the column values -->
+			 Is a table the best way to show this, or can I break this into a section per each column?
+			 aha so th is the name of the columns then td are the column values 
 			
 			 
 			<tr>
@@ -56,14 +63,19 @@
 		
 		</table>
 
+	-->
 
 
+		<table id = "t1"><tr><th id="tableIngredients">Ingredients</th></tr></table>
+		<table id = "t2"><tr><th id="tableAppliances">Appliances</th></tr></table>
+		<table id = "t3"><tr><th id="tableDietaryRestrictions">Dietary Restrictions</th></tr></table>
+		<table id = "t4"><tr><th id="otherTags">Misc Tags</th></tr></table>
 
-		<h4>Steps</h4>
+		<h2>Steps</h4>
 		<div id="steps">
 			
 		</div>
-		<h4>Rate</h4>
+		<h2>Rate</h4>
 		<div id="addRating">
 			<select id="rating">
 				<datalist id="ratingList">
@@ -75,6 +87,7 @@
 					<option value="5">5</option>
 				</datalist>
 			</select>
+			
 			<button type="button" onclick="rate()">Rate</button>
 			<br>
 		</div>

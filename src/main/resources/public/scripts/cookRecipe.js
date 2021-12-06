@@ -35,6 +35,23 @@ $(document).ready(function() {
         recipe = data;
         console.log(data);
 
+        $("#name").append(recipe["name"]);
+        $("#author").append(recipe["author"]);
+
+         /* start of rosie add */
+         $("#name").append(recipe["name"]);
+         $("#author").append(recipe["author"]);
+ 
+         let cookTime = recipe["cookTime"];
+         if(cookTime == 0){
+             $("#cookTime").append("No cook time specified.");
+         }
+         else{
+             $("#cookTime").append(`Approx. cook time: ${timerDisplay(cookTime)}`); 
+         }
+         getIsRecipeOwner().then(data => {isRecipeOwner = data;});
+         /* end of rosie add */
+
         let steps = recipe["steps"];
         for(let step of steps){
             let stepText = step["stepText"];
