@@ -85,16 +85,16 @@
     <div id="dietInputs">
         <select class="diets">
         <datalist id="dietInputs">
-            <option value="gluten-free"> Gluten Free</option>
             <option value="dairy-free">Dairy Free</option>
+            <option value="fish allergy">Fish Allergy</option>
+            <option value="gluten-free"> Gluten Free</option>
+            <option value="kosher">Kosher</option>
+            <option value="lactose intolerance">Lactose Intolerance</option>
+            <option value="nut-free">Nut Free</option>
             <option value="sugar-free">Sugar Free</option>
             <option value="vegan">Vegan</option>
             <option value="vegetarian">Vegetarian</option>
-            <option value="kosher">Kosher</option>
-            <option value="lactose intolerance">Lactose Intolerance</option>
-            <option value="fish allergy">Fish Allergy</option>
             <option value="wheat allergy">Wheat Allergy</option>
-            <option value="nut-free">Nut Free</option>
 
 
         </datalist>
@@ -113,24 +113,71 @@
     <div id="appInputs">
         <select class="appliances">
         <datalist id="appInputs">
+
+            <option value="blender"> Blender  </option>
+            <option value="bowl">  Bowl </option>
+            <option value="fryer"> Fryer </option>
+            <option value="microwave"> Microwave </option>
             <option value="mixer">Mixer</option>
             <option value="oven"> Oven </option>
-            <option value="microwave"> Microwave </option>
-            <option value="bowl">  Bowl </option>
-            <option value="whisk"> Whisk </option>
-            <option value="sheet tray"> Sheet Tray  </option>
-            <option value="blender"> Blender  </option>
-            <option value="toaster"> Toaster </option>
-            <option value="fryer"> Fryer </option>
             <option value="rice cooker"> Rice Cooker </option>
+            <option value="sheet tray"> Sheet Tray  </option>
+            <option value="toaster"> Toaster </option>
+            <option value="whisk"> Whisk </option>
         </datalist>
         </select>
         
         <button type="button" onclick="removeEntry(this)">-</button>
         <br>
     </div>
+
+
 </div>
 
+
+<div id="ingSelection">
+  <h3>Ingredients Owned</h3>
+  <button type="button" onclick="addIngredient()">Add +</button>
+  <div id="ingInputs">
+      <select class="ingredients">
+      <datalist id="ingInputs">
+
+        <!-- Please add in alphabetical order-->
+          <option value="almond milk">  Almond Milk </option>
+          <option value="baking soda"> Baking Soda  </option>
+          <option value="beef">  Beef </option>
+          <option value="brown sugar"> Brown Sugar </option>
+          <option value="butter">Butter  </option>
+          <option value="canola oil"> Canola Oil </option>
+          <option value="coconut milk">  Coconut Milk</option>
+          <option value="cashew milk"> Cashew Milk </option>
+          <option value="cheese">  Cheese </option>
+          <option value="chicken"> Chicken </option>
+          <option value="cinnamon"> Cinnamon </option>
+          <option value="eggs"> Eggs  </option>
+          <option value="flour"> Flour </option>
+          <option value="garlic"> Garlic </option>
+          <option value="pork"> Pork  </option>
+          <option value="rice"> Rice </option>
+          <option value="salt"> Salt </option>
+          <option value="vegetable oil"> Vegetable Oil </option>
+          <option value="water">Water</option>
+          <option value="white sugar">  White Sugar </option>
+
+
+
+
+
+
+      </datalist>
+      </select>
+      
+      <button type="button" onclick="removeEntry(this)">-</button>
+      <br>
+  </div>
+
+  
+</div>
 
 
 
