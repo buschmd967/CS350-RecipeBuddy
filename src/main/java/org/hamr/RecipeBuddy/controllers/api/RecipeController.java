@@ -70,6 +70,9 @@ public class RecipeController {
     @Value("${hamr.app.knownIngredients}")
     private String[] knownIngredients;
 
+    @Value("${hamr.app.pageSize}")
+    private int pageSize;
+
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
     
     @Autowired
@@ -266,10 +269,10 @@ public class RecipeController {
     public ResponseEntity<?> search(@Valid @RequestBody RecipeSearchRequest recipeSearchRequest, @RequestHeader("Authorization") String headerAuth){
         logger.info("Search api");
         RecipeFindByParametersRequest recipeFindByParametersRequest = parseSearchString(recipeSearchRequest.getSearchString());
+        recipeFindByParametersRequest.setPage(recipeSearchRequest.getPage());
 
 
-
-
+        
         return findByParameters(recipeFindByParametersRequest, headerAuth);
     }
 
@@ -483,12 +486,6 @@ public class RecipeController {
         }
     }
 
-    private double getImperialScaleFactor(String measurement){
-        Double msf = getMetricScaleFactor(measurement);
-        
-        return msf != 0 ? 1/msf : 0;
-    }
-
     @GetMapping("/TESTSEARCH")
     public ResponseEntity<?> testsearch(){
         List<Ingredient>  ingredients = new ArrayList<>();
@@ -566,6 +563,8 @@ public class RecipeController {
             query.addCriteria(Criteria.where("otherTags").all(otherTags));
         
         query.with(Sort.by(Sort.Order.desc("rating")));
+        query.limit(pageSize);
+        query.skip(pageSize * (recipeFindByParametersRequest.getPage() - 1));
         List<QuickRecipe> possibleRecipies = mongoTemplate.find(query, QuickRecipe.class);
         
         if(possibleRecipies.isEmpty())
