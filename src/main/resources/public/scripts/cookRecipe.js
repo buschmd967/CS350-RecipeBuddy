@@ -35,10 +35,10 @@ $(document).ready(function() {
         recipe = data;
         console.log(data);
 
+        /*
         $("#name").append(recipe["name"]);
         $("#author").append(recipe["author"]);
 
-         /* start of rosie add */
          $("#name").append(recipe["name"]);
          $("#author").append(recipe["author"]);
  
@@ -50,7 +50,7 @@ $(document).ready(function() {
              $("#cookTime").append(`Approx. cook time: ${timerDisplay(cookTime)}`); 
          }
          getIsRecipeOwner().then(data => {isRecipeOwner = data;});
-         /* end of rosie add */
+          end of rosie add */
 
         let steps = recipe["steps"];
         for(let step of steps){
@@ -81,10 +81,12 @@ $(document).ready(function() {
             console.log(step);
         }
         $(".step")[0].classList.add("currentStep");
+
     }).then(data => {
         if($(".step").length == 1){
             $(".nextStepButton").html("Finish");
         }
+        
     })
 });
 
