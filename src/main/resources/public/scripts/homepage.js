@@ -92,12 +92,12 @@ function displayRecipes(){
 
 
         for(let i = 0; i < recipe["dietaryRestrictions"].length; i++){
-            let ingredientName = recipe["dietaryRestrictions"][i]["name"];
+            let dietaryRestriction = recipe["dietaryRestrictions"][i];
             if(i != recipe["dietaryRestrictions"].length - 1){
-                recipeHTML += `${ingredientName}, `
+                recipeHTML += `${dietaryRestriction}, `
             }
             else{
-                recipeHTML += `${ingredientName}</p>`
+                recipeHTML += `${dietaryRestriction}</p>`
 
             }
         }
