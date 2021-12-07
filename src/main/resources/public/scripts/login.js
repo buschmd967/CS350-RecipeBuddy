@@ -50,3 +50,14 @@ function login() {
         
     });
 }
+
+function signup(){
+    let params = new URLSearchParams(window.location.search);
+    let redir = params.get('redir');
+    if(redir != ""){
+        document.location = "/signup?redir=" + redir;
+    }
+    else{
+        document.location = "/signup";
+    }
+}

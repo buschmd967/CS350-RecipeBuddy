@@ -36,7 +36,6 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-
     @PostMapping("/getInfo")
     public ResponseEntity<?> getInfo(@RequestHeader("Authorization") String headerAuth){
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth);

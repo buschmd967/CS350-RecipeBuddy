@@ -17,6 +17,7 @@ h3{
 }
 
 
+
 /* -------- TOP NAVIGATION BAR ---------- */
 ul {
     list-style-type: none;
@@ -150,4 +151,12 @@ select {
 a{
   color:#333;
   text-decoration:none;
+}
+
+.clickable {
+  cursor:pointer;
+}
+
+#errorText{
+  color: red;
 }

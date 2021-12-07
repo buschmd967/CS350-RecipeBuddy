@@ -72,6 +72,7 @@
   <div id="dietInputs">
     <select class="diets">
       <datalist id="dietInputs">
+        <option value=""> None Selected  </option>
         <option value="dairy-free">Dairy Free</option>
         <option value="fish allergy">Fish Allergy</option>
         <option value="gluten-free"> Gluten Free</option>
@@ -97,6 +98,7 @@
   <div id="appInputs">
     <select class="appliances">
       <datalist id="appInputs">
+        <option value=""> None Selected  </option>
         <option value="blender"> Blender  </option>
         <option value="bowl">  Bowl </option>
         <option value="fryer"> Fryer </option>
@@ -120,9 +122,9 @@
   </h3>
   <div id="ingInputs"  style = "display:block">
 
-    <input type="number" placeholder=0 id="username">
+    <input type="number" placeholder=0 class="ingredientAmmount">
 
-    <select class="measurements">
+    <select class="ingredientMeasurements">
       <datalist id="mesInputs">
         <option value="mL">mL</option>
         <option value="cups">cups</option>
@@ -168,6 +170,7 @@
 
 <div id="bothButtons">
   <div class="clearfix">
+    <p id="errorText"></p>
     <div id="submitCreate">
       <button type="button" class="submit" onclick="signup()">Sign Up</button>
     </div>
@@ -178,7 +181,7 @@
     </div>
 
     <div id="signUpRef">
-      <a href="login"> Already a member? Click here to Login! </a>
+      <a onclick="login()" class="clickable"> Already a member? Click here to Login! </a>
     </div>
     
   </div>
