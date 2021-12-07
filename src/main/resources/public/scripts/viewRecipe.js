@@ -31,6 +31,9 @@ var ingredientUnitSelectWeight = `
 						</datalist>
 					</select>`
 
+var ingredientUnitSelectDummy = `<select class="ingredientMeasurement" onchange="changeMeasurement(this)" value="mL" hidden>
+</select>`
+
 $(document).ready(function() {
     isGuest = ($.cookie("jwt") === undefined);
 
@@ -158,7 +161,7 @@ function fillTagTable(){
 
             }
             else{
-                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + " " + ing["name"] + `</div`;
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectDummy + ` ${ing["measurement"]} ` + " " + ing["name"] + `</div`;
 
             }
 
@@ -194,6 +197,10 @@ function fillTagTable(){
     }
 
     //update measurements
+    updateIngredients();
+}
+
+function updateIngredients(){
     if($(".ingredientMeasurement").length > 1){
         for(let i = 0; i < $(".ingredientMeasurement").length; i++){
             $(".ingredientMeasurement")[i].value = recipe["ingredients"][i]["measurement"];
@@ -204,10 +211,6 @@ function fillTagTable(){
         }
         
     }
-}
-
-function updateIngredients(){
-    
 }
 
 function fillSteps(){
@@ -266,6 +269,7 @@ function deleteRecipe(){
             } 
         }).then(function(data){
             console.log(data);
+            history.back();
         });
     }
 }
@@ -303,7 +307,8 @@ function changeMeasurement(input){
         } 
     }).then(function(data){
         if(data !== undefined){
-            input.parentNode.querySelector("#size").innerHTML = data["result"];
+            if(data["result"] != Infinity)
+                input.parentNode.querySelector("#size").innerHTML = Math.round(data["result"] * 100) / 100;
         }
         console.log(data);
     });

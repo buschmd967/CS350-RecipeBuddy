@@ -172,8 +172,9 @@
 					</select>
 				
 				<button type="button" onclick="removeEntry(this)">-</button>
-				</div>
 				<br>
+				<br>
+				</div>
 			</div>
 		</div>
 
@@ -214,18 +215,19 @@
 						</select>
 					
 					<button type="button" onclick="removeEntry(this)">-</button>
-					</div>
 					<br>
+					<br>
+					</div>				
 				</div>
 			</div>
 
 
 
-			<div id="otherTagsSection">
+			<div id="mealTypeSection">
 				<h3>Type of Meal
-					<button type="button" onclick="addOtherTag()">Add +</button>
+					<button type="button" onclick="addMealType()">Add +</button>
 				</h3>
-				<div id="otherTagInputs">
+				<div id="mealTypeInputs">
 
 					<select class="otherTag">
 						<datalist id="dietInputs">
@@ -243,6 +245,19 @@
 						</select>
 
 					<!--<input type="text" class="otherTag" placeholder="Tag"/>-->
+					<button type="button" onclick="removeEntry(this)">-</button>
+					<br>
+					<br>
+				</div>
+			</div>
+
+			<div id="otherTagsSection">
+				<h3>Other Tags
+					<button type="button" onclick="addOtherTag()">Add +</button>
+				</h3>
+				<div id="otherTagInputs">
+
+					<input type="text" class="otherTag" placeholder="Tag"/>
 					<button type="button" onclick="removeEntry(this)">-</button>
 					<br>
 				</div>
