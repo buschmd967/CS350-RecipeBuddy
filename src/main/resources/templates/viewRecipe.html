@@ -9,6 +9,7 @@
 		<script src="../scripts/searchbar.js"></script>
 		<script src="../scripts/ingredientScaling.js"></script>
         <script src="../scripts/viewRecipe.js"></script>
+		
 
 		
 		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
@@ -24,19 +25,22 @@
 
 
 
-	<header>
-		<div id="website-header">
-			<ul>
-				<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
-				<li><a href="myProfile" id="myProfile" >My Profile</a></li>
-				<li><a href="pantry" >Pantry</a></li>
-				<li><a href="recipeBook">Recipe Book</a></li>
-				<li><a href="addRecipe">Add Recipe</a></li>
-				<li><a class="active" href=searchRecipe>Search</a></li>
-				<li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
-			</ul>
-		</div>
-	</header>
+	 
+		<header>
+			<div id="website-header">
+				<ul>
+					<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
+					<li><a id="logout" onclick="logout()">Logout</a></li>
+					<li><a id="myProfile" href="myProfile">My Profile</a></li>
+					<li><a href="pantry" id="pantry">Pantry</a></li>
+					<li><a href="recipeBook" id="recipeBook">Recipe Book</a></li>
+					<li><a href="addRecipe" id="addRecipe">Add Recipe</a></li>
+					<li><a href=searchRecipe id="searchButton">Search</a></li>
+					<li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
+				</ul>
+			</div>
+		</header>
+	
 
 	<body>
 		<!-- TODO: format page-->

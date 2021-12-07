@@ -9,6 +9,10 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
     ></script>
     <script src="../scripts/myProfile.js"></script>
+        <script src="../scripts/searchbar.js"></script>
+        <script src="../scripts/header.js"></script>
+
+        
 
     <!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
     <link rel="stylesheet" href="/src/main/resources/public/styles/main.css" />
@@ -26,22 +30,24 @@
       rel="stylesheet"
     />
   </head>
+
   <header>
-    <div id="website-header">
-      <ul>
-        <li style="float: left">
-          <a class="active" href="homepage">RecipeBuddy</a>
-        </li>
-        <li><a href="pantry">Pantry</a></li>
-        <li><a href="recipeBook">Recipe Book</a></li>
-        <li><a href="addRecipe">Add Recipe</a></li>
-        <li><a href="searchRecipe" id="searchButton">Search</a></li>
-        <li style="float: left" class="searchNav">
-          <input onKeyUp="updateSearch()" id="searchText" size="30" />
-        </li>
-      </ul>
-    </div>
-  </header>
+		<div id="website-header">
+			<ul>
+				<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
+				<li><a id="logout" onclick="logout()">Logout</a></li>
+				<li><a class = "active" id="myProfile" href="myProfile">My Profile</a></li>
+				<li><a href="pantry" id="pantry">Pantry</a></li>
+				<li><a href="recipeBook" id="recipeBook">Recipe Book</a></li>
+				<li><a href="addRecipe" id="addRecipe">Add Recipe</a></li>
+				<li><a href=searchRecipe id="searchButton">Search</a></li>
+				<li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
+			</ul>
+		</div>
+	</header>
+
+
+
   <body>
     <h1>Your Profile!</h1>
     <h3>Profile Picture</h3>
