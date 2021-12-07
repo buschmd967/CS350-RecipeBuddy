@@ -1,5 +1,7 @@
 var recipe;
 var currentStepIndex = 0;
+var alarmAudio = new Audio('/cookAlarm.mp3');
+var alarmGoingOff = false;
 
 
 
@@ -141,7 +143,13 @@ $(document).ready(function() {
             $("#steps").append(stepHTML);
             console.log(step);
         }
-        $(".step")[0].classList.add("currentStep");
+        if($(".step").length > 0){
+            $(".step")[0].classList.add("currentStep");
+        }
+        else{
+            $(".step").classList.add("currentStep");
+
+        }
 
         /* THERE COULD BE SOMETHING ADDED HERE TO ADD STYLING TO THE CURRENT STEP CLASS */
 
@@ -240,6 +248,7 @@ function toDateTime(secs) {
 }
 
 function pauseTimer(button){
+    alarmGoingOff = false;
     if(button.parentNode.querySelector(".timerControl").innerHTML == "running"){
         setTimerStatus(button, "paused");
         button.innerHTML = "resume";
@@ -255,6 +264,7 @@ function stopTimer(button){
     let resetTime = button.parentNode.querySelector(".timerTimeMS").innerHTML;
     button.parentNode.querySelector(".timerTimeDisplay").innerHTML = timerDisplay(resetTime);
     button.parentNode.querySelector(".startTimerButton").innerHTML = "Start";
+    alarmGoingOff = false;
 }
 
 function setTimerStatus(button, status){
@@ -263,30 +273,43 @@ function setTimerStatus(button, status){
 }
 
 async function mainTimerButton(button){
-
+    alarmGoingOff = false;
     let buttonText = button.innerHTML;
     if(buttonText == "Start"){
         button.innerHTML = "Pause";
         let timerTimeTag = button.parentNode.querySelector(".timerTimeDisplay");
         let timerTime = button.parentNode.querySelector(".timerTimeMS").innerHTML;
+        let alarmState = false;
         button.parentNode.querySelector(".timerControl").innerHTML = "running";
         let x = setInterval(function() {
-    
-            if(button.parentNode.querySelector(".timerControl").innerHTML == "stopped"){
-                clearInterval(x);
+
+            if(alarmState){
+                if(!alarmGoingOff){
+                    clearInterval(x);
+                }
+                else{
+                        alarmAudio.play();
+                }
+                
             }
-            else if(button.parentNode.querySelector(".timerControl").innerHTML == "running"){
-                timerTime -= 1;
-                console.log(timerTime);
-                timerTimeTag.innerHTML = timerDisplay(timerTime);
-            }
+            else{ //Normal timer stuff
     
-            
-    
-            if(timerTime < 0){
-                //do alarm or something
-                clearInterval(x);
-            }
+                if(button.parentNode.querySelector(".timerControl").innerHTML == "stopped"){
+                    clearInterval(x);
+                }
+                else if(button.parentNode.querySelector(".timerControl").innerHTML == "running"){
+                    timerTime -= 1;
+                    console.log(timerTime);
+                    timerTimeTag.innerHTML = timerDisplay(timerTime);
+                }
+        
+                
+        
+                if(timerTime <= 0){
+                    alarmGoingOff = true;
+                    alarmState = true;
+                }
+        }
     
            
           }, 1000)
