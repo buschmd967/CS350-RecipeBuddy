@@ -40,6 +40,9 @@ $(document).ready(function() {
     // let params = new URLSearchParams(window.location.search);
     let name = $.cookie("viewRecipeName");
     let author = $.cookie("viewRecipeAuthor");
+
+    
+
     console.log(name);
     console.log(author);
 
@@ -67,18 +70,22 @@ $(document).ready(function() {
         $("#name").append(recipe["name"]);
         $("#author").append(recipe["author"]);
 
-        let image = recipe["image"]; /* rosie just added Dec 6 */
-        $("#image").append(recipe["image"]); /* rosie just added dec 6 2:39*/
-
         displayRating();
+        
+        displayDifficulty(); //holly added
+
         let cookTime = recipe["cookTime"];
         if(cookTime == 0){
             $("#cookTime").append("No cook time specified.");
         }
         else{
-            $("#cookTime").append(`Approx. cook time: ${timerDisplay(cookTime)}`); 
+            $("#cookTime").append(`Total cook time: ${timerDisplay(cookTime)}`); 
         }
         getIsRecipeOwner().then(data => {isRecipeOwner = data;});
+
+        viewImage(); //holly added
+        
+
         fillTagTable();
         fillSteps();
         console.log(data);
@@ -143,15 +150,15 @@ function fillTagTable(){
         else{
             let selectHTML;
             if(liquidIngredients.includes(ing["measurement"])){
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + ing["name"];
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"] + `</div`;
                 
             }
             else if(weightMeasurements.includes(ing["measurement"])){
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + ing["name"];
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"] + `</div`;
 
             }
             else{
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + ing["name"];
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + " " + ing["name"] + `</div`;
 
             }
 
@@ -179,10 +186,10 @@ function fillTagTable(){
         `)
 
         /* start of rosie add dec 6 */
-        $("#t1").append(`<tr><td>${ing}</td></tr>`)
-        $("#t2").append(`<tr><td>${app}</td></tr> `)
-        $("#t3").append(`<tr><td>${die}</td></tr>`)
-        $("#t4").append(`<tr><td>${oth}</td></tr>`)
+        $("#t1").append(`<br><tr class="entry"><td class="entry">${ing}</td></tr>`)
+        $("#t2").append(`<br><tr class="entry"><td class="entry">${app}</td></tr> `)
+        $("#t3").append(`<br><tr class="entry"><td class="entry">${die}</td></tr>`)
+        $("#t4").append(`<br><tr class="entry"><td class="entry">${oth}</td></tr>`)
        /*end of rosie add dec 6 */
     }
 }
@@ -200,7 +207,7 @@ function fillSteps(){
         if(step["timer"] == -1){
             let stepText = step["stepText"];
             stepHTML = 
-            `<div class="step">
+             `<div class="step">
                 <p class="stepText">${stepText}<p>
             </div>`;
            
@@ -209,8 +216,9 @@ function fillSteps(){
             let stepText = step["stepText"];
             let stepTime = timerDisplay(step["timer"]);
             stepHTML = 
-            `<div class="step">
-                <p class="stepText">${stepText}  <br>This step has a timer for ${stepTime}</p>
+
+             `<div class="step">
+               <p class="stepText">${stepText} (This step has a timer for ${stepTime} )</p>
             </div>`;
         }
         $("#steps").append(stepHTML);
@@ -398,4 +406,17 @@ function displayRating(){
         rating = "Not yet rated.";
     }
     $("#displayRating").html("Rating: " + rating);
+}
+
+//holly added
+function viewImage(){
+    let image = recipe["image"]; 
+
+    console.log(image);
+    document.getElementById("recipeImage").src = image;
+}
+   
+function displayDifficulty(){
+    let difficulty = recipe["difficulty"];
+    $("#displayDifficulty").html("Difficulty: " + difficulty);
 }
