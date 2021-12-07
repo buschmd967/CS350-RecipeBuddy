@@ -65,7 +65,7 @@ function displayRecipes(){
         let name = recipe["name"];
         let displayAuthor = recipe["displayAuthor"];
         let author = recipe["author"];
-        let rating = recipe["rating"];
+        let rating = Math.round(recipe["rating"] * 100) / 100;
         let image = recipe["image"];
         recipeHTML = `<td id="toClear">
         <div class="recipeInfo" onclick="viewThisRecipe(this)">

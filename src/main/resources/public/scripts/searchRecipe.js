@@ -85,7 +85,7 @@ function displayRecipies(data){
         // console.log(recipeEntry);
         let name = recipe["name"];
         let author = `${recipe["displayAuthor"]} (${recipe["author"]})`;
-        let rating = recipe["rating"];
+        let rating = Math.round(recipe["rating"] * 100) / 100;
         let image = recipe["image"];
         $("#results").append(
             `   

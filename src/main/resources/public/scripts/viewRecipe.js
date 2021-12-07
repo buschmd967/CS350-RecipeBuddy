@@ -422,7 +422,7 @@ function displayRating(){
     if(rating == -1){
         rating = "Not yet rated.";
     }
-    $("#displayRating").html("Rating: " + rating);
+    $("#displayRating").html("Rating: " + Math.round(rating * 100)/100);
 }
 
 //holly added
