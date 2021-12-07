@@ -77,7 +77,12 @@ function search(limit=-1){
             console.log("Data:");
             console.log(data);
             displayRecipies(data);
-            $("#status").text(data.message);
+            if(limit != -1){
+                $("#status").html("Initial search did not yield results. The following are results for: <br>" + searchString);
+            }
+            else{
+                $("#status").text(data.message);
+            }
         }
         
     });
