@@ -11,6 +11,11 @@ public class WebpageController {
         return "addRecipe";
     }
 
+    @GetMapping("/recipeBook")
+    public String recipeBook(){
+        return "recipeBook";
+    }
+
     @GetMapping("/login")
 	public String login() {
 		return "login";

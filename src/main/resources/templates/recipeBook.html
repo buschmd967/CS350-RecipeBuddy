@@ -7,15 +7,15 @@
 		<!-- JS Files-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script src="../scripts/searchRecipe.js"></script>
+        <script src="../scripts/recipeBook.js"></script>
         <script src="../scripts/searchbar.js"></script>
         <script src="../scripts/header.js"></script>
 
 		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
 		<link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
 		<link rel="stylesheet"  href="../styles/main.css">
-		<link rel="stylesheet"  href="/src/main/resources/public/styles/searchRecipe.css">	
-		<link rel="stylesheet"  href="../styles/searchRecipe.css">
+		<link rel="stylesheet"  href="/src/main/resources/public/styles/recipeBook.css">	
+		<link rel="stylesheet"  href="../styles/recipeBook.css">
 		
 		<!-- Online Font Resources-->
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,9 +30,9 @@
 				<li><a id="logout" onclick="logout()">Logout</a></li>
 				<li><a id="myProfile" href="myProfile">My Profile</a></li>
 				<li><a href="pantry" id="pantry">Pantry</a></li>
-				<li><a href="recipeBook" id="recipeBook">Recipe Book</a></li>
+				<li><a class="active" href="recipeBook" id="recipeBook">Recipe Book</a></li>
 				<li><a href="addRecipe" id="addRecipe">Add Recipe</a></li>
-				<li><a class="active" href=searchRecipe>Search</a></li>
+				<li><a  href=searchRecipe>Search</a></li>
 				<li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
 			</ul>
 		</div>
@@ -40,15 +40,8 @@
 
 
 	<body>
-        <h1>Search</h1>
-		<h3>Please order search terms by importance</h3>
-		<input type="text" id="searchString" size=100 placeholder="Search Recipe"/>
-        <button type="button" onclick="search()">Search</button>
-        <br>
-		<h1>Search results:</h1>
-		<h4 id="status"></h4>
-		<div id="results">
-			
-		</div>
+        <h1>Recipe Book</h1>
+		<div id="userRecipes"></div>
+		
 	</body>
 </html>

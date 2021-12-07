@@ -10,9 +10,15 @@ import lombok.Setter;
 @Setter
 public class RecipiesResponse {
     private List<Recipe> recipies;
+    private String message="";
 
     public RecipiesResponse(List<Recipe> recipies){
         this.recipies = recipies;
     }
     
+    public RecipiesResponse(List<Recipe> recipies, String message){
+        this.recipies = recipies;
+        this.message = message;
+    }
+
 }
