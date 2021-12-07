@@ -51,8 +51,13 @@ function viewImage(){
 
 
 function signup(){
+    console.log("signing up");
+    if($("#password").val() == ""){
+        $("#errorText").html("Please fill in both password fields.");
+    }
     if(!validatePasswords()){
-
+        $("#errorText").html("Passwords do not match.");
+        console.log("Passwords do not match.");
         return;
     }
      getPicture().then(
@@ -104,10 +109,16 @@ function signup(){
                 if(redir !==  null){
                     document.location = redir;
                 }
+                else{
+                    document.location = "/homepage";
+                }
                 // console.log(data);
                 // console.log(data.accessToken);
                 
             });
+        }
+        else{
+            $("#errorText").html(data["message"]);
         }
             
         });
@@ -115,11 +126,49 @@ function signup(){
     });
  }
 
+ function getIngredients(){
+    let out = [];
+    let ingredients = [];
+    let measurements = [];
+    let sizes = [];
+    
+    $(".ingredientAmmount").each(function(){
+        if($(this).val() == ""){
+            sizes.push(1);
+        }
+        else{
+            sizes.push($(this).val());
+        }
+    });
+
+    $(".ingredientMeasurement").each(function(){
+        measurements.push($(this).val());
+    });
+
+    $(".ingredientName").each(function(){
+        ingredients.push($(this).val());
+    });
+    
+    for(let i = 0; i < ingredients.length; i++){
+        if(ingredients[i] != ""){
+            out.push({
+                "name": ingredients[i],
+                "measurement": measurements[i],
+                "size": sizes[i]
+            });
+        }
+    }
+
+    return out;
+}
+
 function getEntries(query){
     let out = [];
     $(query).each(function() 
         { 
-            out.push( $(this).val() );
+            if($(this).val() != ""){
+                out.push( $(this).val() );
+            }
         }
     );
     return out;
@@ -147,4 +196,15 @@ function addDietaryRestriction(){
 
 function removeEntry(a){
     a.parentNode.parentNode.removeChild(a.parentNode);
+}
+
+function login(){
+    let params = new URLSearchParams(window.location.search);
+    let redir = params.get('redir');
+    if(redir != ""){
+        document.location = "/login?redir=" + redir;
+    }
+    else{
+        document.location = "/homepage";
+    }
 }

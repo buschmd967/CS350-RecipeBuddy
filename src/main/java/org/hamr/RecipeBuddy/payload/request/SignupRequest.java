@@ -1,8 +1,11 @@
 package org.hamr.RecipeBuddy.payload.request;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.*;
+
+import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 
 import lombok.Data;
  
@@ -25,6 +28,7 @@ public class SignupRequest {
     private String picture;
     private String[] dietaryRestrictions;
     private String[] ownedAppliances;
+    private List<IngredientWithMeasurement> ownedIngredients;
   
     public String getUsername() {
         return username;

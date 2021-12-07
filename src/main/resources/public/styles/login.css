@@ -69,3 +69,7 @@ a{
 .errorText{
     color: red;
   }
+
+  .clickable {
+    cursor:pointer;
+  }

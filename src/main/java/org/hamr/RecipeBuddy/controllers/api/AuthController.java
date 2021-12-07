@@ -90,6 +90,7 @@ public class AuthController {
 
         user.setDietaryRestrictions(signUpRequest.getDietaryRestrictions());
         user.setOwnedAppliances(signUpRequest.getOwnedAppliances());
+        user.setOwnedIngredients(signUpRequest.getOwnedIngredients());
         user.setImage(signUpRequest.getPicture());
         //Roles stuff that I don't understand
         Set<String> strRoles = signUpRequest.getRoles();
