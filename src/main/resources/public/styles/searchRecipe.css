@@ -60,7 +60,16 @@ button[type="button"]{
       text-align:center;
   }
 
+h3{
+    text-align:center;
+}
+
   #recipeText{
       float:left;
       margin-top: 25px;
   }
+
+  #status{
+      text-align: center;
+  }
+

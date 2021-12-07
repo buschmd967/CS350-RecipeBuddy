@@ -275,9 +275,9 @@ public class RecipeController {
         RecipeFindByParametersRequest recipeFindByParametersRequest = parseSearchString(recipeSearchRequest.getSearchString());
         recipeFindByParametersRequest.setPage(recipeSearchRequest.getPage());
 
+        ResponseEntity<?> response = findByParameters(recipeFindByParametersRequest, headerAuth);
 
-        
-        return findByParameters(recipeFindByParametersRequest, headerAuth);
+        return response;
     }
 
     private RecipeFindByParametersRequest parseSearchString(String searchString){
@@ -571,8 +571,10 @@ public class RecipeController {
         query.skip(pageSize * (recipeFindByParametersRequest.getPage() - 1));
         List<QuickRecipe> possibleRecipies = mongoTemplate.find(query, QuickRecipe.class);
         
-        if(possibleRecipies.isEmpty())
+        if(possibleRecipies.isEmpty()){
             return ResponseEntity.ok(new StatusResponse(true, "Could not find any matching recipies"));
+
+        }
         
         List<Recipe> recipies = new ArrayList<>();
         for(QuickRecipe quickRecipe : possibleRecipies){
