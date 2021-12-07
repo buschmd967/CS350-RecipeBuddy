@@ -1,6 +1,7 @@
 var recipe;
 var currentStepIndex = 0;
 var alarmAudio = new Audio('/cookAlarm.mp3');
+//Taken from https://www.youtube.com/watch?v=8_EQneRq52c
 var alarmGoingOff = false;
 
 
@@ -29,6 +30,8 @@ var ingredientUnitSelectWeight = `
 						</datalist>
 					</select>`
 
+var ingredientUnitSelectDummy = `<select class="ingredientMeasurement" onchange="changeMeasurement(this)" value="mL" hidden>
+</select>`
 $(document).ready(function() {
 
 
@@ -161,40 +164,40 @@ $(document).ready(function() {
     })
 });
 
-function fillIngTable(){
-    let ingredients = recipe["ingredients"];
+// function fillIngTable(){
+//     let ingredients = recipe["ingredients"];
 
-    let maxIndex = ingredients.length;
+//     let maxIndex = ingredients.length;
 
-    for(let i = 0; i < maxIndex; i++){
-        let ing = ingredients[i];
-        let ingSize = "";
+//     for(let i = 0; i < maxIndex; i++){
+//         let ing = ingredients[i];
+//         let ingSize = "";
 
-        if(ing === undefined){
-            ing = "";
-        }
-        else{
-            let selectHTML;
-            if(liquidIngredients.includes(ing["measurement"])){
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"];
+//         if(ing === undefined){
+//             ing = "";
+//         }
+//         else{
+//             let selectHTML;
+//             if(liquidIngredients.includes(ing["measurement"])){
+//                 ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"];
                 
-            }
-            else if(weightMeasurements.includes(ing["measurement"])){
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"];
+//             }
+//             else if(weightMeasurements.includes(ing["measurement"])){
+//                 ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"];
 
-            }
-            else{
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + " " + ing["name"];
+//             }
+//             else{
+//                 ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + " " + ing["name"];
 
-            }
+//             }
 
-        }
+//         }
 
-        /* start of rosie add dec 6 */
-        $("#ingTable").append(`<tr><td>${ing}</td></tr>`)
-       /*end of rosie add dec 6 */
-    }
-}
+//         /* start of rosie add dec 6 */
+//         $("#ingTable").append(`<tr><td>${ing}</td></tr>`)
+//        /*end of rosie add dec 6 */
+//     }
+// }
 
 function timerDisplay(sec){
   let hours = Math.floor(sec / (60*60));
@@ -210,35 +213,35 @@ function timerDisplay(sec){
 }
 
 
-function changeMeasurement(input){
-    let originalMeasurement = input.parentNode.querySelector("#sizeML").innerHTML;
-    let unit = input.value;
+// function changeMeasurement(input){
+//     let originalMeasurement = input.parentNode.querySelector("#sizeML").innerHTML;
+//     let unit = input.value;
 
-    $.ajax({
-        url: 'http://localhost:8080/api/recipe/scale',
-        type: 'post',
-        data: JSON.stringify({
-            "size": (originalMeasurement - 0),
-            "unit": unit
-        }),
-        xhrFields: { withCredentials:true },
-        contentType: 'application/json',
-        success: function(response){
-            console.log("SUCCESS");
-        },
-        complete: function(xhr, textStatus) {
-            if(xhr.status != 200){
-                console.log(xhr)
-            }
+//     $.ajax({
+//         url: 'http://localhost:8080/api/recipe/scale',
+//         type: 'post',
+//         data: JSON.stringify({
+//             "size": (originalMeasurement - 0),
+//             "unit": unit
+//         }),
+//         xhrFields: { withCredentials:true },
+//         contentType: 'application/json',
+//         success: function(response){
+//             console.log("SUCCESS");
+//         },
+//         complete: function(xhr, textStatus) {
+//             if(xhr.status != 200){
+//                 console.log(xhr)
+//             }
 
-        } 
-    }).then(function(data){
-        if(data !== undefined){
-            input.parentNode.querySelector("#size").innerHTML = data["result"];
-        }
-        console.log(data);
-    });
-}
+//         } 
+//     }).then(function(data){
+//         if(data !== undefined){
+//             input.parentNode.querySelector("#size").innerHTML = data["result"];
+//         }
+//         console.log(data);
+//     });
+// }
 
 //from https://stackoverflow.com/questions/4611754/javascript-convert-seconds-to-a-date-object
 function toDateTime(secs) {
@@ -378,7 +381,7 @@ function getRecipe(){
 }
 
 function displayRating(){
-    let rating = recipe["rating"];
+    let rating = Math.round(recipe["rating"] * 100) / 100;
     if(rating == -1){
         rating = "Not yet rated.";
     }
