@@ -5,7 +5,7 @@
 		<title>View Recipe</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script src="../scripts/header.js"></script>
+		<script src="../scripts/header.js"></script>
 		<script src="../scripts/searchbar.js"></script>
         <script src="../scripts/viewRecipe.js"></script>
 
@@ -27,8 +27,8 @@
 		<div id="website-header">
 			<ul>
 				<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
-				<li><a href="myProfile" id="myProfile">My Profile</a></li>
-				<li><a href="pantry">Pantry</a></li>
+				<li><a href="myProfile" id="myProfile" >My Profile</a></li>
+				<li><a href="pantry" >Pantry</a></li>
 				<li><a href="recipeBook">Recipe Book</a></li>
 				<li><a href="addRecipe">Add Recipe</a></li>
 				<li><a class="active" href=searchRecipe>Search</a></li>
@@ -40,60 +40,70 @@
 	<body>
 		<!-- TODO: format page-->
 		<h1 id="name"></h1>
-		<h4 id="author">By: </h4>
-		<h4 id="cookTime"></h4>
-		<h4 id="displayRating">Rating: </h4>
 
-		<!-- start of rosie add dec 6-->
-		<image height=200 width=200 id = "image">
-	
-		<!-- end of rosie add dec 6-->
+		<div id="recipeInfo">
+			<h3 id="author">By: </h3> <br>
+			<h3 id="cookTime"></h3>
+			<h3 id="displayRating">Rating: </h3>
+			<h3 id="displayDifficulty">Difficulty: </h3>
+		</div>
+
+		<div id = "imageDiv">
+		
+		<image height=300 width=300 id = "recipeImage">
+	</div>
 
 		 
-		<!--
-		<table id="tagTable">
-			 Is a table the best way to show this, or can I break this into a section per each column?
-			 aha so th is the name of the columns then td are the column values 
-			
-			 
-			<tr>
-				<th id="tableIngredients">Ingredients</th>
-				<th id="tableAppliances">Appliances</th>
-				<th id="tableDietaryRestrictions">Dietary Restrictions</th>
-				<th id="otherTags">Misc Tags</th>
-			</tr>
+		<div class = "allFloat">
+			<div class="floating-left">
+				<div class = "section">
+					<table id = "t1" style="text-align:center; margin: auto;"><tr><th id="tableIngredients">Ingredients<br></th></tr></table>
+				</div>
+
+				<div class="section">
+					<table id = "t2" style="text-align:center; margin: auto;"><tr><th id="tableAppliances">Appliances<br></th></tr></table>
+				</div>
+			</div>
+			<div class="floating-right">
+				<div class="section">
+					<table id = "t3"style="text-align:center; margin: auto;"><tr><th id="tableDietaryRestrictions">Dietary Restrictions<br></th></tr></table>
+				</div>
+				
+				<div class = "section">
+				<table id = "t4" style="text-align:center; margin: auto;"><tr><th id="otherTags">Misc Tags<br></th></tr></table>	
+				</div>
+			</div>
+		</div>
+
+		<div id= stepsSection>
+			<h2>Steps</h4>
+			<div id="steps">
+			</div>
+		</div>
 		
-		</table>
-
-	-->
-
-
-		<table id = "t1"><tr><th id="tableIngredients">Ingredients</th></tr></table>
-		<table id = "t2"><tr><th id="tableAppliances">Appliances</th></tr></table>
-		<table id = "t3"><tr><th id="tableDietaryRestrictions">Dietary Restrictions</th></tr></table>
-		<table id = "t4"><tr><th id="otherTags">Misc Tags</th></tr></table>
-
-		<h2>Steps</h4>
-		<div id="steps">
-			
+		<div id="rateSection">
+			<h2>Rate</h4>
+			<div id="addRating">
+				<select id="rating">
+					<datalist id="ratingList">
+						<option value="No Rating">No Rating</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</datalist>
+				</select>
+				
+				<button type="button" onclick="rate()">Rate</button>
+				<br>
+			</div>
 		</div>
-		<h2>Rate</h4>
-		<div id="addRating">
-			<select id="rating">
-				<datalist id="ratingList">
-					<option value="No Rating">No Rating</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</datalist>
-			</select>
-			
-			<button type="button" onclick="rate()">Rate</button>
-			<br>
+
+
+		<div id="submit">
+			<button type="button" id="submitButton" onclick="cook()">Cook Recipe</button>
+			<button type="button" id="deleteRecipeButton" onclick="deleteRecipe()" hidden>Delete Recipe</button>
 		</div>
-		<button type="button" onclick="cook()">Cook Recipe</button>
-		<button type="button" id="deleteRecipeButton" onclick="deleteRecipe()" hidden>Delete Recipe</button>
 	</body>
 </html>

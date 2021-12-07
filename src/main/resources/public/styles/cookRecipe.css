@@ -1,26 +1,137 @@
-button[type="button"]{
-    background-color: #555;
-    color: white;  
-    margin-left: 8px;
-    margin-bottom: 5px;
-    font-family: 'Montserrat', sans-serif;
-    cursor: pointer;
-    border-radius: 8px;
-    text-decoration: none;
-    border: solid;
-    font-size: 15px;
-  }
-
-  input[type=nextStepButton] {
-    background-color: #555;
-    text-align: center;
-    color: #383837;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    margin-top: 15px;
-    padding:5px 90px 5px 90px; 
-    cursor:pointer;
-    border: none;
-    font-size: 20px;
+h1{
+  text-align: center;
 }
 
+h2{
+  font-size: 22px;
+  padding-top: 15px;
+  text-align: center;
+}
+
+#recipeImage{
+  display:flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: 150px;
+  
+}
+
+#recipeInfo{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 60%;
+  height: 200px;
+  color: #333;
+  margin-left: 52px;
+  padding-left: 15px;
+  margin-right: 10px;
+  float:left;
+}
+
+th{
+  font-size: 20px;
+  text-align: center;
+}
+
+.ingredients{
+  font-family: 'Montserrat', sans-serif;
+  border: solid 1px rgb(117, 117, 117);
+  border-radius: 8px;
+  width: 650px;
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #333;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  margin-right: 10px;
+  
+}
+
+.step{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#stepSection{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid 1px rgb(117, 117, 117);
+  border-radius: 8px;
+}
+
+.currentStep {
+  background-color: #cccccc;
+  border-radius: 2px;
+  
+}
+
+#ingTable{
+  padding-top: 30px;
+  text-align: center;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid 1px rgb(117, 117, 117); 
+  border-radius: 8px;
+  padding-bottom: 20px;
+}
+
+select {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.nextStepButton{
+  background-color: #555;
+  color: white;  
+  margin-left: 8px;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: solid;
+  font-size: 18px;
+  padding: 14px 24px 14px 24px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.startTimerButton{
+  background-color: #555;
+  color: white;  
+  margin-left: 8px;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: solid 1px rgb(117, 117, 117);
+  font-size: 15px;
+}
+
+.stopTimerButton{
+  background-color: #555;
+  color: white;  
+  margin-left: 8px;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: solid 1px rgb(117, 117, 117);
+  font-size: 15px;
+}
+
+#submit{
+  text-align: center;
+}

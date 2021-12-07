@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 	<head>
@@ -8,15 +9,17 @@
 		<script src="../scripts/cookRecipe.js"></script> <!-- dec 6 12 pm-->
 
 			
+
 		<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
 		<link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
 		<link rel="stylesheet"  href="../styles/main.css">
 		<link rel="stylesheet"  href="/src/main/resources/public/styles/cookRecipe.css">	
-		<link rel="stylessheet"  href="../styles/cookRecipe.css">
+		<link rel="stylesheet"  href="../styles/cookRecipe.css">
 	
 		<!-- Online Font Resources-->
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+
 	</head>
 
 	<header>
@@ -34,18 +37,34 @@
 
 	<body>
 		<!-- TODO: format page-->
-		<h1 id = name> Name: </h1>
-		<h4 id = author>Author: </h4>
-		<h4 id = cooktime>Cook Time: </h4>
+		<h1 id="name"></h1>
 
-		<table id = "ingTable"><tr><th id="tableIngredients">Ingredients</th></tr></table>
+		<div id="recipeInfo">
+			<h3 id="author">By: </h3> <br>
+			<h3 id="cookTime"></h3>
+			<h3 id="displayRating">Rating: </h3>
+			<h3 id="displayDifficulty">Difficulty: </h3>
+		</div>
+
+		<div id = "imageDiv">
+			<image height=200 width=200 id = "recipeImage">
+		</div>
+
+		<h2>Ingredients</h2>
+		<div id = "ingredients">
+			<table id = "ingTable"><tr><th id="tableIngredients"></th></tr></table>
+		</div>
 
 		<!-- I'm (Rosie) working on now, need to figure out how to display one step per page
 		Also need to list all the other information associated with recipe probably such as ingredients
 		-->
-         <div id = steps> </div>
-	
-
+<h2> Directions </h2>
+		<div id=stepSection>
+			
+			<div id = steps > </div>
+		</div>
+<div id="submit">
 		<button class="nextStepButton" onclick="nextStep(this)">Next Step</button>
+	</div>
 	</body>
 </html>
