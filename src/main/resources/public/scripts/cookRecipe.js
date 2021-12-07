@@ -120,13 +120,13 @@ $(document).ready(function() {
             let stepHTML;
             if(timer == -1){
                 stepHTML = 
-                `<div class="step">
+                `<div class="step" onclick="setCurrentStep(this)">
                     <p class="stepText">${stepText}<p>
                 </div>`;
             }
             else{
                 stepHTML = 
-            `<div class="step">
+            `<div class="step" onclick="setCurrentStep(this)">
                 <p class="stepText">${stepText}<p>
                 <div class="timer">
                 <p class="timerTimeMS" hidden >${timer}</p>
@@ -321,6 +321,33 @@ function nextStep(button){
     }
 }
 
+function setCurrentStep(stepEl){
+    let steps = $(".step");
+    for(let i = 0; i < steps.length; i++){
+        steps[i].classList.remove("currentStep");
+        steps[i].classList.remove("completedStep");
+    }
+
+    
+    // console.log(allSteps);
+    classToAdd = "complatedStep";
+    for(let i = 0; i < steps.length; i++){
+        steps[i].classList.add(classToAdd);
+        if(steps[i] == stepEl){
+            steps[i].classList.add("currentStep");
+            currentStepIndex = i;
+            if(currentStepIndex == steps.length - 1){
+                $(".nextStepButton").html("Finish");
+            }
+            else{
+                $(".nextStepButton").html("Next Step");
+
+            }
+            break;
+        }
+    }
+    
+}
 
 
 function getRecipe(){
