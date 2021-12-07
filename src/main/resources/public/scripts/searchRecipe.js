@@ -24,8 +24,8 @@ $(document).ready(function() {
     
 });
 
-function search(){
-    let searchString = getSearchString();
+function search(limit=-1){
+    let searchString = getSearchString(limit);
     $("#results").children("#toClear").remove();
 
 
@@ -34,7 +34,7 @@ function search(){
         type: 'post',
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
         data: JSON.stringify({
-            "searchString": $("#searchString").val(),
+            "searchString": searchString,
             "page" : 1,
             "appliances": true
           }),
@@ -48,6 +48,7 @@ function search(){
                 console.log(xhr)
                 if(xhr.status == 400){
                     $("#status").text("Bad Request. Please make sure all required fields have been filled in.");
+                    
                 }
                 if(xhr.status == 401){
                     document.location="/login?redir=searchRecipe";
@@ -55,16 +56,51 @@ function search(){
             }
         } 
     }).then(function(data){
-        console.log("Data:");
-        console.log(data);
-        displayRecipies(data);
-        $("#status").text(data.message);
+        if(data["error"] && data["message"] == "Could not find any matching recipies"){
+            if(limit == -1){
+                limit = searchString.split(",").length - 1;
+                if(limit > 0){
+                    search(limit);
+                }
+                else{
+                    $("#status").text("Could not find any matching recipes with tag '" + searchString + "'" );
+                }
+            }
+            else if(limit == 1){
+                $("#status").text("Could not find any matching recipes with tag '" + searchString + "'" );
+            }
+            else{
+                search(limit-1);
+            }
+        }
+        else{
+            console.log("Data:");
+            console.log(data);
+            displayRecipies(data);
+            $("#status").text(data.message);
+        }
+        
     });
 }
 
 
-function getSearchString(){
-    return $("#searchString").val();
+function getSearchString(limit){
+    if(limit == -1)
+        return $("#searchString").val();
+    else{
+        let searchString = $("#searchString").val().split(",");
+        let outputSearchString = "";
+        for(let i = 0; i < limit; i++){
+            if(i == limit - 1){
+                outputSearchString += searchString[i];
+            }
+            else{
+                outputSearchString += searchString[i] + ",";
+            }
+        }
+        return outputSearchString;
+
+    }
 }
 
 function displayRecipies(data){
