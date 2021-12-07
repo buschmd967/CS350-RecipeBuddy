@@ -36,6 +36,7 @@ $(document).ready(function() {
 
     stepTemplate = $("#stepInputs").clone();
     stepTemplate.children(".stepText").val("");
+    getPicture().then(viewImage());
 });
 
 function addRecipe() {
