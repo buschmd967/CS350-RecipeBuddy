@@ -123,11 +123,13 @@ public class RecipeController {
         IngredientWithMeasurement[] ingredientswithMeasurements = recipeAddRequest.getIngredients();
         String[] otherTags = recipeAddRequest.getOtherTags();
         short difficulty = recipeAddRequest.getDifficulty();
-        Ingredient[] ingredients = new Ingredient[ingredientswithMeasurements.length];
+        IngredientWithMeasurement[] ingredientsScaled = new IngredientWithMeasurement[ingredientswithMeasurements.length];
+        Ingredient[] quickIngredientsScaled = new Ingredient[ingredientswithMeasurements.length];
 
         for(int i = 0; i<ingredientswithMeasurements.length; i++){
             IngredientWithMeasurement ingredientWithMeasurement = ingredientswithMeasurements[i];
-            ingredients[i] = new Ingredient(ingredientWithMeasurement.getName(), ingredientWithMeasurement.getSize() * getMetricScaleFactor(ingredientWithMeasurement.getMeasurement()));
+            ingredientsScaled[i] = new IngredientWithMeasurement(ingredientWithMeasurement.getName(), ingredientWithMeasurement.getSize() * getMetricScaleFactor(ingredientWithMeasurement.getMeasurement()),ingredientWithMeasurement.getMeasurement() );
+            quickIngredientsScaled[i] = new Ingredient(ingredientsScaled[i].getName(), ingredientsScaled[i].getSize());
         }
 
         
@@ -139,13 +141,13 @@ public class RecipeController {
         recipe.setDietaryRestrictions(dietaryRestrictions);
         recipe.setAppliances(appliances);
         recipe.setOtherTags(otherTags);
-        recipe.setIngrediensts(ingredientswithMeasurements);
+        recipe.setIngrediensts(ingredientsScaled);
         recipe.setSteps(recipeAddRequest.getSteps());
         recipe.setDifficulty(difficulty);
         recipe.setImage(recipeAddRequest.getImage());
         recipe.setIsPrivate(recipeAddRequest.getIsPrivate());
 
-        QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, appliances, ingredients, otherTags);
+        QuickRecipe quickRecipe = new QuickRecipe(recipe, dietaryRestrictions, appliances, quickIngredientsScaled, otherTags);
 
         recipeRepository.save(recipe);
         quickRecipeRepository.save(quickRecipe);
@@ -243,6 +245,7 @@ public class RecipeController {
             return ResponseEntity.ok(new StatusResponse(true, "Could not find recipe"));
         }
         Recipe recipe = possibleRecipe.get();
+        logger.info("Length of ingredients: {}", recipe.getIngredients().length);
 
         if(recipe.getIsPrivate() && !(username.equals(recipe.getAuthor())) ){
             return ResponseEntity.ok(new StatusResponse(true, "This recipe is private and not owned by '" + username + "'"));

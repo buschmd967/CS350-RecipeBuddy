@@ -6,5 +6,11 @@ import lombok.Data;
 public class IngredientWithMeasurement {
     private String name;
     private String measurement;
-    private float size;
+    private double size;
+
+    public IngredientWithMeasurement(String name, double size, String measurement){
+        this.name = name;
+        this.size = size;
+        this.measurement = measurement;
+    }
 }

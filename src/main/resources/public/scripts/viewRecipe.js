@@ -185,6 +185,18 @@ function fillTagTable(){
         $("#t4").append(`<tr><td>${oth}</td></tr>`)
        /*end of rosie add dec 6 */
     }
+
+    //update measurements
+    if($(".ingredientMeasurement").length > 1){
+        for(let i = 0; i < $(".ingredientMeasurement").length; i++){
+            $(".ingredientMeasurement")[i].value = recipe["ingredients"][i]["measurement"];
+        }
+        let measurementEls = document.querySelectorAll(".ingredientMeasurement");
+        for(let measurementEl of measurementEls){
+            changeMeasurement(measurementEl);
+        }
+        
+    }
 }
 
 function updateIngredients(){
