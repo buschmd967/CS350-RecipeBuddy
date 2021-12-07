@@ -5,7 +5,7 @@ h1{
 #recipeInfo{
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
-     border: solid 1px rgb(117, 117, 117); 
+    /* border: solid 1px rgb(117, 117, 117); */
     border-radius: 8px;
     width: 60%;
     height: 300px;

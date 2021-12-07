@@ -96,6 +96,12 @@ $(document).ready(function() {
         $("#name").append(recipe["name"]);
         $("#author").append(recipe["author"]);
 
+        displayRating();
+        
+        displayDifficulty(); //holly added
+
+        viewImage(); //holly added
+
         fillIngTable();
 
 
@@ -104,25 +110,8 @@ $(document).ready(function() {
             $("#cookTime").append("No cook time specified.");
         }
         else{
-            $("#cookTime").append(`Approximate Cook Time: ${timerDisplay(cookTime)}`); 
+            $("#cookTime").append(`Total Cook Time: ${timerDisplay(cookTime)}`); 
         }
-
-        /*
-        $("#name").append(recipe["name"]);
-        $("#author").append(recipe["author"]);
-
-         $("#name").append(recipe["name"]);
-         $("#author").append(recipe["author"]);
- 
-         let cookTime = recipe["cookTime"];
-         if(cookTime == 0){
-             $("#cookTime").append("No cook time specified.");
-         }
-         else{
-             $("#cookTime").append(`Approx. cook time: ${timerDisplay(cookTime)}`); 
-         }
-         getIsRecipeOwner().then(data => {isRecipeOwner = data;});
-          end of rosie add */
 
         let steps = recipe["steps"];
         for(let step of steps){
@@ -154,6 +143,8 @@ $(document).ready(function() {
         }
         $(".step")[0].classList.add("currentStep");
 
+        /* THERE COULD BE SOMETHING ADDED HERE TO ADD STYLING TO THE CURRENT STEP CLASS */
+
     }).then(data => {
         if($(".step").length == 1){
             $(".nextStepButton").html("Finish");
@@ -177,15 +168,15 @@ function fillIngTable(){
         else{
             let selectHTML;
             if(liquidIngredients.includes(ing["measurement"])){
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + ing["name"];
+                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"];
                 
             }
             else if(weightMeasurements.includes(ing["measurement"])){
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + ing["name"];
+                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"];
 
             }
             else{
-                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + ing["name"];
+                ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + " " + ing["name"];
 
             }
 
@@ -336,3 +327,23 @@ function getRecipe(){
     console.log(recipe);
 }
 
+function displayRating(){
+    let rating = recipe["rating"];
+    if(rating == -1){
+        rating = "Not yet rated.";
+    }
+    $("#displayRating").html("Rating: " + rating);
+}
+
+//holly added
+function viewImage(){
+    let image = recipe["image"]; 
+
+    console.log(image);
+    document.getElementById("recipeImage").src = image;
+}
+   
+function displayDifficulty(){
+    let difficulty = recipe["difficulty"];
+    $("#displayDifficulty").html("Difficulty: " + difficulty);
+}
