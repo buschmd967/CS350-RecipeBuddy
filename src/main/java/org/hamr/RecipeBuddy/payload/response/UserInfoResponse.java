@@ -15,12 +15,14 @@ public class UserInfoResponse {
     private List<IngredientWithMeasurement> ingredients;
     private List<Ingredient> shoppingCart;
     private List<String> utensils;
+    private List<String> appliances;
 
     public UserInfoResponse(User user){
         this.dietaryRestrictions = user.getDietaryRestrictions();
         this.ingredients = user.getOwnedIngredients();
         this.shoppingCart = user.getShoppingCartIngredients();
         this.utensils = user.getUtensils();
+        this.appliances = user.getOwnedAppliances();
     }
     
 }
