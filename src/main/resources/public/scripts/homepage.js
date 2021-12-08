@@ -20,17 +20,23 @@ var recipeTemplate = `
 </div>
 </td>`
 
-var recipes = null;
+// var recipes = null;
 
 $(document).ready(function() {
     console.log("test");
-    getRecipes("");
+    getRecipes("").then(data =>{
+        displayRecipes($("#highRatedStr")[0], data["recipies"]);
+    });
+    let trendingSections = $(".otherTag");
+    for(let i = 0; i < trendingSections.length; i++){
+        trendingCategoryChanged(trendingSections[i]);
+    }
     }
 );
 
 
-async function getRecipes(tag){
-    $.ajax({
+function getRecipes(tag){
+    return $.ajax({
         url: 'http://localhost:8080/api/recipe/trending?tag=' + tag,
         type: 'post',
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
@@ -47,20 +53,33 @@ async function getRecipes(tag){
                 }
             }
         } 
-    }).then(data =>{
-        recipes = data["recipies"];
-        console.log(recipes);
-        displayRecipes();
-        
-    })
+    });
 }
 
-function displayRecipes(){
-    $("#trendingRecipestr").empty();
+function displayRecipes(el, recipes){
+    console.log("recipes: " + recipes);
+
+    let trendingSectionDiv = el.parentNode.parentNode;
+    console.log(el.parentNode);
+    console.log(trendingSectionDiv)
+
+    let trendingTable = trendingSectionDiv.querySelector(".trendingRecipes");
+    console.log(trendingTable);
+
+    let trendingRecipeStr = trendingTable.querySelector(".trendingRecipestr");
+
+    // trendingRecipeStr.empty();
+    while (trendingRecipeStr.lastChild) {
+        trendingRecipeStr.removeChild(trendingRecipeStr.lastChild);
+    }
 
     if(recipes === undefined){
-        $("#trendingRecipestr").append(`<h1> No recipes with that tag were found.</h1>`);
+        trendingRecipeStr.innerHTML = `<h1> No recipes with that tag were found.</h1>`;
+        return;
     }
+
+    console.log("displaying "  + recipes.length + "recipes");
+    
     for(let recipe of recipes){
         let name = recipe["name"];
         let displayAuthor = recipe["displayAuthor"];
@@ -90,7 +109,6 @@ function displayRecipes(){
         recipeHTML += `
         <h4>Dietary Restricitions: </h4>`
 
-
         for(let i = 0; i < recipe["dietaryRestrictions"].length; i++){
             let dietaryRestriction = recipe["dietaryRestrictions"][i];
             if(i != recipe["dietaryRestrictions"].length - 1){
@@ -111,7 +129,8 @@ function displayRecipes(){
             </table>
         </div>
         </div>`;
-        $("#trendingRecipestr").append(recipeHTML);
+        console.log("appending: " + recipeHTML);
+        trendingRecipeStr.innerHTML += recipeHTML;
     }
 }
 
@@ -129,4 +148,16 @@ function viewThisRecipe(divElement){
 function showCategory(divEl){
     let category = divEl.querySelector("#categoryName").innerHTML;
     getRecipes(category.toLowerCase());
+}
+
+async function trendingCategoryChanged(selectEl){
+    let val = selectEl.value;
+    console.log(val);
+    getRecipes(val).then(data =>{
+        let recipes = data["recipies"];
+        console.log(data);
+        displayRecipes(selectEl, recipes);
+    }
+    );
+    
 }
