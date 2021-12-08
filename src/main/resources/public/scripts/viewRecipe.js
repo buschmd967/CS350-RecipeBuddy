@@ -18,6 +18,7 @@ var ingredientUnitSelectLiquid = `
 							<option value="qt">qt</option>
 							<option value="gal">gal</option>
 							<option value="oz">oz</option>
+                            <option value="quantity of">pinch</option>
 						</datalist>
 					</select>`
 

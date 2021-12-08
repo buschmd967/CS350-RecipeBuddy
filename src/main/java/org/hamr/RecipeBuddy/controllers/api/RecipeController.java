@@ -485,6 +485,9 @@ public class RecipeController {
             case "pinch":
             return 1;
 
+            case "quantity of":
+            return 1;
+
             default:
             return 0;
         }
