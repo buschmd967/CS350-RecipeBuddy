@@ -28,7 +28,7 @@ public class SignupRequest {
     private String picture;
     private String[] dietaryRestrictions;
     private String[] ownedAppliances;
-    private List<IngredientWithMeasurement> ownedIngredients;
+    private IngredientWithMeasurement[] ownedIngredients;
   
     public String getUsername() {
         return username;

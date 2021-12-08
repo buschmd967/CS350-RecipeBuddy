@@ -72,7 +72,7 @@ function signup(){
                 "picture": picture,
                 "dietaryRestrictions": getEntries(".diets"),
                 "ownedAppliances": getEntries(".appliances"),
-                "ownedIngredients" : getEntries(".ingredients") /* ROSIE JUST ADDED */
+                "ownedIngredients" : getIngredients()
                 }),
             xhrFields: { withCredentials:true },
             contentType: 'application/json',
@@ -192,6 +192,42 @@ function addIngredient(){
 
 function addDietaryRestriction(){
     $("#dietSelection").append(dietaryRestrictionTemplate.clone());
+}
+
+function getIngredients(){
+    let out = [];
+    let ingredients = [];
+    let measurements = [];
+    let sizes = [];
+    
+    $(".ingredientAmmount").each(function(){
+        if($(this).val() == ""){
+            sizes.push(1);
+        }
+        else{
+            sizes.push($(this).val());
+        }
+    });
+
+    $(".ingredientMeasurement").each(function(){
+        measurements.push($(this).val());
+    });
+
+    $(".ingredientName").each(function(){
+        ingredients.push($(this).val());
+    });
+    
+    for(let i = 0; i < ingredients.length; i++){
+        if(ingredients[i] != ""){
+            out.push({
+                "name": ingredients[i],
+                "measurement": measurements[i],
+                "size": sizes[i]
+            });
+        }
+    }
+
+    return out;
 }
 
 function removeEntry(a){

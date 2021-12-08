@@ -1,6 +1,7 @@
 package org.hamr.RecipeBuddy.controllers.api;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.hamr.RecipeBuddy.models.ERole;
+import org.hamr.RecipeBuddy.models.IngredientWithMeasurement;
 import org.hamr.RecipeBuddy.models.Role;
 import org.hamr.RecipeBuddy.models.User;
 import org.hamr.RecipeBuddy.payload.request.LoginRequest;
@@ -88,9 +90,10 @@ public class AuthController {
                                 encoder.encode(signUpRequest.getPassword()));
 
 
+        List<IngredientWithMeasurement> userIngredients = Arrays.asList(signUpRequest.getOwnedIngredients());
         user.setDietaryRestrictions(signUpRequest.getDietaryRestrictions());
         user.setOwnedAppliances(signUpRequest.getOwnedAppliances());
-        user.setOwnedIngredients(signUpRequest.getOwnedIngredients());
+        user.setOwnedIngredients(userIngredients);
         user.setImage(signUpRequest.getPicture());
         //Roles stuff that I don't understand
         Set<String> strRoles = signUpRequest.getRoles();
