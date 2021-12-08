@@ -36,35 +36,7 @@ $(document).ready(function() {
 
 
 
-    function changeMeasurement(input){
-        let originalMeasurement = input.parentNode.querySelector("#sizeML").innerHTML;
-        let unit = input.value;
-    
-        $.ajax({
-            url: 'http://localhost:8080/api/recipe/scale',
-            type: 'post',
-            data: JSON.stringify({
-                "size": (originalMeasurement - 0),
-                "unit": unit
-            }),
-            xhrFields: { withCredentials:true },
-            contentType: 'application/json',
-            success: function(response){
-                console.log("SUCCESS");
-            },
-            complete: function(xhr, textStatus) {
-                if(xhr.status != 200){
-                    console.log(xhr)
-                }
-    
-            } 
-        }).then(function(data){
-            if(data !== undefined){
-                input.parentNode.querySelector("#size").innerHTML = data["result"];
-            }
-            console.log(data);
-        });
-    }
+
 
 
 
@@ -164,40 +136,37 @@ $(document).ready(function() {
     })
 });
 
-// function fillIngTable(){
-//     let ingredients = recipe["ingredients"];
 
-//     let maxIndex = ingredients.length;
 
-//     for(let i = 0; i < maxIndex; i++){
-//         let ing = ingredients[i];
-//         let ingSize = "";
+function changeMeasurement(input){
+    let originalMeasurement = input.parentNode.querySelector("#sizeML").innerHTML;
+    let unit = input.value;
 
-//         if(ing === undefined){
-//             ing = "";
-//         }
-//         else{
-//             let selectHTML;
-//             if(liquidIngredients.includes(ing["measurement"])){
-//                 ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"];
-                
-//             }
-//             else if(weightMeasurements.includes(ing["measurement"])){
-//                 ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"];
+    $.ajax({
+        url: 'http://localhost:8080/api/recipe/scale',
+        type: 'post',
+        data: JSON.stringify({
+            "size": (originalMeasurement - 0),
+            "unit": unit
+        }),
+        xhrFields: { withCredentials:true },
+        contentType: 'application/json',
+        success: function(response){
+            console.log("SUCCESS");
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status != 200){
+                console.log(xhr)
+            }
 
-//             }
-//             else{
-//                 ing = `<span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ` ${ing["measurement"]} ` + " " + ing["name"];
-
-//             }
-
-//         }
-
-//         /* start of rosie add dec 6 */
-//         $("#ingTable").append(`<tr><td>${ing}</td></tr>`)
-//        /*end of rosie add dec 6 */
-//     }
-// }
+        } 
+    }).then(function(data){
+        if(data !== undefined){
+            input.parentNode.querySelector("#size").innerHTML = data["result"];
+        }
+        console.log(data);
+    });
+}
 
 function timerDisplay(sec){
   let hours = Math.floor(sec / (60*60));
@@ -211,37 +180,6 @@ function timerDisplay(sec){
   return hours.padStart(2,'0')+":"+minutes.padStart(2, '0')+":"+seconds.padStart(2, '0');
   
 }
-
-
-// function changeMeasurement(input){
-//     let originalMeasurement = input.parentNode.querySelector("#sizeML").innerHTML;
-//     let unit = input.value;
-
-//     $.ajax({
-//         url: 'http://localhost:8080/api/recipe/scale',
-//         type: 'post',
-//         data: JSON.stringify({
-//             "size": (originalMeasurement - 0),
-//             "unit": unit
-//         }),
-//         xhrFields: { withCredentials:true },
-//         contentType: 'application/json',
-//         success: function(response){
-//             console.log("SUCCESS");
-//         },
-//         complete: function(xhr, textStatus) {
-//             if(xhr.status != 200){
-//                 console.log(xhr)
-//             }
-
-//         } 
-//     }).then(function(data){
-//         if(data !== undefined){
-//             input.parentNode.querySelector("#size").innerHTML = data["result"];
-//         }
-//         console.log(data);
-//     });
-// }
 
 //from https://stackoverflow.com/questions/4611754/javascript-convert-seconds-to-a-date-object
 function toDateTime(secs) {
