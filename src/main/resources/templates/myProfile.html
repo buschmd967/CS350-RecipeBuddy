@@ -9,10 +9,8 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
     ></script>
     <script src="../scripts/myProfile.js"></script>
-        <script src="../scripts/searchbar.js"></script>
-        <script src="../scripts/header.js"></script>
-
-        
+    <script src="../scripts/searchbar.js"></script>
+    <script src="../scripts/header.js"></script>
 
     <!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
     <link rel="stylesheet" href="/src/main/resources/public/styles/main.css" />
@@ -32,28 +30,121 @@
   </head>
 
   <header>
-		<div id="website-header">
-			<ul>
-				<li style="float:left"><a href="homepage">RecipeBuddy</a></li>
-				<li><a id="logout" onclick="logout()">Logout</a></li>
-				<li><a class = "active" id="myProfile" href="myProfile">My Profile</a></li>
-				<li><a href="pantry" id="pantry">Pantry</a></li>
-				<li><a href="recipeBook" id="recipeBook">Recipe Book</a></li>
-				<li><a href="addRecipe" id="addRecipe">Add Recipe</a></li>
-				<!--<li><a href=searchRecipe id="searchButton">Search</a></li>-->
-				<li style="float:left" class="searchNav"><input placeholder="Search" onKeyUp="updateSearch()" id="searchText" size=30></li>
-			</ul>
-		</div>
-	</header>
-
-
+    <div id="website-header">
+      <ul>
+        <li style="float: left"><a href="homepage">RecipeBuddy</a></li>
+        <li><a id="logout" onclick="logout()">Logout</a></li>
+        <li>
+          <a class="active" id="myProfile" href="myProfile">My Profile</a>
+        </li>
+        <li><a href="pantry" id="pantry">Pantry</a></li>
+        <li><a href="recipeBook" id="recipeBook">Recipe Book</a></li>
+        <li><a href="addRecipe" id="addRecipe">Add Recipe</a></li>
+        <!--<li><a href=searchRecipe id="searchButton">Search</a></li>-->
+        <li style="float: left" class="searchNav">
+          <input
+            placeholder="Search"
+            onKeyUp="updateSearch()"
+            id="searchText"
+            size="30"
+          />
+        </li>
+      </ul>
+    </div>
+  </header>
 
   <body>
     <h1>Your Profile!</h1>
-    <h3>Profile Picture</h3>
-    <form action="/action_page.php">
-      <input type="file" id="myFile" name="filename" />
-      <input type="submit" />
-    </form>
+    <!-- Profile Picture -->
+    <div class="profile-pic">
+      <imag
+        src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-27.jpg"
+        id="photo"
+      ></imag>
+      <input type="file" id="fileToUpload" />
+      <label for="fileToUpload" id="uploadBtn">Choose Photo </label>
+    </div>
+    <div>
+      <!-- Username-->
+      <h3>Username</h3>
+      <input type="text" id="userName" placeholder="My Username" />
+    </div>
+
+    <div id="dietaryRestrictionSection">
+      <h3>Dietary Restrictions
+        <button type="button" onclick="addDietaryRestriction()">Add +</button>
+      </h3>
+      <div class="dropdownMenu">
+        <div id="dietaryRestrictionInputs">
+          <select class="dietaryRestriction">
+          <datalist id="dietInputs">
+            <option value="fish allergy">Fish Allergy</option>
+            <option value="gluten intolerance"> Gluten intolerant</option>
+            <option value="lactose intolerant">Lactose intolerant</option>
+            <option value="peanut allergy">Peanut Allergy</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="wheat allergy">Wheat Allergy</option>
+            <option value="pescatarian">Pescatarian</option>
+
+          </datalist>
+          </select>
+        <br>
+        <br>
+        </div>				
+      </div>
+    </div>
+
+    <div id="applianceSection">
+			<h3>Appliances
+				<button type="button" onclick="addAppliance()">Add +</button>
+			</h3>
+			<div class="dropdownMenu">
+				<div id="applianceInputs">
+					<select class="appliance">
+					<datalist id="appInputs">
+			
+						<option value="blender"> Blender  </option>
+						<option value="bowl">  Bowl </option>
+						<option value="fryer"> Fryer </option>
+						<option value="microwave"> Microwave </option>
+						<option value="mixer">Mixer</option>
+						<option value="oven"> Oven </option>
+						<option value="rice cooker"> Rice Cooker </option>
+						<option value="sheet tray"> Sheet Tray  </option>
+						<option value="toaster"> Toaster </option>
+						<option value="whisk"> Whisk </option>
+					</datalist>
+					</select>
+
+				<br>
+				<br>
+				</div>
+			</div>
+		</div>
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
+    </div>
   </body>
+  <div class="form-group">
+    <label for="eMail">Email</label>
+    <input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>New Password</label>
+        <input class="form-control" type="password" placeholder="••••••">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
+        <input class="form-control" type="password" placeholder="••••••"></div>
+    </div>
+  </div>
+</div>
 </html>
