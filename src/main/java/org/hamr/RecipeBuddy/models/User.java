@@ -59,6 +59,7 @@ public class User {
     this.password = password;
     this.dietaryRestrictions = new ArrayList<>();
     this.savedRecipes = new ArrayList<>();
+    this.shoppingCartIngredients = new ArrayList<>();
   }
 
   public String getId() {

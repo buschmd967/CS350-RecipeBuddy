@@ -127,6 +127,7 @@ function signup(){
  }
 
  function getIngredients(){
+
     let out = [];
     let ingredients = [];
     let measurements = [];
@@ -141,13 +142,14 @@ function signup(){
         }
     });
 
-    $(".ingredientMeasurement").each(function(){
+    $(".ingredientMeasurements").each(function(){
         measurements.push($(this).val());
     });
 
     $(".ingredientName").each(function(){
         ingredients.push($(this).val());
     });
+    console.log(measurements);
     
     for(let i = 0; i < ingredients.length; i++){
         if(ingredients[i] != ""){
@@ -194,41 +196,6 @@ function addDietaryRestriction(){
     $("#dietSelection").append(dietaryRestrictionTemplate.clone());
 }
 
-function getIngredients(){
-    let out = [];
-    let ingredients = [];
-    let measurements = [];
-    let sizes = [];
-    
-    $(".ingredientAmmount").each(function(){
-        if($(this).val() == ""){
-            sizes.push(1);
-        }
-        else{
-            sizes.push($(this).val());
-        }
-    });
-
-    $(".ingredientMeasurement").each(function(){
-        measurements.push($(this).val());
-    });
-
-    $(".ingredientName").each(function(){
-        ingredients.push($(this).val());
-    });
-    
-    for(let i = 0; i < ingredients.length; i++){
-        if(ingredients[i] != ""){
-            out.push({
-                "name": ingredients[i],
-                "measurement": measurements[i],
-                "size": sizes[i]
-            });
-        }
-    }
-
-    return out;
-}
 
 function removeEntry(a){
     a.parentNode.parentNode.removeChild(a.parentNode);
