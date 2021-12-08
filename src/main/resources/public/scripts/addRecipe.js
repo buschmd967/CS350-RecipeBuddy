@@ -249,6 +249,7 @@ function addMealType(){
     $("#mealTypeSection").append(mealTypeTemplate.clone());
 }
 
+
 function addStep(){
     $("#stepSection").append(stepTemplate.clone());
 }

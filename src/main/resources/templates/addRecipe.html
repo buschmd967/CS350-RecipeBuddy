@@ -140,19 +140,6 @@
 				</div>
 			</div>
 
-			<!-- OLD - BEFORE DROPDOWN
-			<div id="applianceSection">
-				<h3>Appliances
-					<button type="button" onclick="addAppliance()">Add +</button>
-				</h3>
-				<div id="applianceInputs">
-					<input type="text" class="appliance" placeholder="Appliance"/>
-					<button type="button" onclick="removeEntry(this)">-</button>
-					<br>
-				</div>
-			</div>
-		-->
-
 		<div id="applianceSection">
 			<h3>Appliances Used
 				<button type="button" onclick="addAppliance()">Add +</button>
@@ -182,19 +169,6 @@
 			</div>
 		</div>
 
-			<!-- OLD - BEFORE DROPDOWN 
-			<div id="dietaryRestrictionSection">
-				<h3>Dietary Restrictions
-					<button type="button" onclick="addDietaryRestriction()">Add +</button>
-				</h3>
-				<div id="dietaryRestrictionInputs">
-					<input type="text" class="dietaryRestriction" placeholder="Dietary Restriction"/>
-					<button type="button" onclick="removeEntry(this)">-</button>
-					<br>
-				</div>
-			</div>
--->
-
 			<div id="dietaryRestrictionSection">
 				<h3>Dietary Restrictions
 					<button type="button" onclick="addDietaryRestriction()">Add +</button>
@@ -213,9 +187,7 @@
 							<option value="vegan">Vegan</option>
 							<option value="vegetarian">Vegetarian</option>
 							<option value="wheat allergy">Wheat Allergy</option>
-				
 						</datalist>
-				
 						</select>
 					
 					<button type="button" onclick="removeEntry(this)">-</button>
@@ -228,26 +200,24 @@
 
 
 			<div id="mealTypeSection">
-				<h3>Type of Meal
+				<h3>Trending Categories
 					<button type="button" onclick="addMealType()">Add +</button>
 				</h3>
 				<div id="mealTypeInputs">
-
 					<select class="otherTag">
 						<datalist id="dietInputs">
 							<option value="">Not Specified</option>
 							<option value="breakfast">Breakfast</option>
 							<option value="lunch">Lunch</option>
 							<option value="dinner">Dinner</option>
+							<option value="snacks">Snack</option>
+							<option value="dessert">Dessert</option>
 							<option value="spring">Spring</option>
 							<option value="summer">Summer</option>
 							<option value="fall">Fall</option>
 							<option value="winter">Winter</option>
-				
 						</datalist>
-				
 						</select>
-
 					<!--<input type="text" class="otherTag" placeholder="Tag"/>-->
 					<button type="button" onclick="removeEntry(this)">-</button>
 					<br>

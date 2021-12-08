@@ -2,6 +2,15 @@ h1{
     text-align: center;
     padding-top: 20px;
 }
+
+h2{
+    margin-top: 70px;
+}
+
+h3{
+    text-align: center;
+}
+
 .recipeInfo{
     font-family: 'Montserrat', sans-serif;
     border: solid 1px rgb(117, 117, 117);
@@ -64,10 +73,6 @@ button[type="button"]{
 
 
 
-  h2{
-      text-align:center;
-  }
-
   #recipeText{
       float:left;
       margin-top: 25px;
@@ -91,6 +96,13 @@ button[type="button"]{
     border-radius: 8px;
     color: #333;
     margin-bottom: 10px;
-    
-
  }
+
+ select {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+  }

@@ -41,115 +41,421 @@
 
 	<body>
 
-
+<h1>Trending</h1> 
 
 <!-- TRENDING RECIPES (SO CLICKING ON A RECIPE SHOULD BRING USER TO THEIR VIEW RECIPE PAGE)-->
-<h1>Trending Recipes</h1> 
+<h2>High-Rated Recipes</h2> 
 
 <div style="overflow-x:auto;">
     <table class="trendingRecipes">
-        <tr id="trendingRecipestr">
-            <!--
-            <td>
-                 EXAMPLE OF HOW FIRST ENTRY SHOULD BE SET UP
-                <div class="recipeInfo">
-                    
-                    <h2>NAME</h2>
-                    <div id="recipeText">
-                        <h3>Author: </h3>
-                        <h4>Rating: </h4>
-                        <h4>Ingredients: (Listed as a paragraph)</h4>
-                        <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
-                    </div>
+        <!--<tr id="trendingRecipestr">-->
+            <tr>            
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
 
-                    <div class="recipeTable">
-                        <table id="toClear">
-                            <tr class="recipeData">
-                                <image height=200 width=200 src="${image}">
-                            </tr>
-                        </table>
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td>
-                 EXAMPLE OF HOW SECOND ENTRY SHOULD BE SET UP
-                <div class="recipeInfo">
-                    
-                    <h2>NAME</h2>
-                    <div id="recipeText">
-                        <h3>Author: </h3>
-                        <h4>Rating: </h4>
-                        <h4>Ingredients: </h4>
-                        <h4>Dietary Restricitions: </h4>
-                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
 
-                    <div class="recipeTable">
-                        <table id="toClear">
-                            <tr class="recipeData">
-                                <image height=200 width=200 src="${image}">
-                            </tr>
-                        </table>
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td>
-                 EXAMPLE OF HOW THIRD ENTRY SHOULD BE SET UP
-                <div class="recipeInfo">
-                   
-                    <h2>NAME</h2>
-                    <div id="recipeText">
-                        <h3>Author: </h3>
-                        <h4>Rating: </h4>
-                        <h4>Ingredients: </h4>
-                        <h4>Dietary Restricitions: </h4>
-                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
 
-                    <div class="recipeTable">
-                        <table id="toClear">
-                            <tr class="recipeData">
-                                <image height=200 width=200 src="${image}">
-                            </tr>
-                        </table>
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td>
-                 EXAMPLE OF HOW FOURTH ENTRY SHOULD BE SET UP
-                <div class="recipeInfo">
-                   
-                    <h2>NAME</h2>
-                    <div id="recipeText">
-                        <h3>Author: </h3>
-                        <h4>Rating: </h4>
-                        <h4>Ingredients: </h4>
-                        <h4>Dietary Restricitions: </h4>
-                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
 
-                    <div class="recipeTable">
-                        <table id="toClear">
-                            <tr class="recipeData">
-                                <image height=200 width=200 src="${image}">
-                            </tr>
-                        </table>
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </td>-->
-            
-        </tr>
-
+                </td>
+            </tr>
     </table>
 </div>
 
 
+ 
+<div class="trendingSections">
+   <h2>Trending Recipes for 
+      
+            <select class="otherTag">
+                <datalist id="dietInputs">
+                    <option value=""></option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="snacks">Snack</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="spring">Spring</option>
+                    <option value="summer">Summer</option>
+                    <option value="fall">Fall</option>
+                    <option value="winter">Winter</option>
+                </datalist>
+                </select>
+       
+    </h2>
 
-<!-- RECIPE CATEGORIES (SO CLICKING ON A CATEGORY SHOULD BRING USER TO SEARCH PAGE WITH THAT SPECIFIC CATEGORY TAG SEARCHED UP)-->
+
+    <div style="overflow-x:auto;">
+        <table class="trendingRecipes">
+            <tr>            
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="trendingSections">
+    <h2>Trending Recipes for 
+       
+             <select class="otherTag">
+                 <datalist id="dietInputs">
+                     <option value=""></option>
+                     <option value="breakfast">Breakfast</option>
+                     <option value="lunch">Lunch</option>
+                     <option value="dinner">Dinner</option>
+                     <option value="snacks">Snack</option>
+                     <option value="dessert">Dessert</option>
+                     <option value="spring">Spring</option>
+                     <option value="summer">Summer</option>
+                     <option value="fall">Fall</option>
+                     <option value="winter">Winter</option>
+                 </datalist>
+                 </select>
+        
+     </h2>
+ 
+ 
+     <div style="overflow-x:auto;">
+         <table class="trendingRecipes">
+             <tr>            
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+             </tr>
+         </table>
+     </div>
+ </div>
+
+ <div class="trendingSections">
+    <h2>Trending Recipes for 
+       
+             <select class="otherTag">
+                 <datalist id="dietInputs">
+                     <option value=""></option>
+                     <option value="breakfast">Breakfast</option>
+                     <option value="lunch">Lunch</option>
+                     <option value="dinner">Dinner</option>
+                     <option value="snacks">Snack</option>
+                     <option value="dessert">Dessert</option>
+                     <option value="spring">Spring</option>
+                     <option value="summer">Summer</option>
+                     <option value="fall">Fall</option>
+                     <option value="winter">Winter</option>
+                 </datalist>
+                 </select>
+        
+     </h2>
+ 
+ 
+     <div style="overflow-x:auto;">
+         <table class="trendingRecipes">
+             <tr>            
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="recipeInfo">
+                        <h3>NAME</h3>
+                        <div id="recipeText">
+                            <h4>Author: </h4>
+                            <h4>Rating: </h4>
+                            <h4>Ingredients: (Listed as a paragraph)</h4>
+                            <h4>Dietary Restricitions: (Listed as a paragraph)</h4>
+                        </div>
+
+                        <div class="recipeTable">
+                            <table id="toClear">
+                                <tr class="recipeData">
+                                    <image height=200 width=200 src="${image}">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+             </tr>
+         </table>
+     </div>
+ </div>
+
+
+<!-- RECIPE CATEGORIES (SO CLICKING ON A CATEGORY SHOULD BRING USER TO SEARCH PAGE WITH THAT SPECIFIC CATEGORY TAG SEARCHED UP)
 <h1>Recipe Categories</h1> 
 
 <div style="overflow-x:auto;">
     <table class="trendingRecipes">
         <tr>
             <td>
-                <!-- EXAMPLE OF HOW FIRST ENTRY SHOULD BE SET UP-->
+             
                 <div class="category" onclick="showCategory(this)">
                     
                     <h2 id="categoryName">BREAKFAST</h2>
@@ -157,7 +463,7 @@
                 </div>
             </td>
             <td>
-                <!-- EXAMPLE OF HOW SECOND ENTRY SHOULD BE SET UP-->
+               
                 <div class="category" onclick="showCategory(this)">
                     
                     <h2 id="categoryName">LUNCH</h2>
@@ -165,7 +471,7 @@
                 </div>
             </td>
             <td>
-                <!-- EXAMPLE OF HOW THIRD ENTRY SHOULD BE SET UP-->
+              
                 <div class="category" onclick="showCategory(this)">
                    
                     <h2 id="categoryName">DINNER</h2>
@@ -173,7 +479,7 @@
                 </div>
             </td>
             <td>
-                <!-- JUST ADDED-->
+              
                 <div class="category" onclick="showCategory(this)">
                    
                     <h2 id="categoryName">SNACKS</h2>
@@ -181,7 +487,7 @@
                 </div>
             </td>
             <td>
-                <!-- JUST ADDED-->
+              
                 <div class="category" onclick="showCategory(this)">
                    
                     <h2 id="categoryName">DESSERT</h2>
@@ -189,7 +495,7 @@
                 </div>
             </td>
             <td>
-                <!-- EXAMPLE OF HOW FOURTH ENTRY SHOULD BE SET UP-->
+                
                 <div class="category" onclick="showCategory(this)">
                    
                     <h2 id="categoryName">SPRING</h2>
@@ -198,7 +504,7 @@
                 </div>
             </td>
             <td>
-                <!-- EXAMPLE OF HOW FIFTH ENTRY SHOULD BE SET UP-->
+                
                 <div class="category" onclick="showCategory(this)">
                    
                     <h2 id="categoryName">SUMMER</h2>
@@ -208,7 +514,7 @@
                 </div>
             </td>
             <td>
-                <!-- EXAMPLE OF HOW SIXTH ENTRY SHOULD BE SET UP-->
+                
                 <div class="category" onclick="showCategory(this)">
                    
                     <h2 id="categoryName">FALL</h2>
@@ -216,7 +522,7 @@
                 </div>
             </td>
             <td>
-                <!-- EXAMPLE OF HOW FOURTH ENTRY SHOULD BE SET UP-->
+               
                 <div class="category" onclick="showCategory(this)">
                    
                     <h2 id="categoryName">WINTER</h2>
@@ -228,7 +534,7 @@
 
     </table>
 </div>
-
+-->
 
 
 </body>
