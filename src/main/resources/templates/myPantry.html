@@ -14,8 +14,8 @@
 			<!-- CSS Files (Two path needed per file, one for hosting live server and one for running the entire application) -->
             <link rel="stylesheet"  href="/src/main/resources/public/styles/main.css">	
             <link rel="stylesheet"  href="../styles/main.css">
-            <link rel="stylesheet"  href="/src/main/resources/public/styles/pantry.css">	
-            <link rel="stylesheet"  href="../styles/pantry.css">
+            <link rel="stylesheet"  href="/src/main/resources/public/styles/myPantry.css">	
+            <link rel="stylesheet"  href="../styles/myPantry.css">
         
             <!-- Online Font Resources-->
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,35 +32,140 @@
                     <li><a class="active" href="pantry">Pantry</a></li>
                     <li><a href="recipeBook" id="recipeBook">Recipe Book</a></li>
                     <li><a href="addRecipe" id="addRecipe">Add Recipe</a></li>
-                    <li><a href=searchRecipe id="searchButton">Search</a></li>
-                    <li style="float:left" class="searchNav"><input onKeyUp="updateSearch()" id="searchText" size=30></li>
+                    <!--<li><a href=searchRecipe id="searchButton">Search</a></li>-->
+                    <li style="float:left" class="searchNav"><input placeholder="Search" onKeyUp="updateSearch()" id="searchText" size=30></li>
                 </ul>
             </div>
         </header>
         
     <body>
-        <h1>NAME's Pantry</h1>
-        <table>
-            <tr>
-                <td>
-                    <div id="pantryDiv">
-                        <h2>Ingredients</h2>
-                        <div id="ingredientsDiv">
-                        </div>
-                    </div>
-                </td>
-                </tr>   
-                <tr>
-                <td>
-                    <h2>Shopping Cart</h2>
-                    <div id="ShoppingCartDiv">
-                        <h2>Utensils</h2>
-                        
-                    </div>
-                </td>
-                </tr>
-            
-        </table>
+        <h1>NAME's Pantry</h1> <!-- should show the user's display name (not username)-->
         
+
+        <div class="entireSection"> <!-- display name of current ingredients WITH quanity and units?, has remove button for each and general add button  -->
+            <h2>Ingredients<br>
+                <button type="button" class="addButton">Add</button>
+            </h2>  
+            <div style="overflow-x:auto;">
+                <table class="scrollSection">
+                    <tr>
+                        <td>
+                            <div class="category">
+                                <h3># UNITS INGREDIENT 1</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category" >
+                                <h3># UNITS INGREDIENT 2</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3># UNITS INGREDIENT 3</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3># UNITS INGREDIENT 4</h3>
+                                <button type="button" class="removeButton">(Remove)</button>  
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3># UNITS INGREDIENT 5</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
+        <div class="entireSection"> <!-- display name of appliance, add/remove appliance options-->
+            <h2>Appliances <br>
+                <button type="button" class="addButton">Add</button>
+            </h2>  
+            <div style="overflow-x:auto;">
+                <table class="scrollSection">
+                    <tr>
+                        <td>
+                            <div class="category">
+                                <h3>APPLIANCE 1</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category" >
+                                <h3>APPLIANCE 2</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3>APPLIANCE 3</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3>APPLIANCE 4</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3>APPLIANCE 5</h3>
+                                <button type="button" class="removeButton">(Remove)</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
+
+        <div class="entireSection"> <!-- just needs to display name of ingredients, no clicks needed -->
+            <h2>Shopping Cart</h2>  
+            <div style="overflow-x:auto;">
+                <table class="scrollSection">
+                    <tr>
+                        <td>
+                            <div class="category">
+                                <h3>INGREDIENT 1</h3>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category" >
+                                <h3>INGREDIENT 2</h3>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3>INGREDIENT 3</h3>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3>INGREDIENT 4</h3>  
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category">
+                                <h3>INGREDIENT 5</h3>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
     </body>
 </html>

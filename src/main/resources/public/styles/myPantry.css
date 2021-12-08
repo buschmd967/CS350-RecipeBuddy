@@ -1,0 +1,63 @@
+h1{
+    text-align:center;
+    margin-bottom: 30px;
+}
+
+h2{
+    text-align:center;
+}
+
+h3{
+    text-align:center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+table{
+    width:100%;
+}
+
+.scrollSection{
+    overflow-x:scroll;
+    scrollbar-track-color: #333;
+}
+
+.category{
+    padding-top:25px;
+    padding-bottom: 25px;
+    width: 300px;
+    font-family: 'Montserrat', sans-serif;
+   border: solid 1px rgb(117, 117, 117);
+   border-radius: 8px;
+   color: #333;
+   margin-bottom: 10px;
+   margin-left: 20px;
+
+}
+
+.entireSection{
+    margin-bottom: 50px;
+}
+
+.addButton{
+    background-color: #555;
+    color: white;  
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    border-radius: 8px;
+    text-decoration: none;
+    border: solid;
+    font-size: 15px;
+}
+
+.removeButton{
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: #333;
+    font-size: 15px;
+    padding:5px 90px 5px 110px; 
+    cursor:pointer;
+    border: none;
+}
