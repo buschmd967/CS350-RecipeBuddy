@@ -27,6 +27,8 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap"
       rel="stylesheet"
     />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" 
+    rel="stylesheet"/>
   </head>
 
   <header>
@@ -54,102 +56,54 @@
   </header>
 
   <body>
-    <h1>Your Profile!</h1>
-    <!-- Profile Picture -->
-    <div class="profile-pic">
-      <imag
-        src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-27.jpg"
-        id="photo"
-      ></imag>
-      <input type="file" id="fileToUpload" />
-      <label for="fileToUpload" id="uploadBtn">Choose Photo </label>
-    </div>
-    <div>
-      <!-- Username-->
-      <h3>Username</h3>
-      <input type="text" id="userName" placeholder="My Username" />
-    </div>
+    
+    <div class="container rounded bg-white mt-5 mb-5">
+      <h3>Your Profile</h3>
+      <div class="row">
+          <div class="col-md-3 border-right">
+              <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png"><span class="font-weight-bold">Username</span><span class="text-black-50">RecippyBuddy</span><span> </span></div>
+          </div>
+          <div class="col-md-5 border-right">
+              <div class="p-3 py-5">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-6"><label class="labels">Full Name</label><input type="text" class="form-control" placeholder="full name" value=""></div>
+                      <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control" value="" placeholder="username"></div>
+                  </div>
 
-    <div id="dietaryRestrictionSection">
-      <h3>Dietary Restrictions
-        <button type="button" onclick="addDietaryRestriction()">Add +</button>
-      </h3>
-      <div class="dropdownMenu">
-        <div id="dietaryRestrictionInputs">
-          <select class="dietaryRestriction">
-          <datalist id="dietInputs">
-            <option value="acid reflux">Acid Reflux</option>
-            <option value="diabetic">Diabetic</option>
-            <option value="fish allergy">Fish Allergy</option>
-            <option value="gluten intolerance"> Gluten intolerant</option>
-            <option value="kosher">Kosher</option>
-            <option value="keto">Keto</option>
-            <option value="lactose intolerant">Lactose intolerant</option>
-            <option value="peanut allergy">Peanut Allergy</option>
-            <option value="pescatarian">Pescatarian</option>
-            <option value="soy allergy">Soy Allergy</option>
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="wheat allergy">Wheat Allergy</option>
-          </datalist>
-          </select>
-          <button type="button" onclick="removeEntry(this)">-</button>
-        <br>
-        <br>
-        </div>				
-      </div>
-    </div>
-
-    <div id="applianceSection">
-			<h3>Appliances
-				<button type="button" onclick="addAppliance()">Add +</button>
-			</h3>
-			<div class="dropdownMenu">
-				<div id="applianceInputs">
-					<select class="appliance">
-					<datalist id="appInputs">
-			
-						<option value="blender"> Blender  </option>
-						<option value="bowl">  Bowl </option>
-						<option value="fryer"> Fryer </option>
-						<option value="microwave"> Microwave </option>
-						<option value="mixer">Mixer</option>
-						<option value="oven"> Oven </option>
-						<option value="rice cooker"> Rice Cooker </option>
-						<option value="sheet tray"> Sheet Tray  </option>
-						<option value="toaster"> Toaster </option>
-						<option value="whisk"> Whisk </option>
-					</datalist>
-					</select>
-
-				<br>
-				<br>
-				</div>
-			</div>
-		</div>
-    <div class="form-group">
-      <label for="fullName">Full Name</label>
-      <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
-    </div>
-  </body>
-  <div class="form-group">
-    <label for="eMail">Email</label>
-    <input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label>New Password</label>
-        <input class="form-control" type="password" placeholder="••••••">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-        <input class="form-control" type="password" placeholder="••••••"></div>
-    </div>
-  </div>
-</div>
+                  <div id="dietaryRestrictionSection">
+                    <h3>Dietary Restrictions
+                      <button type="button" onclick="addDietaryRestriction()">Add +</button>
+                    </h3>
+                    <div class="dropdownMenu">
+                      <div id="dietaryRestrictionInputs">
+                        <select class="dietaryRestriction">
+                        <datalist id="dietInputs">
+                          <option value="dairy-free">Dairy Free</option>
+                          <option value="fish allergy">Fish Allergy</option>
+                          <option value="gluten-free"> Gluten Free</option>
+                          <option value="kosher">Kosher</option>
+                          <option value="lactose intolerance">Lactose Intolerance</option>
+                          <option value="nut-free">Nut Free</option>
+                          <option value="sugar-free">Sugar Free</option>
+                          <option value="vegan">Vegan</option>
+                          <option value="vegetarian">Vegetarian</option>
+                          <option value="wheat allergy">Wheat Allergy</option>
+                        </datalist>
+                        </select>
+                      
+                      <button type="button" onclick="removeEntry(this)">-</button>
+                      <br>
+                      <br>
+                      </div>				
+                    </div>
+                  </div>
+            
+            
+                  <div class="mt-8"><button class="btn btn-primary profile-button" type="button">Edit Profile</button></div>
+                </div>
+              </div>
+  
+                </body>
 </html>

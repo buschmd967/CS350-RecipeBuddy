@@ -1,37 +1,37 @@
-img {
-  height: 200%;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 body {
-  height: 100vh;
-  width: 100%;
+  background: rgb(239, 236, 240);
 }
-.profile-pic {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid grey;
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #2c2a2c;
 }
-#photo {
-  height: 100%;
-  width: 100%;
+
+.profile-button {
+  background: rgb(247, 247, 243);
+  box-shadow: none;
+  border: none;
 }
-#fileToUpload {
-  display: none;
+
+.profile-button:hover {
+  background: #252525;
 }
-#uploadBtn {
-  height: 40px;
-  width: 100%;
-  text-align: center;
-  background: rgb(0, 0, 0, 0.7);
-  line-height: 30px;
-  font-family: sans-serif;
-  font-size: 15px;
+
+.profile-button:focus {
+  background: #292829;
+  box-shadow: none;
+}
+
+.profile-button:active {
+  background: #f8d50b07;
+  box-shadow: none;
+}
+
+.back:hover {
+  color: #141414;
   cursor: pointer;
+}
+
+.labels {
+  font-size: 11px;
 }
