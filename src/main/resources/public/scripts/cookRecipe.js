@@ -92,7 +92,7 @@ $(document).ready(function() {
 
         let steps = recipe["steps"];
         for(let step of steps){
-            let stepText = step["stepText"];
+            let stepText = parseStepText(step["stepText"]); //call from stepScale.js THIS IS PROBABLY BAD PRACTICE
             let timer = step["timer"];
             let stepHTML;
             if(timer == -1){
