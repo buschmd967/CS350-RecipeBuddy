@@ -192,6 +192,9 @@ function addRecipe() {
             console.log("Data:");
             console.log(data);
             $("#status").text(data.message);
+            $.cookie("viewRecipeName", $("#recipeName").val());
+            $.cookie("viewRecipeAuthor", username);   
+            document.location="viewRecipe";
         });
     });
 }
