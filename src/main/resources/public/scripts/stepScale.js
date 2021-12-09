@@ -1,8 +1,8 @@
 var singleIngredientRE = /(\d+) (\w+) (?:of )?(\w+)/
 // var doubleIngredientRE = /(\d+) (\w+) (?:of )?(\w+) (\w+)/g
 
-var liquidMeasurements = ["mL", "cups", "tsp", "tbsp", "qt", "gal", "oz"];
-var ingredientUnitSelectLiquid = `
+var STEPliquidMeasurements = ["mL", "cups", "tsp", "tbsp", "qt", "gal", "oz"];
+var STEPingredientUnitSelectLiquid = `
 <select class="ingredientMeasurementREPLACEI" onchange="stepConvert(this, REPLACEI)" value="cups">
 
                         <option value="mL">mL</option>
@@ -15,8 +15,8 @@ var ingredientUnitSelectLiquid = `
 
 					</select>`
 
-var weightMeasurements = ["g", "lbs"];
-var ingredientUnitSelectWeight = `
+var STEPweightMeasurements = ["g", "lbs"];
+var STEPingredientUnitSelectWeight = `
 <select class="ingredientMeasurementREPLACEI" onchange="stepConvert(this, REPLACEI)">
                         <option value="g">g</option>
                         <option value="lbs">lbs</option>
@@ -32,10 +32,10 @@ function parseStepText(stepText, id=0){
     console.log(matches);
     if(matches !== null){
         console.log(matches[2]);
-        if(liquidMeasurements.indexOf(matches[2]) > -1){
+        if(STEPliquidMeasurements.indexOf(matches[2]) > -1){
             console.log("liquid match");
             console.log('' + matches[2] + '"');
-            let selectEl = ingredientUnitSelectLiquid.replace('>' + matches[2] ,"selected>" +  matches[2]);
+            let selectEl = STEPingredientUnitSelectLiquid.replace('>' + matches[2] ,"selected>" +  matches[2]);
             console.log(selectEl);
             selectEl = selectEl.replace("REPLACEI", id).replace("REPLACEI", id).replace(matches[2]);
             console.log(matches[2])
@@ -46,9 +46,9 @@ function parseStepText(stepText, id=0){
             
             stepText = stepText.replace(matches[0], replacement);
         }
-        else if(weightMeasurements.indexOf(matches[2]) > -1){
+        else if(STEPweightMeasurements.indexOf(matches[2]) > -1){
             console.log("weight measurement detected");
-            let selectEl = ingredientUnitSelectWeight.replace('>' + matches[2] ,"selected>" +  matches[2]);
+            let selectEl = STEPingredientUnitSelectWeight.replace('>' + matches[2] ,"selected>" +  matches[2]);
             selectEl = selectEl.replace("REPLACEVALUE", matches[2]).replace("REPLACEI", id).replace("REPLACEI", id)
             let replacement = `<span id="originalSize${id}" hidden>${matches[1]}</span><span id="originalMeasurement${id}" hidden>${matches[2]}</span><span id="ingredientSize${id}">${matches[1]}</span>` + 
                 selectEl + 

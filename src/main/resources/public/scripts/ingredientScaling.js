@@ -40,15 +40,15 @@ function fillIngTable(){
         else{
             let selectHTML;
             if(liquidIngredients.includes(ing["measurement"])){
-                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"] + `</div`;
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"] + `</div>`;
                 
             }
             else if(weightMeasurements.includes(ing["measurement"])){
-                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"] + `</div`;
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"] + `</div>`;
 
             }
             else{
-                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectDummy + ` ${ing["measurement"]} ` + " " + ing["name"] + `</div`;
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectDummy + ` ${ing["measurement"]} ` + " " + ing["name"] + `</div>`;
 
             }
 
@@ -83,15 +83,15 @@ function fillTagTable(){
         else{
             let selectHTML;
             if(liquidIngredients.includes(ing["measurement"])){
-                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"] + `</div`;
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectLiquid.replace("REPLACEVALUE",ing["measurement"] ) + " " + ing["name"] + `</div>`;
                 
             }
             else if(weightMeasurements.includes(ing["measurement"])){
-                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"] + `</div`;
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectWeight.replace("REPLACEVALUE", ing["measurement"]) + " " + ing["name"] + `</div>`;
 
             }
             else{
-                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectDummy + ` ${ing["measurement"]} ` + " " + ing["name"] + `</div`;
+                ing = `<div class="entry"> <span id="sizeML" hidden>${ing["size"]}</span>` + `<span id="size">${ing["size"]}</span>` + ingredientUnitSelectDummy + ` ${ing["measurement"]} ` + " " + ing["name"] + `</div>`;
 
             }
 

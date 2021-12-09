@@ -162,7 +162,8 @@ function changeMeasurement(input){
         } 
     }).then(function(data){
         if(data !== undefined){
-            input.parentNode.querySelector("#size").innerHTML = data["result"];
+            if(data["result" != Infinity])
+                input.parentNode.querySelector("#size").innerHTML = data["result"];
         }
         console.log(data);
     });
