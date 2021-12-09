@@ -8,7 +8,7 @@ var alarmGoingOff = false;
 
 var liquidIngredients = ["mL", "cups", "tsp", "tbsp", "qt", "gal", "oz"];
 var ingredientUnitSelectLiquid = `
-<select class="ingredientMeasurement" onchange="changeMeasurement(this)" value="REPLACEVALUE">
+<select class="ingredientMeasurement" onchange="cookRecipechangeMeasurement(this)" value="REPLACEVALUE">
 						<datalist id="measurements">
 							<option value="mL">mL</option>
 							<option value="cups">cups</option>
@@ -30,7 +30,7 @@ var ingredientUnitSelectWeight = `
 						</datalist>
 					</select>`
 
-var ingredientUnitSelectDummy = `<select class="ingredientMeasurement" onchange="changeMeasurement(this)" value="mL" hidden>
+var ingredientUnitSelectDummy = `<select class="ingredientMeasurement" onchange="cookRecipechangeMeasurement(this)" value="mL" hidden>
 </select>`
 $(document).ready(function() {
 
@@ -92,7 +92,7 @@ $(document).ready(function() {
 
         let steps = recipe["steps"];
         for(let step of steps){
-            let stepText = step["stepText"];
+            let stepText = parseStepText(step["stepText"]); //call from stepScale.js THIS IS PROBABLY BAD PRACTICE
             let timer = step["timer"];
             let stepHTML;
             if(timer == -1){
@@ -138,7 +138,7 @@ $(document).ready(function() {
 
 
 
-function changeMeasurement(input){
+function cookRecipechangeMeasurement(input){
     let originalMeasurement = input.parentNode.querySelector("#sizeML").innerHTML;
     let unit = input.value;
 
@@ -162,7 +162,9 @@ function changeMeasurement(input){
         } 
     }).then(function(data){
         if(data !== undefined){
-            input.parentNode.querySelector("#size").innerHTML = data["result"];
+            if(data["result" != Infinity])
+                console.log(input.parentNode);
+                input.parentNode.querySelector("#size").innerHTML = data["result"];
         }
         console.log(data);
     });

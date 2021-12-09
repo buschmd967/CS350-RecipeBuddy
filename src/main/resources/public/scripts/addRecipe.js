@@ -5,7 +5,51 @@ var otherTagTemplate;
 var mealTypeTemplate;
 var stepTemplate;
 
-var timeRegex = /(?:(\d+):)?(\d+):(\d+)/g
+var allDietaryRestrictions = ["dairy-free",
+                            "fish allergy",
+                            "gluten-free",
+                            "kosher",
+                            "lactose intolerance",
+                            "nut-free",
+                            "sugar-free",
+                            "vegan",
+                            "vegetarian",
+                            "wheat allergy"];
+
+var ingredientDietaryRestrictionsTable = {
+    "almond milk": [],
+    "apple": [],
+    "baking soda": [],
+    "baking soda": [],
+    "beef": ["vegetarian", "vegan"],
+    "brown sugar": ["sugar-free"],
+    "butter": ["lactose intolerance", "dairy-free"],
+    "carrot": [],
+    "cheese": ["lactose intolerance", "dairy-free"],
+    "chicken": ["vegetarian", "vegan"],
+    "cinnamon": [],
+    "eggs": ["vegan"],
+    "fish": ["fish allergy"],
+    "garlic": [],
+    "milk": ["lactose intolerance", "dairy-free"],
+    "mushrooms": [],
+    "oats": ["wheat allergy"],
+    "olive oil": [],
+    "onion": [],
+    "pasta": ["wheat allergy"],
+    "pork": ["vegetarian", "vegan", "kosher"],
+    "rice": [],
+    "salt": [],
+    "shrimp": ["vegetarian", "vegan"],
+    "spinach": [],
+    "strawberry": [],
+    "vegetable oil": [],
+    "water": [],
+    "white sugar": ["sugar-free"]
+};
+
+
+var timeRegex = /(?:(\d+):)?(\d+):(\d+)/g;
 
 var allowedFileTypes = ["image/png", "image/jpg"];
 
@@ -32,6 +76,7 @@ $(document).ready(function() {
 
     dietaryRestrictionTemplate = $("#dietaryRestrictionInputs").clone();
     dietaryRestrictionTemplate.children(".dietaryRestriction").val("");
+    $("#dietaryRestrictionInputs").val("Not Specified");
 
     otherTagTemplate = $("#otherTagInputs").clone();
     otherTagTemplate.children(".otherTag").val("");
@@ -43,7 +88,53 @@ $(document).ready(function() {
     getPicture().then(viewImage());
 });
 
+function generateDietaryRestrictions(){
+    $("#dietaryRestrictionSection").children(("#dietaryRestrictionInputs")).remove();
+    let drs = allDietaryRestrictions;
+    let newDrs = [];
+    if($(".ingredientName").length == 1){
+        let restrictions = ingredientDietaryRestrictionsTable[$(".ingredientName").val()];
+        console.log("ingredientName: " + $(".ingredientName").val());
+        for(let j = 0; j < drs.length; j++){
+            if(restrictions.indexOf(drs[j]) == -1){
+                newDrs.push(drs[j]);
+            }
+            else{
+                console.log("removing " + drs[j]);
+            }
+        }
+        drs = newDrs;
+        newDrs = [];
+    }
+    else if($(".ingredientName").length > 1){
+        for(let i = 0; i < $(".ingredientName").length; i++){
+            let restrictions = ingredientDietaryRestrictionsTable[$(".ingredientName")[i].value];
+            console.log("ingredientName: " + $(".ingredientName")[i].value);
+            for(let j = 0; j < drs.length; j++){
+                if(restrictions.indexOf(drs[j]) == -1){
+                    newDrs.push(drs[j]);
+                }
+                else{
+                    console.log("removing " + drs[j]);
+                }
+            }
+            drs = newDrs;
+            newDrs = [];
+        }
+    }
+    for(let dietaryRestriction of drs){
+        addSpecificDietaryRestriction(dietaryRestriction);
+    }
+    console.log(drs);
+}
 
+function addSpecificDietaryRestriction(dietaryRestriction){
+    let toAdd = dietaryRestrictionTemplate.clone();
+    console.log(toAdd);
+    console.log(toAdd.children(".dietaryRestriction"));
+    toAdd.children(".dietaryRestriction").val(dietaryRestriction);
+    $("#dietaryRestrictionSection").append(toAdd);
+}
 
 function getUsername(c){
     return $.ajax({
@@ -101,6 +192,9 @@ function addRecipe() {
             console.log("Data:");
             console.log(data);
             $("#status").text(data.message);
+            $.cookie("viewRecipeName", $("#recipeName").val());
+            $.cookie("viewRecipeAuthor", username);   
+            document.location="viewRecipe";
         });
     });
 }

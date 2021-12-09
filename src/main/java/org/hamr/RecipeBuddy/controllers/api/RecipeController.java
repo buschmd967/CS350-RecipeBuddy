@@ -722,7 +722,7 @@ public class RecipeController {
     }
 
     @PostMapping("/trending")
-    public ResponseEntity<?> getTrending(@RequestParam(name="tag", defaultValue = "") String tag, @RequestHeader("Authorization") String headerAuth){
+    public ResponseEntity<?> getTrending(@RequestParam(name="tag", defaultValue = "") String tag, @RequestParam(name="filter", defaultValue = "true") Boolean filterDiet, @RequestHeader("Authorization") String headerAuth){
         String username = jwtUtils.getUserNameFromAuthHeader(headerAuth); //used for dietary restriction limiting
         Optional<User> possibleUser = null;
 
@@ -740,7 +740,7 @@ public class RecipeController {
         //create query
         Query query = new Query();
 
-        if(dietaryRestrictions != null && dietaryRestrictions.length > 0){
+        if(filterDiet && dietaryRestrictions != null && dietaryRestrictions.length > 0){
             logger.info("including dietary restrictions, including {}", dietaryRestrictions[0]);
             query.addCriteria(Criteria.where("dietaryRestrictions").all(dietaryRestrictions));
 
