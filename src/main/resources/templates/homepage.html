@@ -43,7 +43,7 @@
         <div id="everything">
 
 <h1>Trending</h1> 
-
+<h3><span  onclick="toggleCheckbox()">Filter recipes by your dietary restrictions: </span><input type="checkbox" id="dietBox" onchange="updateFilter(this)" checked></h3> 
 
 <div id="allContent">
 <!-- TRENDING RECIPES (SO CLICKING ON A RECIPE SHOULD BRING USER TO THEIR VIEW RECIPE PAGE)-->
@@ -144,7 +144,7 @@
       
             <select class="otherTag" onchange="trendingCategoryChanged(this)" value="Breakfast">
                 <datalist id="dietInputs">
-                    <option value="breakfast">Breakfast</option>
+                    <option value="breakfast" selected>Breakfast</option>
                     <option value="lunch">Lunch</option>
                     <option value="dinner">Dinner</option>
                     <option value="snacks">Snack</option>
@@ -249,7 +249,7 @@
              <select class="otherTag" onchange="trendingCategoryChanged(this)" value="Lunch">
                  <datalist id="dietInputs">
                      <option value="breakfast">Breakfast</option>
-                     <option value="lunch">Lunch</option>
+                     <option value="lunch" selected>Lunch</option>
                      <option value="dinner">Dinner</option>
                      <option value="snacks">Snack</option>
                      <option value="dessert">Dessert</option>
@@ -354,7 +354,7 @@
                  <datalist id="dietInputs">
                      <option value="breakfast">Breakfast</option>
                      <option value="lunch">Lunch</option>
-                     <option value="dinner">Dinner</option>
+                     <option value="dinner" selected>Dinner</option>
                      <option value="snacks">Snack</option>
                      <option value="dessert">Dessert</option>
                      <option value="spring">Spring</option>

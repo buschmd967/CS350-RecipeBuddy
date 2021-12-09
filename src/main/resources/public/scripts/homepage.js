@@ -1,3 +1,5 @@
+var filterDietaryRestrictions = true;
+
 var recipeTemplate = `
 <td>
 <div class="recipeInfo">
@@ -22,7 +24,9 @@ var recipeTemplate = `
 
 // var recipes = null;
 
-$(document).ready(function() {
+$(document).ready(updateAll());
+
+function updateAll(){
     console.log("test");
     getRecipes("").then(data =>{
         displayRecipes($("#highRatedStr")[0], data["recipies"]);
@@ -31,13 +35,34 @@ $(document).ready(function() {
     for(let i = 0; i < trendingSections.length; i++){
         trendingCategoryChanged(trendingSections[i]);
     }
-    }
-);
+}
 
+function toggleCheckbox(){
+    let boxState = $("#dietBox").prop("checked");
+    $("#dietBox").prop("checked", !boxState);
+    if(boxState){
+        filterDietaryRestrictions = false;
+    }
+    else{
+        filterDietaryRestrictions = true;
+    }
+    updateAll();
+}
+
+function updateFilter(button){
+    let checked = button.checked
+    if(checked){
+        filterDietaryRestrictions = true;
+    }
+    else{
+        filterDietaryRestrictions = false;
+    }
+    updateAll();
+}
 
 function getRecipes(tag){
     return $.ajax({
-        url: 'http://localhost:8080/api/recipe/trending?tag=' + tag,
+        url: 'http://localhost:8080/api/recipe/trending?tag=' + tag + "&filter=" + filterDietaryRestrictions ,
         type: 'post',
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
         xhrFields: { withCredentials:true },
