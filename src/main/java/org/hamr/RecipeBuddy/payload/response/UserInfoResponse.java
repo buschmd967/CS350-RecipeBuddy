@@ -16,6 +16,8 @@ public class UserInfoResponse {
     private List<Ingredient> shoppingCart;
     private List<String> utensils;
     private List<String> appliances;
+    private String displayName;
+    private String image;
 
     public UserInfoResponse(User user){
         this.dietaryRestrictions = user.getDietaryRestrictions();
@@ -23,6 +25,8 @@ public class UserInfoResponse {
         this.shoppingCart = user.getShoppingCartIngredients();
         this.utensils = user.getUtensils();
         this.appliances = user.getOwnedAppliances();
+        this.displayName = user.getDisplayName();
+        this.image = user.getImage();
     }
     
 }

@@ -39,13 +39,75 @@
         </header>
         
     <body>
-        <h1>NAME's Pantry</h1> <!-- should show the user's display name (not username)-->
+        <h1 id="usernamePantry">Pantry</h1> <!-- should show the user's display name (not username)-->
         
 
-        <div class="entireSection"> <!-- display name of current ingredients WITH quanity and units?, has remove button for each and general add button  -->
+        <div class="entireSection" id="ingredientsSection"> <!-- display name of current ingredients WITH quanity and units?, has remove button for each and general add button  -->
             <h2>Ingredients<br>
-                <button type="button" class="addButton">Add</button>
-            </h2>  
+                
+				<div id="ingredientInputs">
+					<input type="text" class="ingredientAmmount" placeholder="1" size=10/>
+					<select class="ingredientMeasurement">
+						<datalist id="measurements">
+							<option value="mL">mL</option>
+							<option value="cups">cups</option>
+							<option value="tsp">tsp</option>
+							<option value="tbsp">tbsp</option>
+							<option value="pinch">pinch</option>
+							<option value="qt">qt</option>
+							<option value="gal">gal</option>
+							<option value="oz">oz</option>
+							<option value="lbs">lbs</option>
+							<option value="quantity of">quantity of</option>
+						</datalist>
+					</select>
+
+					<select class="ingredientName">
+						<datalist id="ingInputs">
+							<option value="almond milk">  Almond Milk </option>
+							<option value="apple">  Apple </option>
+							<option value="baking soda"> Baking Powder  </option>
+							<option value="baking soda"> Baking Soda  </option>
+							<option value="beef">  Beef </option>
+							<option value="brown sugar"> Brown Sugar </option>
+							<option value="butter">Butter  </option>
+							<option value="carrot"> Carrot  </option>
+							<option value="cheese">  Cheese </option>
+							<option value="chicken"> Chicken </option>
+							<option value="cinnamon"> Cinnamon </option>
+							<option value="eggs"> Eggs  </option>
+							<option value="fish"> Fish </option>
+							<option value="flour"> Flour </option>
+							<option value="garlic"> Garlic </option>
+							<option value="milk"> Milk </option>
+							<option value="mushrooms"> Mushrooms </option>
+							<option value="oats"> Oats </option>
+							<option value="olive oil"> Olive Oil </option>
+							<option value="onion"> Onion </option>
+							<option value="pasta"> Pasta </option>
+							<option value="pork"> Pork  </option>
+							<option value="rice"> Rice </option>
+							<option value="salt"> Salt </option>
+							<option value="shrimp"> Shrimp </option>
+							<option value="spinach"> Spinach  </option>
+							<option value="strawberry"> Strawberry </option>
+							<option value="vegetable oil"> Vegetable Oil </option>
+							<option value="water">Water</option>
+							<option value="white sugar">  White Sugar </option>
+						</datalist>
+						</select>
+                    <button type="button" onclick="addIngredient()" class="addButton">Add +</button>
+				</div>
+			</div>
+            
+
+        </h2>  
+
+
+
+
+
+
             <div style="overflow-x:auto;">
                 <table class="scrollSection">
                     <tr id="ingredientTable">
@@ -86,9 +148,32 @@
 
 
 
-        <div class="entireSection"> <!-- display name of appliance, add/remove appliance options-->
+        <div class="entireSection" id="applianceSection"> <!-- display name of appliance, add/remove appliance options-->
             <h2>Appliances <br>
-                <button type="button" class="addButton">Add</button>
+                
+                    <div class="dropdownMenu">
+                        <div id="applianceInputs">
+                            <select class="appliance">
+                            <datalist id="appInputs">
+                    
+                                <option value="blender"> Blender  </option>
+                                <option value="bowl">  Bowl </option>
+                                <option value="fryer"> Fryer </option>
+                                <option value="microwave"> Microwave </option>
+                                <option value="mixer">Mixer</option>
+                                <option value="oven"> Oven </option>
+                                <option value="rice cooker"> Rice Cooker </option>
+                                <option value="sheet tray"> Sheet Tray  </option>
+                                <option value="toaster"> Toaster </option>
+                                <option value="whisk"> Whisk </option>
+                            </datalist>
+                            </select>
+                            <button type="button" class="addButton" onclick="addAppliance()">Add +</button>
+                        </div>
+                        
+                    </div>
+                </div>
+               
             </h2>  
             <div style="overflow-x:auto;">
                 <table class="scrollSection">

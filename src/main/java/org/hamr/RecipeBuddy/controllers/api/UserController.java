@@ -44,12 +44,15 @@ public class UserController {
             return ResponseEntity.ok(new StatusResponse(true, "User is not logged in."));
         }
 
+        
+
         Optional<User> possibleUser = userRepository.findByUsername(username);
         if(!possibleUser.isPresent()){
             return ResponseEntity.ok(new StatusResponse(true, "Could not find user"));
         }
 
         User user = possibleUser.get();
+        //String displayAuthor = user.getDisplayName(); //holly added, cant figure it out
 
         return ResponseEntity.ok(new UserInfoResponse(user));
     }

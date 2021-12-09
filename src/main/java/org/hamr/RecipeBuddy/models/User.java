@@ -86,6 +86,23 @@ public class User {
     this.password = password;
   }
 
+  //holly added
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
+  }
+
+  public void setImage(String image){
+    this.image = image;
+}
+
+public String getImage(){
+    return image;
+}
+
   public Set<Role> getRoles() {
     return roles;
   }

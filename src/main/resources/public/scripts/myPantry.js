@@ -19,8 +19,13 @@ var itemTemplate = `<td>
 
 $(document).ready(function() {
 
+   /* ingredientTemplate = $("#ingredientInputs").clone();
+    ingredientTemplate.children(".ingredientName").val("");
+    ingredientTemplate.children(".ingredientAmmount").val("");*/
 
-
+    let jwt = $.cookie("jwt");
+    console.log("jwt: ")
+    console.log(jwt);
 
     let params = new URLSearchParams(window.location.search);
     let name = $.cookie("viewRecipeName");
@@ -32,6 +37,9 @@ $(document).ready(function() {
         url: 'http://localhost:8080/api/user/getInfo',
         type: 'post',
         headers: {"Authorization": "Bearer " + $.cookie("jwt")},
+        data: JSON.stringify({
+            "ingredients": getIngredients()
+        }),
         xhrFields: { withCredentials:true },
         contentType: 'application/json',
         success: function(response){
@@ -54,9 +62,15 @@ $(document).ready(function() {
         displayAppliances(appliances);
         let shoppingCart = data["shoppingCart"];
         displayShoppingCart(shoppingCart);
+
+        getUsername(jwt).then(data =>{
+            username = data["message"];
+            $("#usernamePantry").html("Welcome to your pantry, " + username);
+        });
     });
 });
 
+/* This just removes from view. It will return when the page is reloaded. We will need to remove from database eventually */
 function remove(el){
     el.parentNode.remove(el);
 }
@@ -71,6 +85,56 @@ function displayIngredients(ingredients){
     }
 
 }
+
+
+
+
+function addIngredient(){
+    /*$("#ingredientSection").append(ingredientTemplate.clone());*/
+    getIngredients();
+
+}
+
+
+function getIngredients(){
+    let out = [];
+    let ingredients = [];
+    let measurements = [];
+    let sizes = [];
+    
+    $(".ingredientAmmount").each(function(){
+        if($(this).val() == ""){
+            sizes.push(1);
+        }
+        else{
+            sizes.push($(this).val());
+        }
+    });
+
+    $(".ingredientMeasurement").each(function(){
+        measurements.push($(this).val());
+    });
+
+    $(".ingredientName").each(function(){
+        ingredients.push($(this).val());
+    });
+    
+    for(let i = 0; i < ingredients.length; i++){
+        if(ingredients[i] != ""){
+            out.push({
+                "name": ingredients[i],
+                "measurement": measurements[i],
+                "size": sizes[i]
+            });
+        }
+    }
+    return out;
+}
+
+
+
+
+
 
 
 function displayAppliances(appliances){
