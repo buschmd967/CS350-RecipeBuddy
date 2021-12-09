@@ -142,7 +142,7 @@ function displayRecipes(el, recipes){
         for(let i = 0; i < recipe["dietaryRestrictions"].length; i++){
             let dietaryRestriction = recipe["dietaryRestrictions"][i];
             if(i != recipe["dietaryRestrictions"].length - 1){
-                recipeHTML += `${dietaryRestriction}, `
+                recipeHTML += `${dietaryRestriction}, <br>`
             }
             else{
                 recipeHTML += `${dietaryRestriction}</p>`
