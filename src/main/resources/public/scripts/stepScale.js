@@ -66,7 +66,6 @@ function parseStepText(stepText, id=0){
     
 }
 
-
 function stepConvert(el, id){
     console.log("ID: " + id);
     let originalUnit = el.parentNode.querySelector("#originalMeasurement" + id).innerHTML;
