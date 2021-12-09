@@ -19,6 +19,10 @@ $(document).ready(function() {
         document.location="/login?redir=addRecipe";
     }
 
+    getUsername(c).then(data =>{
+        username = data["message"];
+    });
+
     ingredientTemplate = $("#ingredientInputs").clone();
     ingredientTemplate.children(".ingredientName").val("");
     ingredientTemplate.children(".ingredientAmmount").val("");
@@ -38,6 +42,24 @@ $(document).ready(function() {
     stepTemplate.children(".stepText").val("");
     getPicture().then(viewImage());
 });
+
+
+
+function getUsername(c){
+    return $.ajax({
+            url: 'http://localhost:8080/api/user/username',
+            type: 'post',
+            headers: {"Authorization": "Bearer " + $.cookie("jwt")},
+            xhrFields: { withCredentials:true },
+            contentType: 'application/json',
+            success: function(response){
+                console.log("SUCCESS");
+            },
+            complete: function(xhr, textStatus) {
+                console.log(xhr.status);
+            } 
+        });
+}
 
 function addRecipe() {
     getPicture().then(
@@ -128,6 +150,10 @@ function getOtherTags(){
             out.push( ("" + $(this).val()).toLowerCase() );
         }
     );
+
+    out.push( ("" + username).toLowerCase() );
+
+
     return out;
 }
 
