@@ -24,7 +24,12 @@ var recipeTemplate = `
 
 // var recipes = null;
 
-$(document).ready(updateAll());
+$(document).ready(function(){
+    if($.cookie("jwt") === undefined){
+        $("#dietFilterText").hide();
+    }
+    updateAll()
+});
 
 function updateAll(){
     console.log("test");
