@@ -34,11 +34,10 @@ var ingredientUnitSelectDummy = `<select class="ingredientMeasurement" onchange=
 </select>`
 $(document).ready(function() {
 
-
-
-
-
-
+    let c = $.cookie("jwt");
+    if(c === undefined){
+        document.location="/homepage";
+    }
 
 
     let params = new URLSearchParams(window.location.search);
@@ -63,6 +62,9 @@ $(document).ready(function() {
         complete: function(xhr, textStatus) {
             if(xhr.status != 200){
                 console.log(xhr)
+                if(xhr.status == 401){
+                    document.location = "/homepage";
+                }
             }
 
         } 
@@ -157,6 +159,9 @@ function cookRecipechangeMeasurement(input){
         complete: function(xhr, textStatus) {
             if(xhr.status != 200){
                 console.log(xhr)
+                if(xhr.status == 401){
+                    document.location = "/homepage";
+                }
             }
 
         } 
