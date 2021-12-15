@@ -173,12 +173,14 @@ public class RecipeController {
         Recipe recipe = possibleRecipe.get();
         Optional<QuickRecipe> possibleQuickRecipe = quickRecipeRepository.findByRecipe(recipe);
         List<Comment> comments = recipe.getComments();
-
+        
+        if(!recipe.getAuthor().equals(userName)){
+            return ResponseEntity.ok(new StatusResponse(true, "Not recipe owner"));
+        }
+       
         recipeRepository.delete(recipe);
         if(possibleQuickRecipe.isPresent()){
-            if(!recipe.getAuthor().equals(userName)){
-                return ResponseEntity.ok(new StatusResponse(true, "Not recipe owner"));
-            }
+            
             quickRecipeRepository.delete(possibleQuickRecipe.get());
         }
         
