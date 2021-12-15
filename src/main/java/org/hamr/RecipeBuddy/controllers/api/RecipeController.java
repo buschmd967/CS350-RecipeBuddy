@@ -175,8 +175,12 @@ public class RecipeController {
         List<Comment> comments = recipe.getComments();
 
         recipeRepository.delete(recipe);
-        if(possibleQuickRecipe.isPresent())
+        if(possibleQuickRecipe.isPresent()){
+            if(!recipe.getAuthor().equals(userName)){
+                return ResponseEntity.ok(new StatusResponse(true, "Not recipe owner"));
+            }
             quickRecipeRepository.delete(possibleQuickRecipe.get());
+        }
         
         //delete comments
         for( Comment c : comments){
@@ -187,8 +191,7 @@ public class RecipeController {
     }
 
     @PostMapping("/comment")
-    public ResponseEntity<?> addComment(@Valid @RequestBody RecipeAddCommentRequest recipeAddCommentRequest, 
-                                        @RequestHeader("Authorization") String headerAuth)
+    public ResponseEntity<?> addComment(@Valid @RequestBody RecipeAddCommentRequest recipeAddCommentRequest, @RequestHeader("Authorization") String headerAuth)
     {
 
         //Get parameters
@@ -592,6 +595,7 @@ public class RecipeController {
         }
         return(ResponseEntity.ok(new RecipiesResponse(recipies)));
     }
+
     @PostMapping("/rate")
     public ResponseEntity<?> rate(@Valid @RequestBody RecipeAddRatingRequest recipeAddRatingRequest, @RequestHeader("Authorization") String headerAuth){
         
@@ -695,7 +699,7 @@ public class RecipeController {
 
     }
      
-    float calculateRating(Recipe recipe){
+    private float calculateRating(Recipe recipe){
         float sum = 0;
         if(recipe.getAllRating().size() == 0){
             return -1;
@@ -707,7 +711,8 @@ public class RecipeController {
         return (sum/recipe.getAllRating().size());
     
     }
-    List<Rating> setRating(List<Rating> lrating, String username, double rating){
+    
+    private List<Rating> setRating(List<Rating> lrating, String username, double rating){
         for (int i=0;i<lrating.size();i++)
         {
            Rating b = lrating.get(i);
