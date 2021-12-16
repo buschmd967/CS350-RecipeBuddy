@@ -49,10 +49,10 @@ $(document).ready(function() {
  });
  
  function displayDietaryRestricitions(dietaryRestricitons){
-    $("#dietEntry").empty();
+    /*$("#dietEntry").empty();*/
     for(let diet of dietaryRestricitons){
         let info = diet["name"];
-        let html = dietTemplate.replace("REPLACE", info);
+       let html = dietTemplate.replace("REPLACE", info);
         $("#dietEntry").append(html);
     }
 

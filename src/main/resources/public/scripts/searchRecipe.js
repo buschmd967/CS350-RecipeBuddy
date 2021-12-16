@@ -28,7 +28,6 @@ function search(limit=-1){
     let searchString = getSearchString(limit);
     $("#results").children("#toClear").remove();
 
-
     $.ajax({
         url: 'http://localhost:8080/api/recipe/search',
         type: 'post',

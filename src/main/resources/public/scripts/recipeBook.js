@@ -17,22 +17,21 @@ $(document).ready(function() {
     let searchString = username;
     console.log(searchString);
 
-    search();
+    search(searchString);
 
 });
 
 
-function search(limit=-1){
+function search(searchString, limit=-1){
 
     // problem is that i dont get the username until after it searches
-    let jwt = $.cookie("jwt");
+    /*let jwt = $.cookie("jwt");
 
     getUsername(jwt).then(data =>{
         username = data["message"];
-    });
+    });*/
 
     let searchString = username; // theoretically if this gets the write username then it will return results
-
     $("#results").children("#toClear").remove();
 
     $.ajax({
@@ -53,7 +52,7 @@ function search(limit=-1){
             if(xhr.status != 200){
                 console.log(xhr)
                 if(xhr.status == 400){
-                    $("#status").text("");
+                    $("#status").text("Bad Request. Please make sure all required fields have been filled in.");
                     
                 }
                 if(xhr.status == 401){

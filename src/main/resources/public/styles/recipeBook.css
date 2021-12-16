@@ -1,6 +1,13 @@
 h1{
     text-align: center;
 }
+
+p{
+    font-size: 18px;
+    text-align: center;
+}
+
+
 .recipeInfo{
     font-family: 'Montserrat', sans-serif;
     border: solid 1px rgb(117, 117, 117);
@@ -46,9 +53,7 @@ input[type=text]{
       text-align:center;
   }
 
-h3{
-    text-align:center;
-}
+
 
   #recipeText{
       float:left;
@@ -56,3 +61,6 @@ h3{
   }
 
 
+.recipeData{
+    margin-bottom: 10px;
+}
